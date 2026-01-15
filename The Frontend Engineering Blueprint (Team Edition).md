@@ -1,291 +1,325 @@
 The Frontend Engineering Blueprint (Team Edition)
-Team Edition Ñ Derived from Master Blueprint v1.15 by Cory Morrissey
+Team Edition ‚Äî Derived from Master Blueprint v1.15 by Cory Morrissey
 
 An adaptable, full-lifecycle framework for frontend teams to define, scale, and maintain predictable engineering systems.
-Organized into seven interconnected layers forming a complete, repeatable model Ñ from code fundamentals to production observability.
+
+Organized into seven interconnected layers forming a complete, repeatable model ‚Äî
+from code fundamentals to production observability.
 
 ---
 
-Introduction: Purpose and Application
+## Introduction: Purpose and Application
 
-The Frontend Engineering Blueprint defines how your team builds and evolves frontend systems with consistent quality and pace.
-It is modular, progressive, and opinionated Ñ designed to adapt to your projectÕs scale and maturity.
+The Frontend Engineering Blueprint defines how your team builds and evolves frontend
+systems with consistent quality and pace.
+
+It is modular, progressive, and opinionated ‚Äî
+designed to adapt to your project‚Äôs scale and maturity.
 
 Use this document to:
-¥ Establish a shared language for frontend quality and decision-making.
-¥ Map every engineering concern to one of seven defined layers.
-¥ Create a living technical contract your entire team can maintain.
+
+‚Ä¢ Establish a shared language for frontend quality and decision-making  
+‚Ä¢ Map every engineering concern to one of seven defined layers  
+‚Ä¢ Create a living technical contract your entire team can maintain
 
 ---
 
-How to Apply This Framework
+## How to Apply This Framework
 
 If starting fresh:
-- Move through layers sequentially (L0 ? L6). DonÕt optimize what isnÕt stable.
+Move through layers sequentially (L0 ‚Üí L6).
+Don‚Äôt optimize what isn‚Äôt stable.
 
 If joining or refactoring:
-- Reorder pragmatically Ñ fix what blocks progress first (e.g., stabilize state before polishing UI).
+Reorder pragmatically.
+Fix what blocks progress first (for example, stabilize state before polishing UI).
 
 If scaling a mature project:
-- Treat each layer as a quarterly audit checklist for technical health.
+Treat each layer as a quarterly audit checklist for technical health.
 
 If a small or startup team:
-- Begin with Layers 0<ETH>3 and expand structure as maturity increases.
+Begin with Layers 0‚Äì3 and expand structure as maturity increases.
 
 ---
 
-Guiding Principle
+## Guiding Principle
 
-Fix whatÕs broken at each layer before moving down the list.
-DonÕt build polish on shaky foundations.
+Fix what‚Äôs broken at each layer before moving down the list.
+Don‚Äôt build polish on shaky foundations.
 
 ---
 
-Core Engineering Principles
+## Core Engineering Principles
 
-These principles apply across all layers and serve as the non-negotiable rules of engineering discipline.
-They form the backbone of predictable, maintainable systems.
+These principles apply across all layers.
+They are non-negotiable rules of engineering discipline and the backbone of
+predictable, maintainable systems.
 
-1. DRY Ñ DonÕt Repeat Yourself
+1. DRY ‚Äî Don‚Äôt Repeat Yourself
+
 DO:
-¥ Centralize repeated utilities or constants (shared utilities DRY pattern frontend).
-¥ Abstract duplicate API logic into reusable modules (API abstraction DRY JavaScript).
-¥ Document common patterns so reuse becomes intentional (engineering documentation for reuse best practices).
-DONÕT:
-¥ Copy-paste functions across files (copy paste anti pattern frontend).
-¥ Duplicate configuration or environment logic (configuration duplication anti pattern).
-¥ Fork codebases for minor feature differences (code forking maintenance cost).
+‚Ä¢ Centralize repeated utilities or constants  
+‚Ä¢ Abstract duplicate API logic into reusable modules  
+‚Ä¢ Document common patterns so reuse is intentional
 
-2. KIS Ñ Keep It Simple
-DO:
-¥ Favor readable, linear code over nested complexity (code readability best practices JavaScript).
-¥ Use small, explicit functions that do one thing well (single responsibility function pattern).
-¥ Remove unnecessary abstractions until proven useful (avoid premature abstraction clean code).
-DONÕT:
-¥ Add layers Òjust in caseÓ of future use (premature optimization anti pattern).
-¥ Hide complexity behind confusing naming or wrappers (naming abstraction anti pattern).
-¥ Build over-generalized systems early (overengineering frontend anti pattern).
+DON‚ÄôT:
+‚Ä¢ Copy-paste functions across files  
+‚Ä¢ Duplicate configuration or environment logic  
+‚Ä¢ Fork codebases for minor feature differences
 
-3. YAGNI Ñ You ArenÕt Gonna Need It
-DO:
-¥ Build minimal viable features first (MVP development principle frontend).
-¥ Refactor reactively based on data or usage (refactor driven by telemetry).
-¥ Continuously prune unused code and dead modules (dead code elimination frontend).
-DONÕT:
-¥ Create extensibility layers without demand (unnecessary abstraction anti pattern).
-¥ Implement unused APIs or hooks (unused API surface area frontend).
-¥ Delay delivery for theoretical scaling (premature optimization YAGNI).
+2. KISS ‚Äî Keep It Stupid Simple
 
-4. SoC Ñ Separation of Concerns
 DO:
-¥ Split UI, logic, and data layers into distinct modules (frontend separation of concerns architecture).
-¥ Isolate configuration, constants, and environment logic (frontend config isolation best practices).
-¥ Keep side effects out of pure functions (pure function pattern JavaScript).
-DONÕT:
-¥ Mix rendering, data fetching, and mutation logic in one component (monolithic component anti pattern React).
-¥ Cross-import between unrelated feature modules (module coupling anti pattern).
-¥ Store domain logic in the UI layer (domain logic isolation frontend).
+‚Ä¢ Favor readable, linear code over nested complexity  
+‚Ä¢ Use small, explicit functions that do one thing well  
+‚Ä¢ Remove unnecessary abstractions until proven useful
+
+DON‚ÄôT:
+‚Ä¢ Add layers ‚Äújust in case‚Äù  
+‚Ä¢ Hide complexity behind confusing naming or wrappers  
+‚Ä¢ Build over-generalized systems early
+
+3. YAGNI ‚Äî You Aren‚Äôt Gonna Need It
+
+DO:
+‚Ä¢ Build minimal viable features first  
+‚Ä¢ Refactor reactively based on usage or data  
+‚Ä¢ Continuously prune unused code and dead modules
+
+DON‚ÄôT:
+‚Ä¢ Create extensibility layers without demand  
+‚Ä¢ Implement unused APIs or hooks  
+‚Ä¢ Delay delivery for theoretical scaling
+
+4. SoC ‚Äî Separation of Concerns
+
+DO:
+‚Ä¢ Split UI, logic, and data into distinct modules  
+‚Ä¢ Isolate configuration, constants, and environment logic  
+‚Ä¢ Keep side effects out of pure functions
+
+DON‚ÄôT:
+‚Ä¢ Mix rendering, data fetching, and mutation logic in one component  
+‚Ä¢ Cross-import between unrelated feature modules  
+‚Ä¢ Store domain logic in the UI layer
 
 5. Fail Fast, Learn Faster
+
 DO:
-¥ Throw explicit errors with clear context (error handling best practices JavaScript).
-¥ Use runtime and type validation early (TypeScript runtime validation Zod).
-¥ Automate alerts and logs to catch regressions immediately (frontend observability and alerting setup).
-DONÕT:
-¥ Ignore test or build warnings (ignore compiler warnings anti pattern).
-¥ Swallow exceptions without reporting (silent catch anti pattern JavaScript).
-¥ Wait for production to reveal broken states (shift-left testing frontend).
+‚Ä¢ Throw explicit errors with clear context  
+‚Ä¢ Use runtime and type validation early  
+‚Ä¢ Automate alerts and logs to catch regressions immediately
+
+DON‚ÄôT:
+‚Ä¢ Ignore test or build warnings  
+‚Ä¢ Swallow exceptions without reporting  
+‚Ä¢ Wait for production to reveal broken states
 
 ---
 
-Layer 0 Ñ System Initialization
+## Layer 0 ‚Äî System Initialization
 
 Purpose:
-Establish the baseline environment, toolchain, and governance model before writing production code.
+Establish the baseline environment, toolchain, and governance model
+before writing production code.
+
 This layer defines the technical contract for the entire system.
 
-Discussion & Decision Phase
-Each topic below should be discussed and documented by the team before implementation.
-Decisions made here are captured in a Project Setup Contract ADR.
+Discussion & Decision Phase:
+Each topic below should be discussed and documented by the team
+before implementation.
+
+Decisions are captured in a Project Setup Contract ADR.
 
 Topics to Decide:
-¥ Framework Selection Ñ e.g., React, Next, Vue, or Svelte based on product and team fit.
-¥ Runtime Strategy Ñ SSR, CSR, SSG, or ISR depending on SEO and content needs.
-¥ Language Level Ñ TypeScript strict mode, linting, and type-safety enforcement.
-¥ Build Tool & Bundler Ñ Vite, Turbopack, or Webpack for speed and ecosystem alignment.
-¥ Testing Stack Ñ Jest/Vitest + RTL + Cypress/Playwright and CI thresholds.
-¥ Design System Ñ Tailwind, Chakra, or custom foundation for UI consistency.
-¥ Shared Registry Strategy Ñ Monorepo or multi-repo distribution model for reusable packages.
-¥ API Contract Strategy Ñ OpenAPI, GraphQL, or Zod schema with CI validation.
-¥ Auth & Session Model Ñ JWT, OAuth2, or SSO and shared claim structure.
-¥ Feature Flags Ñ Provider (LaunchDarkly, Split) and evaluation model.
-¥ Analytics Ñ Event schema ownership and versioning plan.
-¥ Error & Logging Schema Ñ Define structured payloads and observability alignment.
-¥ CI/CD Platform Ñ Define gates (lint, test, typecheck) and deployment flow.
-¥ Code Quality & Commits Ñ ESLint, Prettier, and Conventional Commit enforcement.
-¥ Package Manager Ñ Define ecosystem (pnpm, Yarn, npm) and lockfile policy.
+‚Ä¢ Framework selection  
+‚Ä¢ Runtime strategy (SSR, CSR, SSG, ISR)  
+‚Ä¢ TypeScript strictness and linting rules  
+‚Ä¢ Build tool and bundler  
+‚Ä¢ Testing stack and CI thresholds  
+‚Ä¢ Design system approach  
+‚Ä¢ Shared registry strategy  
+‚Ä¢ API contract strategy  
+‚Ä¢ Authentication and session model  
+‚Ä¢ Feature flag provider and evaluation model  
+‚Ä¢ Analytics schema ownership  
+‚Ä¢ Error and logging schema  
+‚Ä¢ CI/CD platform and gates  
+‚Ä¢ Code quality and commit discipline  
+‚Ä¢ Package manager and lockfile policy
 
 Once finalized, record:
-¥ Tool or Standard
-¥ Reason for Choice
-¥ Owner / Reviewer
-¥ Date and Review Cadence
+‚Ä¢ Tool or standard  
+‚Ä¢ Reason for choice  
+‚Ä¢ Owner / reviewer  
+‚Ä¢ Date and review cadence
 
 ---
 
-Initialization Checklist
+## Initialization Checklist
 
-Critical Ñ Initialize First
-¥ Runtime: Install Node/Deno/Bun baseline version.
-¥ Framework: Create initial scaffold (create-next-app, npm create vite, etc.).
-¥ Language: Configure TypeScript with strict options.
-¥ Package Manager: Initialize deterministic installs and workspace setup.
-¥ Version Control: Git initialized with protected main branch and commit signing.
-¥ Code Quality: ESLint + Prettier shared config, enforced via CI.
-¥ Commit Discipline: Commitlint + Husky enforcing Conventional Commits.
-¥ Design System: Choose base framework and initialize design tokens.
-¥ State Management: Setup global state solution and async data layer.
-¥ API Contracts: Establish schema ownership and codegen workflow.
-¥ Auth: Define token model and secure routes.
-¥ CI/CD: Create build + lint + test + deploy workflow.
+Critical ‚Äî Initialize First:
+‚Ä¢ Runtime baseline installed  
+‚Ä¢ Framework scaffold created  
+‚Ä¢ TypeScript strict configuration  
+‚Ä¢ Deterministic package manager setup  
+‚Ä¢ Version control with protected main branch  
+‚Ä¢ ESLint + Prettier enforced via CI  
+‚Ä¢ Commit discipline enforced  
+‚Ä¢ Design system baseline chosen  
+‚Ä¢ State management and async layer defined  
+‚Ä¢ API contract ownership established  
+‚Ä¢ Auth model defined  
+‚Ä¢ CI/CD workflow created
 
-Recommended Ñ Initialize Early
-¥ Environment Variables: Add .env.example and schema validation.
-¥ Feature Flags: Add provider and evaluation strategy.
-¥ Analytics: Configure event schema and ownership.
-¥ Testing: Define pyramid and integrate smoke tests.
-¥ Dependency Hygiene: Enable dependency updates and auditing.
-¥ Preview Deployments: Connect environment to staging/preview hosting.
+Recommended ‚Äî Initialize Early:
+‚Ä¢ Environment variable schema  
+‚Ä¢ Feature flag provider  
+‚Ä¢ Analytics ownership  
+‚Ä¢ Testing pyramid defined  
+‚Ä¢ Dependency auditing  
+‚Ä¢ Preview deployments
 
-Optional Ñ Add as Project Scales
-¥ Monorepo Tooling: Turborepo or Nx orchestration.
-¥ Component Library: Storybook or Docs preview environment.
-¥ Observability: Add RUM, performance metrics, and error tracking.
-¥ Security: Add SAST/DAST scans and secret rotation policies.
+Optional ‚Äî Add as Project Scales:
+‚Ä¢ Monorepo tooling  
+‚Ä¢ Component library  
+‚Ä¢ Observability tooling  
+‚Ä¢ Security scanning
 
-Completion Verification
-All Critical tasks must be complete before starting Layer 1: Language & Architecture.
+Completion Verification:
+All Critical tasks must be complete before starting Layer 1.
 
-Governance
-¥ Checklist and ADR must remain in sync.
-¥ Major upgrades or process changes require ADR revision.
-¥ Review cadence: Quarterly or per major release.
+Governance:
+‚Ä¢ Checklist and ADR must remain in sync  
+‚Ä¢ Major changes require ADR updates  
+‚Ä¢ Review cadence: quarterly or per major release
 
 ---
 
-Layer 1 Ñ Language & Architecture
+## Layer 1 ‚Äî Language & Architecture
 
 DO:
-¥ Use strict typing and shared tsconfig across workspaces (TypeScript strict mode best practices).
-¥ Maintain consistent import rules and code style enforcement (ESLint import order plugin).
-¥ Record design choices as lightweight ADRs (Architecture Decision Record best practices).
-DONÕT:
-¥ Mix ESM and CommonJS modules (module system mismatch JavaScript).
-¥ Bypass lint rules for quick fixes (disable eslint rule anti pattern).
-¥ Store configuration or logic inside UI files (separation of concerns frontend).
+‚Ä¢ Use strict typing and shared configurations  
+‚Ä¢ Enforce consistent imports and code style  
+‚Ä¢ Record design choices as lightweight ADRs
+
+DON‚ÄôT:
+‚Ä¢ Mix module systems  
+‚Ä¢ Bypass lint rules for speed  
+‚Ä¢ Store configuration or domain logic in UI files
 
 ---
 
-Layer 2 Ñ State & Framework
+## Layer 2 ‚Äî State & Framework
 
 DO:
-¥ Use one predictable global state system (state management library comparison React Redux Zustand).
-¥ Normalize async states for consistency (loading success error pattern frontend).
-¥ Keep local state local when possible (React local component state best practices).
-DONÕT:
-¥ Mutate state directly or use non-serializable values (immutable state update pattern Redux).
-¥ Duplicate API calls across multiple components (duplicate data fetching anti pattern).
-¥ Mix view and data logic inside reducers or components (separation of store and view logic React).
+‚Ä¢ Use one predictable global state system  
+‚Ä¢ Normalize async state patterns  
+‚Ä¢ Keep local state local when possible
+
+DON‚ÄôT:
+‚Ä¢ Mutate state directly  
+‚Ä¢ Duplicate API calls across components  
+‚Ä¢ Mix view logic and data logic
 
 ---
 
-Layer 3 Ñ Quality & Stability
+## Layer 3 ‚Äî Quality & Stability
 
 DO:
-¥ Follow the testing pyramid and run smoke tests on deploy (testing pyramid frontend strategy).
-¥ Enforce Core Web Vitals and performance budgets (Core Web Vitals CI enforcement).
-¥ Include accessibility audits in every release (accessibility automation CI pipeline).
-DONÕT:
-¥ Ignore failing tests or flaky suites (flaky test prevention frontend).
-¥ Ship regressions without alerting (regression detection CI).
-¥ Skip type or lint checks for ÒquickÓ releases (quality gate enforcement best practices).
+‚Ä¢ Follow the testing pyramid  
+‚Ä¢ Enforce Core Web Vitals budgets  
+‚Ä¢ Include accessibility audits in releases
+
+DON‚ÄôT:
+‚Ä¢ Ignore failing or flaky tests  
+‚Ä¢ Ship regressions without alerting  
+‚Ä¢ Skip quality gates for speed
 
 ---
 
-Layer 4 Ñ UI & Experience
+## Layer 4 ‚Äî UI & Experience
 
 DO:
-¥ Use design tokens for all visual variables (design tokens system frontend).
-¥ Build accessible, reusable components (accessible component design system).
-¥ Standardize layout primitives and spacing (layout primitives UI library).
-DONÕT:
-¥ Hardcode inline styles (inline style anti pattern frontend).
-¥ Duplicate design logic across components (duplicate styling anti pattern).
-¥ Introduce inconsistent motion or color systems (UI consistency design systems).
+‚Ä¢ Use design tokens  
+‚Ä¢ Build accessible, reusable components  
+‚Ä¢ Standardize layout and spacing primitives
+
+DON‚ÄôT:
+‚Ä¢ Hardcode inline styles  
+‚Ä¢ Duplicate design logic  
+‚Ä¢ Introduce inconsistent motion or color systems
 
 ---
 
-Layer 5 Ñ Build & Delivery
+## Layer 5 ‚Äî Build & Delivery
 
 DO:
-¥ Automate lint, test, and build checks in CI (continuous integration automation best practices).
-¥ Maintain semantic versioning and changelog generation (semantic versioning standard-version).
-¥ Keep lockfiles updated and reproducible (dependency lockfile best practices).
-DONÕT:
-¥ Deploy manually or from local machines (manual deployment risk DevOps).
-¥ Force merges without CI validation (bypass CI anti pattern).
-¥ Ignore dependency vulnerability alerts (dependency audit automation).
+‚Ä¢ Automate lint, test, and build checks  
+‚Ä¢ Maintain semantic versioning  
+‚Ä¢ Keep lockfiles reproducible
+
+DON‚ÄôT:
+‚Ä¢ Deploy manually  
+‚Ä¢ Bypass CI  
+‚Ä¢ Ignore dependency vulnerabilities
 
 ---
 
-Layer 6 Ñ Security & Observability
+## Layer 6 ‚Äî Security & Observability
 
 DO:
-¥ Enforce security headers and CSP (content security policy web security).
-¥ Add structured logs and RUM metrics (frontend observability setup).
-¥ Monitor LCP, INP, and CLS with budgets (Core Web Vitals monitoring thresholds).
-DONÕT:
-¥ Log user PII (PII data logging risks).
-¥ Disable alerts or suppress errors (alert fatigue anti pattern DevOps).
-¥ Ignore audit or vulnerability reports (vulnerability management process).
+‚Ä¢ Enforce security headers and CSP  
+‚Ä¢ Add structured logs and RUM metrics  
+‚Ä¢ Monitor Core Web Vitals with budgets
+
+DON‚ÄôT:
+‚Ä¢ Log user PII  
+‚Ä¢ Disable alerts  
+‚Ä¢ Ignore audit findings
 
 ---
 
-Team Dynamics and Collaboration
+## Team Dynamics and Collaboration
 
 DO:
-¥ Enforce code reviews, CI checks, and clear ownership (pull request review process best practices).
-¥ Rotate reviewers to avoid silos (cross review rotation engineering teams).
-¥ Document recurring issues in a shared Tech Health Log (tech health log engineering process).
-DONÕT:
-¥ Merge unreviewed code (unreviewed PR risks).
-¥ Let flaky CI or ignored lint rules pile up (process debt prevention engineering).
-¥ Keep undocumented tribal knowledge (knowledge silo anti pattern).
+‚Ä¢ Enforce reviews and CI checks  
+‚Ä¢ Rotate reviewers  
+‚Ä¢ Document recurring issues
+
+DON‚ÄôT:
+‚Ä¢ Merge unreviewed code  
+‚Ä¢ Accumulate ignored failures  
+‚Ä¢ Rely on undocumented tribal knowledge
 
 ---
 
-Framework Governance
+## Blueprint Governance
 
 DO:
-¥ Assign a small working group for updates and approvals (engineering governance committee best practices).
-¥ Version the blueprint quarterly and link ADRs to releases (version control documentation pattern).
-¥ Use RFCs for proposed framework changes (RFC workflow engineering teams).
-DONÕT:
-¥ Let blueprint versions drift per repo (documentation drift anti pattern).
-¥ Allow waivers without expiry or rollback (temporary waiver policy engineering).
-¥ Disable CI compliance gates (continuous integration enforcement governance).
+‚Ä¢ Assign a small working group  
+‚Ä¢ Version the blueprint quarterly  
+‚Ä¢ Use RFCs for changes
+
+DON‚ÄôT:
+‚Ä¢ Let versions drift  
+‚Ä¢ Allow permanent waivers  
+‚Ä¢ Disable compliance gates
 
 ---
 
-Blueprint Summary
+## Blueprint Summary
 
-L0 chooses the constraints.
-L1 makes code predictable.
-L2 makes behavior stable.
-L3 makes it safe.
-L4 makes it usable.
-L5 makes it shippable.
-L6 makes it trustworthy.
+Layer 0 chooses the constraints.
+Layer 1 makes code predictable.
+Layer 2 makes behavior stable.
+Layer 3 makes it safe.
+Layer 4 makes it usable.
+Layer 5 makes it shippable.
+Layer 6 makes it trustworthy.
 
-The Blueprint is not a checklist Ñ it is a living engineering framework.
-When applied with discipline, it transforms teams into predictable, high-velocity systems.
+The Blueprint is not a checklist.
+It is a living engineering framework.
+
+When applied with discipline,
+it turns teams into predictable, high-velocity systems.

@@ -1,6 +1,5 @@
 Strict Mode
 
-
 1. Mental Model
 
 Strict Mode is a development-only feature that helps surface unsafe or side-effect-prone code before it becomes a production bug.
@@ -8,7 +7,7 @@ It does not change how your app behaves in production.
 
 Instead, it adds extra checks and intentional re-renders in development to expose potential problems early.
 
-Think of it as ReactÍs stress test for:
+Think of it as Reactâ€™s stress test for:
 - render purity
 - effect correctness
 - cleanup discipline
@@ -21,7 +20,7 @@ Think of it as ReactÍs stress test for:
 When enabled, React intentionally double-invokes certain operations to reveal side effects and impure logic.
 
 In development:
-- Components are rendered twice (mount ? unmount ? mount) to test purity
+- Components are rendered twice (mount â†’ unmount â†’ mount) to test purity
 - Effects (`useEffect`, `useLayoutEffect`) are set up, cleaned up, and set up again
 - Warnings appear for deprecated APIs and unsafe lifecycles
 - Legacy patterns (string refs, `findDOMNode`, unsafe lifecycles) are flagged
@@ -45,7 +44,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 </React.StrictMode>
 );
 
-Strict Mode can also be scoped to a subtree if youÍre incrementally migrating legacy code.
+Strict Mode can also be scoped to a subtree if youâ€™re incrementally migrating legacy code.
 
 ------------------------------------------------------------
 
@@ -56,7 +55,7 @@ In Strict Mode (development only):
 - Effects may mount, clean up, and re-mount
 - Work may be started, abandoned, and restarted
 
-Any code that assumes ñthis runs onceî is unsafe.
+Any code that assumes â€œthis runs onceâ€ is unsafe.
 
 Fetches and setState are the most common failure points.
 
@@ -117,7 +116,7 @@ return <div>{user?.name}</div>
 Why this works:
 - cleanup cancels in-flight work
 - duplicate runs are safe
-- abandoned renders donÍt leak effects
+- abandoned renders donâ€™t leak effects
 
 ------------------------------------------------------------
 

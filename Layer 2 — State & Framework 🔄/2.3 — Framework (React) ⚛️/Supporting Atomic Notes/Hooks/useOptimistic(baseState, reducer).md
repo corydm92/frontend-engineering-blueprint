@@ -3,15 +3,13 @@ Ex: submitting a form with immediate UI feedback
 
 Render speculative state immediately while async work is in flight, then reconcile with the committed result
 
-
 1. Goal
 
 Understand what useOptimistic() does, why it exists, and how to use it correctly
 under concurrent rendering without misinterpreting optimistic behavior as bugs.
 
 This note builds in order:
-mental model ? mechanics ? transitions ? patterns ? convergence.
-
+mental model ‚Üí mechanics ‚Üí transitions ‚Üí patterns ‚Üí convergence.
 
 ------------------------------------------------------------
 
@@ -27,7 +25,7 @@ Key ideas:
 - they may be discarded
 
 Think of it as:
-ÒShow what we expect to happen, but donÕt commit to it yet.Ó
+‚ÄúShow what we expect to happen, but don‚Äôt commit to it yet.‚Äù
 
 Optimistic state must always be:
 - interruptible
@@ -35,7 +33,6 @@ Optimistic state must always be:
 - discardable
 
 Those constraints define the API.
-
 
 ------------------------------------------------------------
 
@@ -60,7 +57,6 @@ Where:
 Important:
 useOptimistic never mutates baseState.
 
-
 ------------------------------------------------------------
 
 4. What useOptimistic() Actually Does
@@ -83,7 +79,6 @@ When async work completes:
 - optimistic overlays may still be replayed
 - overlays disappear only when no longer relevant
 
-
 ------------------------------------------------------------
 
 5. Why Optimistic Updates Must Run in Transitions
@@ -99,8 +94,7 @@ Therefore, they must run in Transition lanes.
 Calling addOptimistic synchronously would:
 - block urgent updates
 - prevent interruption
-- violate ReactÕs scheduling model
-
+- violate React‚Äôs scheduling model
 
 ------------------------------------------------------------
 
@@ -115,7 +109,7 @@ items,
 );
 
 function addItem(item) {
-addOptimistic(item); // ? invalid
+addOptimistic(item); // ‚ùå invalid
 }
 
 return (
@@ -136,7 +130,6 @@ Why this is invalid:
 - optimistic updates are not urgent
 - React must be able to interrupt or discard them
 - sync lanes are not allowed here
-
 
 ------------------------------------------------------------
 
@@ -177,7 +170,6 @@ Why this works:
 - React may interrupt or restart it
 - UI stays responsive
 - rollback is safe
-
 
 ------------------------------------------------------------
 
@@ -229,7 +221,6 @@ return (
 );
 }
 
-
 ------------------------------------------------------------
 
 9. Why Form Actions Do NOT Need startTransition
@@ -246,7 +237,6 @@ That means:
 - updates inside form actions already run in transition lanes
 - optimistic updates are interruptible by default
 - manual startTransition is unnecessary
-
 
 ------------------------------------------------------------
 
@@ -291,7 +281,6 @@ return (
 );
 }
 
-
 ------------------------------------------------------------
 
 11. The Core Gotcha: Identity and Convergence
@@ -302,8 +291,7 @@ It does NOT reconcile identity.
 If optimistic and committed data share identity and appear in the same render,
 both will be rendered.
 
-That violates ReactÕs key contract.
-
+That violates React‚Äôs key contract.
 
 ------------------------------------------------------------
 
@@ -348,7 +336,6 @@ Result:
 
 This is expected.
 
-
 ------------------------------------------------------------
 
 Solution A: Explicit Identity Convergence
@@ -367,7 +354,6 @@ Why this works:
 - one item per identity
 - optimistic overlay replaces committed data
 - React reconciliation is stable
-
 
 ------------------------------------------------------------
 
@@ -408,7 +394,6 @@ Why this works:
 - committed data becomes authoritative
 - no identity collision occurs
 
-
 ------------------------------------------------------------
 
 12. Convergence Is Explicitly Your Responsibility
@@ -425,7 +410,6 @@ You must guarantee:
 
 React will not infer intent.
 
-
 ------------------------------------------------------------
 
 13. What useOptimistic() Is Not
@@ -438,9 +422,8 @@ useOptimistic() is not:
 
 It only replays speculative UI intent.
 
-
 ------------------------------------------------------------
 
 14. One-Sentence Summary
 
-useOptimistic replays speculative intent on top of committed state; transitions make it interruptible, but identity and convergence are explicitly the applicationÕs responsibility.
+useOptimistic replays speculative intent on top of committed state; transitions make it interruptible, but identity and convergence are explicitly the application‚Äôs responsibility.

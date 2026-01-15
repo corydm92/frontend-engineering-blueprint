@@ -3,7 +3,6 @@ Ex: search input driving a slow list
 
 Mark state updates as non-urgent so React can keep the UI responsive while deferring expensive renders
 
-
 1. Goal
 
 Understand how useTransition() works end-to-end:
@@ -14,7 +13,6 @@ Understand how useTransition() works end-to-end:
 - what is guaranteed vs explicitly not guaranteed
 
 This note is mechanical, not ergonomic.
-
 
 2. The Big Picture: How React Decides What Runs
 
@@ -30,7 +28,6 @@ A lane represents:
 - commit timing
 
 Hooks like useTransition() influence which lane React chooses.
-
 
 3. The Three Lane Classes (Scheduler Reality)
 
@@ -51,7 +48,6 @@ Properties:
 Mental model:
 The user is actively interacting. Finish this now.
 
-
 3.2 Transition Lanes (Non-Urgent, Interruptible)
 
 Used when updates are wrapped in startTransition().
@@ -64,7 +60,6 @@ Properties:
 
 Mental model:
 This update matters, but responsiveness matters more.
-
 
 3.3 Idle Lanes (Background / Best-Effort)
 
@@ -80,7 +75,6 @@ Properties:
 Mental model:
 Only do this if nothing else is happening.
 
-
 4. Where useTransition() Fits
 
 useTransition() does exactly one thing:
@@ -94,7 +88,6 @@ It does not:
 - track promises
 - make code async
 
-
 5. What useTransition() Is
 
 useTransition is a Hook that lets you render part of the UI in the background
@@ -105,7 +98,6 @@ const [isPending, startTransition] = useTransition();
 It returns:
 - isPending: whether there is at least one pending Transition
 - startTransition: a function that marks updates as a Transition
-
 
 6. startTransition(action): What React Actually Marks
 
@@ -125,7 +117,6 @@ React behavior:
 
 Only updates scheduled synchronously during the action are marked.
 
-
 7. Render vs Commit (Why Transitions Can Restart)
 
 React work happens in two phases:
@@ -144,7 +135,6 @@ Commit phase:
 Transition renders may restart many times.
 Commit happens only if rendering completes uninterrupted.
 
-
 8. isPending: What It Means
 
 isPending === true means:
@@ -159,7 +149,6 @@ It does not mean:
 
 isPending is a scheduler signal, not a lifecycle or async signal.
 
-
 9. Interruption Behavior
 
 If a Transition update is interrupted by user input:
@@ -168,7 +157,6 @@ If a Transition update is interrupted by user input:
 - the Transition render restarts later
 
 This is intentional and required for correctness.
-
 
 10. Async Work and the await Boundary (Critical Rule)
 
@@ -182,7 +170,6 @@ setState(data) // NOT automatically a Transition
 After await, the Transition context is lost.
 State updates after await default back to Sync lanes.
 
-
 11. Correct Pattern for Async + State
 
 startTransition(async () => {
@@ -195,7 +182,6 @@ setState(data)
 Async work may occur inside the action.
 State updates after await must be wrapped in another startTransition().
 This is a documented limitation.
-
 
 12. Suspense + Transitions
 
@@ -211,7 +197,6 @@ Without a Transition:
 
 Transitions preserve UI continuity across async boundaries.
 
-
 13. Important Constraints
 
 - Transition updates cannot control text inputs
@@ -223,7 +208,6 @@ are not Transitions
 (otherwise prefer useDeferredValue)
 - To start a Transition outside components/hooks,
 use the standalone startTransition API
-
 
 14. What useTransition() Is Not
 
@@ -237,7 +221,6 @@ It is not:
 
 Transitions can be interrupted, restarted, abandoned, or starved.
 This is by design.
-
 
 15. When useTransition() Is Correct
 
@@ -253,7 +236,6 @@ Avoid it when:
 - state drives critical layout
 - performance issues come from expensive computation
 - correctness depends on immediacy
-
 
 16. One-Sentence Final Model
 

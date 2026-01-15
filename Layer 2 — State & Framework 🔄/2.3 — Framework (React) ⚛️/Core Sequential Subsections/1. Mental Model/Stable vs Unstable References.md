@@ -3,21 +3,21 @@ Stable vs Unstable References
 1. Mental Model
 
 React uses referential equality (===) to decide whether to re-render components or skip updates.
-Every value in JavaScript � object, array, or function � is stored as a reference in memory.
+Every value in JavaScript — object, array, or function — is stored as a reference in memory.
 If that reference changes between renders, React assumes the data changed and re-renders the consuming component.
 
 There are two kinds of references:
 - Stable Reference: The same memory identity is preserved across renders (refA === refB)
 - Unstable Reference: A new identity is created each render (refA !== refB)
 
-Stable references ? fewer renders and better performance.
-Unstable references ? frequent re-renders even when the actual data is the same.
+Stable references → fewer renders and better performance.
+Unstable references → frequent re-renders even when the actual data is the same.
 
 ------------------------------------------------------------
 
 2. React Reconciliation and Referential Equality
 
-React�s reconciliation compares the current virtual DOM tree with the previous one.
+React’s reconciliation compares the current virtual DOM tree with the previous one.
 To decide whether to update, it performs shallow equality checks:
 - For primitive values, equality is by value.
 - For objects, arrays, and functions, equality is by reference.
@@ -44,20 +44,20 @@ return <button onClick={onClick}>Click</button>
 }
 
 Step-by-Step Timeline:
-1. Parent renders initially ? creates a new handleClick function (refA).
-2. Child receives onClick = refA ? renders.
+1. Parent renders initially → creates a new handleClick function (refA).
+2. Child receives onClick = refA → renders.
 3. setCount triggers Parent to re-render.
 4. Parent creates a new handleClick function (refB).
-5. Child compares old onClick (refA) with new one (refB) ? not equal.
-6. Child re-renders unnecessarily, even though its UI didn�t change.
+5. Child compares old onClick (refA) with new one (refB) → not equal.
+6. Child re-renders unnecessarily, even though its UI didn’t change.
 
 ------------------------------------------------------------
 
 4. Stabilizing References
 
-Stable references are created using React�s memoization hooks:
-- useCallback(fn, deps) ? memoizes a function reference.
-- useMemo(factory, deps) ? memoizes an object, array, or computed value.
+Stable references are created using React’s memoization hooks:
+- useCallback(fn, deps) → memoizes a function reference.
+- useMemo(factory, deps) → memoizes an object, array, or computed value.
 
 Example:
 function Parent() {
@@ -85,8 +85,8 @@ console.log("Child rendered");
 return <div style={style}>Hello</div>
 }
 
-Even if "theme" doesn�t change, the inline object literal recreates a new reference every render.
-React sees style as a new prop ? re-renders Child unnecessarily.
+Even if "theme" doesn’t change, the inline object literal recreates a new reference every render.
+React sees style as a new prop → re-renders Child unnecessarily.
 
 Fix:
 function Parent() {
@@ -100,15 +100,15 @@ return <Child style={style} />
 6. Context and Stable References
 
 When using React Context, all consumers re-render if the context value reference changes.
-If a provider passes an unstable object, all children will re-render even if values inside didn�t change.
+If a provider passes an unstable object, all children will re-render even if values inside didn’t change.
 
 Example:
-<Context.Provider value={{ user, setUser }}> ?
-New object created on every render ? all consumers re-render.
+<Context.Provider value={{ user, setUser }}> ❌
+New object created on every render → all consumers re-render.
 
 Fix:
 const contextValue = useMemo(() => ({ user, setUser }), [user]);
-<Context.Provider value={contextValue}> ?
+<Context.Provider value={contextValue}> ✅
 
 ------------------------------------------------------------
 

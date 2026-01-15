@@ -1,11 +1,9 @@
-Suspense „ Server-Side Rendering and Streaming (React / Next.js)
-
+Suspense â€” Server-Side Rendering and Streaming (React / Next.js)
 
 Go
 al
 
 Understand how Suspense behaves during server-side rendering, how it enables streaming, and how this differs from client-only Suspense behavior.
-
 
 What Server-Side Suspense Is Used For
 
@@ -17,7 +15,6 @@ It controls:
 
 Suspense boundaries become streaming boundaries.
 
-
 High-Level SSR Behavior
 
 During server rendering:
@@ -28,7 +25,6 @@ During server rendering:
 - Completed sections are streamed to the client as they finish
 
 Rendering does not block the entire page.
-
 
 Example Mental Structure
 
@@ -45,7 +41,6 @@ Server behavior:
 - Sidebar and Posts render independently
 - whichever resolves first streams first
 
-
 SSR with Data Fetching
 
 When a server component or data dependency suspends:
@@ -58,7 +53,6 @@ The client receives:
 - followed by streamed patches
 - hydration attaches to each boundary independently
 
-
 SSR and Code Splitting
 
 On the server:
@@ -70,7 +64,6 @@ On the client:
 - required chunks load
 - Suspense boundaries hydrate when ready
 
-
 Critical Difference: SPA vs SSR
 
 Client-only rendering:
@@ -81,7 +74,6 @@ Server-side rendering:
 - Suspense controls streaming order
 - fallback may never be visible to the user
 - UI appears progressively as HTML arrives
-
 
 Suspense in Next.js (Conceptual)
 
@@ -95,7 +87,6 @@ Suspense boundaries define:
 - hydration boundaries
 - loading UI placement
 
-
 What Server-Side Suspense Is Not
 
 Suspense on the server is not:
@@ -105,7 +96,6 @@ Suspense on the server is not:
 
 It is a server rendering orchestration primitive.
 
-
 Key Invariants (Server)
 
 - Suspense boundaries define streaming boundaries
@@ -113,7 +103,6 @@ Key Invariants (Server)
 - HTML is streamed progressively
 - hydration occurs per boundary
 - transitions can still influence fallback behavior
-
 
 One-Line Mental Model
 

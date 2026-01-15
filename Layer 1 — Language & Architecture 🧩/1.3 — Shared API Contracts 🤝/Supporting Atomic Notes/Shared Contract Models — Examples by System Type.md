@@ -1,16 +1,16 @@
-Shared Contract Models Ñ Examples by System Type
+Shared Contract Models ‚Äî Examples by System Type
 
-?
+‚∏ª
 
-? Same-Language Monorepo (e.g., TypeScript full-stack with tRPC or Next.js API)
+üß© Same-Language Monorepo (e.g., TypeScript full-stack with tRPC or Next.js API)
 
-Goal: zero drift between client and server Ñ one type system, one runtime.
+Goal: zero drift between client and server ‚Äî one type system, one runtime.
 
 Pattern:
-¥ Define contracts directly in code (/packages/api or /contracts workspace).
-¥ Export type definitions or procedures that both front- and backend import.
-¥ Use tRPC / Zod / TypeBox for schema + runtime validation.
-¥ CI enforces shared build Ñ any breaking change fails dependent builds.
+‚Ä¢ Define contracts directly in code (/packages/api or /contracts workspace).
+‚Ä¢ Export type definitions or procedures that both front- and backend import.
+‚Ä¢ Use tRPC / Zod / TypeBox for schema + runtime validation.
+‚Ä¢ CI enforces shared build ‚Äî any breaking change fails dependent builds.
 
 Example structure:
 
@@ -21,19 +21,19 @@ index.ts // shared Zod schemas + types
 /backend
 
 Result: full type inference; no serialization mismatch.
-Trade-off: tightly coupled Ñ upgrades ripple instantly through all packages.
+Trade-off: tightly coupled ‚Äî upgrades ripple instantly through all packages.
 
-?
+‚∏ª
 
-? Different-Language Monorepo (e.g., Java + TypeScript in one repo)
+üîó Different-Language Monorepo (e.g., Java + TypeScript in one repo)
 
 Goal: maintain language autonomy but shared contract source.
 
 Pattern:
-¥ Keep schema in a neutral format (OpenAPI YAML, GraphQL SDL, Protobuf).
-¥ Generate language-specific clients in CI.
-¥ Commit generated clients under /generated or build on-demand.
-¥ Use schema-linting + diff-tools to detect drift (spectral, graphql-inspector).
+‚Ä¢ Keep schema in a neutral format (OpenAPI YAML, GraphQL SDL, Protobuf).
+‚Ä¢ Generate language-specific clients in CI.
+‚Ä¢ Commit generated clients under /generated or build on-demand.
+‚Ä¢ Use schema-linting + diff-tools to detect drift (spectral, graphql-inspector).
 
 Example structure:
 
@@ -45,40 +45,40 @@ src/main/java/... // generates models via openapi-generator
 /generated // types from openapi-typescript
 
 Result: consistent API across languages; one schema as the truth.
-Trade-off: slower iteration Ñ schema change ? regen ? rebuild both sides.
+Trade-off: slower iteration ‚Äî schema change ‚Üí regen ‚Üí rebuild both sides.
 
-?
+‚∏ª
 
-?? Same-Language Microservices (e.g., multiple Node services + TS frontend)
+‚öôÔ∏è Same-Language Microservices (e.g., multiple Node services + TS frontend)
 
 Goal: enforce consistency without central monolith.
 
 Pattern:
-¥ Publish shared contract package to internal registry (@org/contracts).
-¥ Version semantically; dependent services pin to version.
-¥ Changes require bump + changelog.
-¥ CI verifies consumer services use compatible contract versions.
+‚Ä¢ Publish shared contract package to internal registry (@org/contracts).
+‚Ä¢ Version semantically; dependent services pin to version.
+‚Ä¢ Changes require bump + changelog.
+‚Ä¢ CI verifies consumer services use compatible contract versions.
 
 Example:
 
 npm publish @org/contracts@1.2.0
-frontend ? ^1.2.0
-orders-service ? ^1.2.0
+frontend ‚Üí ^1.2.0
+orders-service ‚Üí ^1.2.0
 
 Result: modular but type-safe network.
-Trade-off: version churn Ñ consumers must upgrade intentionally.
+Trade-off: version churn ‚Äî consumers must upgrade intentionally.
 
-?
+‚∏ª
 
-? Different-Language Microservices (e.g., Java API ? TypeScript frontend ? Python analytics)
+üåê Different-Language Microservices (e.g., Java API ‚Üî TypeScript frontend ‚Üî Python analytics)
 
 Goal: language-agnostic interoperability.
 
 Pattern:
-¥ Define schema once (OpenAPI, GraphQL, or gRPC Protobuf).
-¥ Store it in a central ÒAPI-contractsÓ repo.
-¥ Each service generates its stubs/types during build.
-¥ CI enforces backward compatibility via schema diff checks.
+‚Ä¢ Define schema once (OpenAPI, GraphQL, or gRPC Protobuf).
+‚Ä¢ Store it in a central ‚ÄúAPI-contracts‚Äù repo.
+‚Ä¢ Each service generates its stubs/types during build.
+‚Ä¢ CI enforces backward compatibility via schema diff checks.
 
 Example:
 
@@ -92,9 +92,9 @@ v1.yaml
 Tooling: graphql-codegen, openapi-generator, buf (for gRPC).
 
 Result: fully decoupled polyglot system with strict interface governance.
-Trade-off: extra pipeline complexity Ñ contracts behave like versioned APIs, not inline types.
+Trade-off: extra pipeline complexity ‚Äî contracts behave like versioned APIs, not inline types.
 
-?
+‚∏ª
 
 Summary
 
@@ -104,7 +104,6 @@ Diff-Lang Monorepo Schema file + codegen Generated Moderate OpenAPI, GraphQL
 Same-Lang Microservice Published package Strong Moderate npm pkg + CI gates
 Diff-Lang Microservice Schema repo + codegen Generated Loose OpenAPI, GraphQL, gRPC
 
+‚∏ª
 
-?
-
-These notes plug neatly under your BlueprintÕs ÒShared API Contracts ?Ó section and clarify which model to choose based on team topology and language boundary.
+These notes plug neatly under your Blueprint‚Äôs ‚ÄúShared API Contracts ü§ù‚Äù section and clarify which model to choose based on team topology and language boundary.

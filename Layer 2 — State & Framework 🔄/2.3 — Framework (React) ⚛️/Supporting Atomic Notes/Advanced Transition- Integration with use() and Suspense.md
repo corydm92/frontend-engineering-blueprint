@@ -2,9 +2,7 @@ Advanced Transition: Integration with use() and Suspense
 
 Goal
 
-
 Understand how startTransition, use(), and Suspense interact, and why a state update wrapped in a transition can suspend without showing a fallback even though data fetching happens later during render.
-
 
 Core Concepts
 
@@ -18,7 +16,6 @@ startTransition does not:
 startTransition does exactly one thing:
 It marks state updates as non-urgent (transition priority).
 
-
 2. use() does not run async work
 
 use():
@@ -29,7 +26,6 @@ use():
 
 Any fetching must already be running and cached elsewhere.
 
-
 3. Suspense reacts to render priority
 
 Suspense always asks:
@@ -39,7 +35,6 @@ Transitions add a second question:
 Is this render urgent or can it wait?
 
 That answer determines whether the fallback is shown.
-
 
 Step-by-Step Execution Flow
 
@@ -52,7 +47,6 @@ Posts
 </button>
 
 setTab is urgent and React must commit immediately.
-
 
 With transition (non-urgent update)
 
@@ -70,7 +64,6 @@ Posts
 
 setTab is marked as transition work and React may delay committing the result.
 
-
 Step 2: React schedules a render
 
 After setTab('posts'), React schedules a render where:
@@ -79,7 +72,6 @@ After setTab('posts'), React schedules a render where:
 
 This render inherits the priority of the state update.
 Nothing inside PostsTab needs to be aware of transitions.
-
 
 Step 3: PostsTab renders and suspends
 
@@ -93,7 +85,6 @@ Execution:
 2. the promise is pending on first render
 3. use(promise) throws
 4. rendering suspends
-
 
 The Critical Divergence
 
@@ -110,7 +101,6 @@ Case A: Urgent render (no transition)
 Result:
 Loading UI appears
 
-
 Case B: Transition render
 
 - React is allowed to delay committing
@@ -121,7 +111,6 @@ Case B: Transition render
 Result:
 Old content stays until new content is ready
 
-
 Why This Works Without Explicit Wiring
 
 PostsTab, use(), and fetchData are not aware of transitions.
@@ -129,7 +118,6 @@ They do not need to be.
 
 Render priority is decided when the update is scheduled, not during execution.
 Everything caused by that state update inherits the transition priority automatically.
-
 
 Key Invariants
 
@@ -139,7 +127,6 @@ Key Invariants
 - Suspense fallback appears only for urgent renders
 - transition renders may suspend without showing fallback
 - previous UI remains visible until new UI is ready
-
 
 One-Line Mental Model
 

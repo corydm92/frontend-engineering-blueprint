@@ -1,158 +1,151 @@
-React Fiber Lifecycle (Modern React 16<ETH>19 Mental Model)
+React Fiber Lifecycle (Modern React 16–19 Mental Model)
 
 This is the full, accurate React Fiber lifecycle for your React mental model section.
-It covers scheduling ? render (beginWork/completeWork) ? commit (mutations/layout) ? passive effects.
+It covers scheduling → render (beginWork/completeWork) → commit (mutations/layout) → passive effects.
 
-????????????????????????????????????????????????????????????????????????
+────────────────────────────────────────────────────────────────────────
 1. Update Scheduling (Fiber Scheduler)
-????????????????????????????????????????????????????????????????????????
+────────────────────────────────────────────────────────────────────────
 
-� A state/prop/context change creates an update object.
-� React assigns the update a lane (priority level).
-� The update is placed on the fiber�s update queue.
-� React marks the root as needing work and prepares the render phase.
-� No components run yet. No DOM changes happen.
+• A state/prop/context change creates an update object.
+• React assigns the update a lane (priority level).
+• The update is placed on the fiber’s update queue.
+• React marks the root as needing work and prepares the render phase.
+• No components run yet. No DOM changes happen.
 
 This stage only decides THAT work must occur, not what the work is.
 
-
-????????????????????????????????????????????????????????????????????????
-2. Render Phase (Reconciliation) <ETH> Pure, No DOM Mutations
-????????????????????????????????????????????????????????????????????????
+────────────────────────────────────────────────────────────────────────
+2. Render Phase (Reconciliation) – Pure, No DOM Mutations
+────────────────────────────────────────────────────────────────────────
 
 React walks the tree top-down using beginWork, then bottom-up using completeWork.
-This entire phase is pure and happens in memory against the �alternate� fiber tree.
+This entire phase is pure and happens in memory against the “alternate” fiber tree.
 
 ----- beginWork (top-down) -----
 
 For each fiber React visits:
 
 1. Determine if the fiber needs an update
-� pending state updates
-� changed props
-� changed context value
-� priority lane requires new work
+• pending state updates
+• changed props
+• changed context value
+• priority lane requires new work
 
-2. If no update ? bail out and reuse existing child fibers.
+2. If no update → bail out and reuse existing child fibers.
 
-3. If update needed ? call the component function immediately
-� The component returns new React elements.
-� React compares these elements to the previous child fibers (incremental diffing).
-� React creates/reuses/deletes child fibers on the spot.
-� React builds the next version of that subtree immediately.
+3. If update needed → call the component function immediately
+• The component returns new React elements.
+• React compares these elements to the previous child fibers (incremental diffing).
+• React creates/reuses/deletes child fibers on the spot.
+• React builds the next version of that subtree immediately.
 
 4. React moves down into the child fibers and repeats.
 
 Important:
 React does NOT build a full new VDOM.
 React reconciles immediately for each fiber as it goes.
-All �diffing� is incremental and local to each fiber.
+All “diffing” is incremental and local to each fiber.
 
 ----- completeWork (bottom-up) -----
 
 As React unwinds back up:
 
-� finalize props
-� prepare host fibers (DOM nodes)
-� bubble effect flags upward
-� accumulate all mutation flags into a single effect list
-� finish linking the work-in-progress fiber tree
+• finalize props
+• prepare host fibers (DOM nodes)
+• bubble effect flags upward
+• accumulate all mutation flags into a single effect list
+• finish linking the work-in-progress fiber tree
 
 At the end of the render phase:
-� The WIP fiber tree is complete.
-� All differences between old and new UI are already resolved.
-� DOM mutations have NOT happened yet.
+• The WIP fiber tree is complete.
+• All differences between old and new UI are already resolved.
+• DOM mutations have NOT happened yet.
 
 Render phase = build the entire WIP tree + build effect list.
 
-
-????????????????????????????????????????????????????????????????????????
+────────────────────────────────────────────────────────────────────────
 3. Pre-Commit Phase (Before DOM Mutations)
-????????????????????????????????????????????????????????????????????????
+────────────────────────────────────────────────────────────────────────
 
 React prepares everything required for a safe DOM update:
 
-� run cleanup of useLayoutEffect for fibers that will unmount
-� detach refs that will be removed
-� finalize effect list ordering
+• run cleanup of useLayoutEffect for fibers that will unmount
+• detach refs that will be removed
+• finalize effect list ordering
 
 No DOM writes occur here.
 This stage ensures commit can execute without surprises.
 
-
-????????????????????????????????????????????????????????????????????????
-4. Commit Phase <ETH> DOM Mutations (Synchronous, Atomic)
-????????????????????????????????????????????????????????????????????????
+────────────────────────────────────────────────────────────────────────
+4. Commit Phase – DOM Mutations (Synchronous, Atomic)
+────────────────────────────────────────────────────────────────────────
 
 React walks the effect list (NOT the full fiber tree).
 Only fibers with effect flags participate.
 
 For each effect:
-� Placement ? insert DOM nodes
-� Update ? update attributes, props, styles, or text
-� Deletion ? remove DOM nodes
-� Ref ? set or clear refs
+• Placement → insert DOM nodes
+• Update → update attributes, props, styles, or text
+• Deletion → remove DOM nodes
+• Ref → set or clear refs
 
 These are direct, imperative DOM API calls:
 appendChild, insertBefore, removeChild, setAttribute, etc.
 
 Commit is synchronous:
 No pausing, no yielding, no concurrent splitting.
-Browser won�t paint until commit is finished.
+Browser won’t paint until commit is finished.
 
 After this step, the real DOM now matches the WIP tree.
 
-
-????????????????????????????????????????????????????????????????????????
-5. Commit Phase <ETH> Layout Effects (useLayoutEffect)
-????????????????????????????????????????????????????????????????????????
+────────────────────────────────────────────────────────────────────────
+5. Commit Phase – Layout Effects (useLayoutEffect)
+────────────────────────────────────────────────────────────────────────
 
 After DOM mutations but BEFORE paint:
 
-� React runs all useLayoutEffect setup functions.
-� Layout effects can read layout and synchronously mutate DOM.
-� These block paint until complete.
-� Refs are now finalized for this render.
+• React runs all useLayoutEffect setup functions.
+• Layout effects can read layout and synchronously mutate DOM.
+• These block paint until complete.
+• Refs are now finalized for this render.
 
-
-????????????????????????????????????????????????????????????????????????
+────────────────────────────────────────────────────────────────────────
 6. Fiber Tree Swap
-????????????????????????????????????????????????????????????????????????
+────────────────────────────────────────────────────────────────────────
 
 React performs the swap:
 
-current ? workInProgress
+current ← workInProgress
 
-� The WIP tree becomes the new committed UI.
-� The old tree becomes the alternate for next render.
+• The WIP tree becomes the new committed UI.
+• The old tree becomes the alternate for next render.
 
-Now the render+commit cycle is complete on React�s side.
+Now the render+commit cycle is complete on React’s side.
 
-
-????????????????????????????????????????????????????????????????????????
+────────────────────────────────────────────────────────────────────────
 7. Passive Effects (useEffect)
-????????????????????????????????????????????????????????????????????????
+────────────────────────────────────────────────────────────────────────
 
 After the browser paints the updated frame:
 
-� React runs useEffect callbacks asynchronously.
-� These do NOT block rendering or layout.
-� Used for subscriptions, logging, async work, data fetching, etc.
+• React runs useEffect callbacks asynchronously.
+• These do NOT block rendering or layout.
+• Used for subscriptions, logging, async work, data fetching, etc.
 
 This marks the end of the full Fiber lifecycle for the update.
 
-
-????????????????????????????????????????????????????????????????????????
+────────────────────────────────────────────────────────────────────────
 Summary (Memorize This Flow)
-????????????????????????????????????????????????????????????????????????
+────────────────────────────────────────────────────────────────────────
 
-� Scheduling: enqueue updates, assign lanes.
-� Render (beginWork): run components that need updates, reconcile children immediately.
-� Render (completeWork): finalize fibers, build effect list.
-� Pre-Commit: prepare unmounts, prepare refs.
-� Commit (mutation): apply DOM changes from effect list.
-� Commit (layout): run useLayoutEffect.
-� Tree Swap: WIP ? current.
-� Passive Effects: run useEffect after paint.
+• Scheduling: enqueue updates, assign lanes.
+• Render (beginWork): run components that need updates, reconcile children immediately.
+• Render (completeWork): finalize fibers, build effect list.
+• Pre-Commit: prepare unmounts, prepare refs.
+• Commit (mutation): apply DOM changes from effect list.
+• Commit (layout): run useLayoutEffect.
+• Tree Swap: WIP → current.
+• Passive Effects: run useEffect after paint.
 
-This is the modern Fiber lifecycle used in React 16<ETH>19.
+This is the modern Fiber lifecycle used in React 16–19.

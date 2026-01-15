@@ -1,6 +1,5 @@
 TanStack Query
 
-
 1. Mental Model
 
 TanStack Query owns server state, not UI state.
@@ -86,7 +85,7 @@ queryClient.clear()
 or
 queryClient.resetQueries()
 
-If you donÍt do this:
+If you donâ€™t do this:
 - Data can leak across users
 - Background refetches may hit protected endpoints after logout
 

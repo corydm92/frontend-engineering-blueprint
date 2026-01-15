@@ -1,7 +1,7 @@
 Comment Best Practices
 
 Purpose
-Comments communicate intent, constraints, and reasoning. Code already expresses *what* happens Ñ comments explain *why*.
+Comments communicate intent, constraints, and reasoning. Code already expresses *what* happens ‚Äî comments explain *why*.
 
 Avoids
 - Narrating code the reader can already see.
@@ -12,14 +12,14 @@ Avoids
 
 ---
 
-1) Comment the Òwhy,Ó not the Òwhat.Ó
+1) Comment the ‚Äúwhy,‚Äù not the ‚Äúwhat.‚Äù
 Do:
 /**
 * We collapse middle pages to keep pagination compact on large page sets.
 * Preserves context while reducing visual noise.
 */
 
-DonÕt (almost good):
+Don‚Äôt (almost good):
 // This makes the pagination shorter.
 
 Avoid:
@@ -34,7 +34,7 @@ Do:
 * Caller must validate bounds before invoking.
 */
 
-DonÕt (almost good):
+Don‚Äôt (almost good):
 // currentPage should be valid here.
 
 Avoid:
@@ -42,14 +42,14 @@ Letting critical assumptions live only in your head.
 
 ---
 
-3) Clarify input ? output contract.
+3) Clarify input ‚Üí output contract.
 Do:
 /**
 * Returns an array of page numbers and 'ellipsis' sentinel values.
 * UI must render 'ellipsis' as non-interactive.
 */
 
-DonÕt (almost good):
+Don‚Äôt (almost good):
 // Returns numbers and sometimes ellipsis.
 
 Avoid:
@@ -64,11 +64,11 @@ Do:
 * Reduces GC churn during rapid UI updates.
 */
 
-DonÕt (almost good):
+Don‚Äôt (almost good):
 // Using mutation for performance reasons.
 
 Avoid:
-Omitting the reasoning Ñ future contributors will remove or break the optimization.
+Omitting the reasoning ‚Äî future contributors will remove or break the optimization.
 
 ---
 
@@ -78,7 +78,7 @@ Do:
 * Avoid early-return so both cleanup steps always execute, even on errors.
 */
 
-DonÕt (almost good):
+Don‚Äôt (almost good):
 // We don't early return so cleanup can run.
 
 Avoid:
@@ -86,17 +86,17 @@ Explaining trivial control flow the reader can infer instantly.
 
 ---
 
-6) Use TODOs intentionally Ñ only when the work is out of scope.
+6) Use TODOs intentionally ‚Äî only when the work is out of scope.
 Do:
 /**
-* TODO: Normalize SKU sorting Ñ current logic breaks on alphanumeric IDs.
+* TODO: Normalize SKU sorting ‚Äî current logic breaks on alphanumeric IDs.
 * This is outside the scope of the cart UI refactor.
 * Add to monthly tech-debt review board.
 */
 
-DonÕt (almost good):
+Don‚Äôt (almost good):
 // TODO: rewrite once new product API stabilizes
-// (Needs explicit trigger: which API, and what counts as Òstable.Ó)
+// (Needs explicit trigger: which API, and what counts as ‚Äústable.‚Äù)
 
 Avoid:
 // TODO: fix later
@@ -148,4 +148,4 @@ const x = users.length
 ---
 
 Key Principle
-Comments preserve **intent, reasoning, and constraints** Ñ not code narration.
+Comments preserve **intent, reasoning, and constraints** ‚Äî not code narration.

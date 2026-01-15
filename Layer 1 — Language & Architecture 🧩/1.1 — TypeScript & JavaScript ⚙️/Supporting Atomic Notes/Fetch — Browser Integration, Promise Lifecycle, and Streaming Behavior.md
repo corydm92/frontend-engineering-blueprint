@@ -1,10 +1,10 @@
-Fetch „ Browser Integration, Promise Lifecycle, and Streaming Behavior
+Fetch â€” Browser Integration, Promise Lifecycle, and Streaming Behavior
 
 1. Purpose and Relationship to the JS Engine
 
-fetch() is not a JavaScript-native function „ itÍs a browser API that bridges JavaScript with the network stack.
-It returns a Promise to integrate smoothly with JSÍs microtask-based event loop,
-but all actual I/O and state changes occur inside the browserÍs internal subsystems, not the JS engine.
+fetch() is not a JavaScript-native function â€” itâ€™s a browser API that bridges JavaScript with the network stack.
+It returns a Promise to integrate smoothly with JSâ€™s microtask-based event loop,
+but all actual I/O and state changes occur inside the browserâ€™s internal subsystems, not the JS engine.
 
 Key design goal:
 Expose asynchronous HTTP behavior as a single composable Promise chain,
@@ -14,10 +14,10 @@ while allowing the browser to handle connection management, streaming, and error
 
 2. How fetch() Works Internally
 
-fetch(url) ? steps executed by browser and JS engine:
+fetch(url) â†’ steps executed by browser and JS engine:
 
 1. JS calls fetch(url) on the call stack.
-- The browserÍs networking layer is instructed to start an HTTP request asynchronously.
+- The browserâ€™s networking layer is instructed to start an HTTP request asynchronously.
 - JS immediately receives a pending Promise (fetchPromise).
 - fetchPromise has:
 [[PromiseState]]: "pending"
@@ -27,7 +27,7 @@ fetch(url) ? steps executed by browser and JS engine:
 2. The browser monitors the network connection outside the JS runtime.
 
 3. When response headers arrive:
-- The browser enqueues a microtask that executes fetchPromiseÍs resolve() callback.
+- The browser enqueues a microtask that executes fetchPromiseâ€™s resolve() callback.
 - This resolve passes a Response object as the [[PromiseResult]].
 - The Promise becomes "fulfilled".
 - All registered .then() callbacks are queued as microtasks for execution.
@@ -38,7 +38,7 @@ fetch(url) ? steps executed by browser and JS engine:
 - [[PromiseResult]] is a TypeError('NetworkError').
 - Registered .catch() callbacks are queued as microtasks.
 
-The JS engine never calls resolve() or reject() directly „ those are handled entirely by the browserÍs internal fetch subsystem.
+The JS engine never calls resolve() or reject() directly â€” those are handled entirely by the browserâ€™s internal fetch subsystem.
 
 ------------------------------------------------------------
 
@@ -64,7 +64,7 @@ bodyUsed: false
 
 4. Streaming Behavior
 
-The fetch promise resolves when headers are available „ not when the full body has finished downloading.
+The fetch promise resolves when headers are available â€” not when the full body has finished downloading.
 
 You can consume the body progressively through its ReadableStream:
 const res = await fetch('/api/stream');
@@ -86,19 +86,19 @@ This separation allows progressive rendering, streaming APIs, and React Server C
 5. Relationship to the Event Loop
 
 fetch integrates with the event loop via microtasks:
-- When headers arrive ? browser queues a microtask to resolve(fetchPromise)
-- When body chunks arrive ? stream reader queues new microtasks for each chunk read
-- When parsing (e.g., res.json()) finishes ? another microtask resolves the new Promise returned by that parser
+- When headers arrive â†’ browser queues a microtask to resolve(fetchPromise)
+- When body chunks arrive â†’ stream reader queues new microtasks for each chunk read
+- When parsing (e.g., res.json()) finishes â†’ another microtask resolves the new Promise returned by that parser
 
-The browserÍs network operations occur independently from JS.
+The browserâ€™s network operations occur independently from JS.
 JS only re-enters when a microtask is ready, at which point the associated callback runs on the main call stack.
 
 Timeline summary:
-Call Stack ? fetch() ? returns pending Promise
-Browser ? performs network I/O
-Browser ? queueMicrotask(resolve)
-Event Loop ? flushes microtasks ? run .then()
-Optional ? body stream produces more microtasks as chunks arrive
+Call Stack â†’ fetch() â†’ returns pending Promise
+Browser â†’ performs network I/O
+Browser â†’ queueMicrotask(resolve)
+Event Loop â†’ flushes microtasks â†’ run .then()
+Optional â†’ body stream produces more microtasks as chunks arrive
 
 ------------------------------------------------------------
 
@@ -114,30 +114,29 @@ Timeline:
 1. Promise A (fetch) is pending.
 - Callbacks registered:
 A.[[PromiseFulfillReactions]] = [res => res.json()]
-B, C, D are created but pending, waiting on AÍs chain.
+B, C, D are created but pending, waiting on Aâ€™s chain.
 
 2. When Promise A fulfills (headers received):
 - Only its registered reactions (the first .then) are queued as microtasks.
 - Microtask Queue: [res => res.json()]
 
 3. When that microtask runs:
-- res.json() executes and returns a new Promise ? Promise B.
+- res.json() executes and returns a new Promise â†’ Promise B.
 - The callback finishes, so Promise B fulfills or stays pending depending on when body parsing finishes.
 
 4. When Promise B fulfills:
-- All of Promise BÍs registered callbacks (the second .then) are now queued as microtasks.
+- All of Promise Bâ€™s registered callbacks (the second .then) are now queued as microtasks.
 - Microtask Queue: [data => data.user]
 
 5. When that microtask runs:
 - data.user executes synchronously, returns a value, fulfilling Promise C immediately.
 
-6. Promise CÍs callback (user => console.log(user)) is now queued in the next microtask cycle.
+6. Promise Câ€™s callback (user => console.log(user)) is now queued in the next microtask cycle.
 - Microtask Queue: [user => console.log(user)]
 - When that runs, the chain completes.
 
-So yes „ only the callbacks attached to the currently settling promise are ever moved into the microtask queue.
-Each link triggers the next one *after* it resolves. The later .then() handlers arenÍt scheduled until their promiseÍs turn in the chain.
-
+So yes â€” only the callbacks attached to the currently settling promise are ever moved into the microtask queue.
+Each link triggers the next one *after* it resolves. The later .then() handlers arenâ€™t scheduled until their promiseâ€™s turn in the chain.
 
 ------------------------------------------------------------
 
@@ -152,8 +151,8 @@ fetch("/bad-url")
 .catch(err => console.error("Network or JSON error:", err));
 
 Error steps:
-1. Browser encounters failure ? queues reject() as a microtask.
-2. Microtask runs ? fetchPromise [[PromiseState]] = "rejected".
+1. Browser encounters failure â†’ queues reject() as a microtask.
+2. Microtask runs â†’ fetchPromise [[PromiseState]] = "rejected".
 3. The event loop executes the .catch() callback on the call stack.
 4. If .catch() returns normally, its value becomes the new resolved Promise for chaining.
 
@@ -171,4 +170,4 @@ fetch() delegates networking to the browser while exposing a Promise interface t
 - The event loop ensures all microtasks from fetch resolve before moving to the next macro task.
 
 One-liner summary:
-fetch() is a coordination layer between JavaScriptÍs microtask system and the browserÍs network engine „ resolving early for headers, streaming late for data, and surfacing both through Promises that integrate seamlessly with the event loop.
+fetch() is a coordination layer between JavaScriptâ€™s microtask system and the browserâ€™s network engine â€” resolving early for headers, streaming late for data, and surfacing both through Promises that integrate seamlessly with the event loop.

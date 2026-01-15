@@ -1,7 +1,7 @@
 JavaScript Runtime & Execution Model
 
 Purpose:
-Define what the JavaScript runtime actually does Ñ from parsing and execution to how asynchronous code interacts with the event loop.
+Define what the JavaScript runtime actually does ‚Äî from parsing and execution to how asynchronous code interacts with the event loop.
 This section separates what happens at runtime from what happens at build time, so behavior is predictable across environments.
 
 ---
@@ -9,9 +9,9 @@ This section separates what happens at runtime from what happens at build time, 
 JavaScript is interpreted and single-threaded, executing inside a runtime environment (browser or Node.js) powered by an engine (V8, SpiderMonkey, etc.).
 
 At runtime, three phases occur:
-1. Parsing ? code converted to an Abstract Syntax Tree (AST)
-2. Compilation ? JIT-compiled into machine code
-3. Execution ? global + function contexts created, event loop manages async tasks
+1. Parsing ‚Üí code converted to an Abstract Syntax Tree (AST)
+2. Compilation ‚Üí JIT-compiled into machine code
+3. Execution ‚Üí global + function contexts created, event loop manages async tasks
 
 All behaviors here occur at runtime, not during bundling or transpilation.
 
@@ -21,7 +21,7 @@ Runtime Gotchas (Ranked by Impact)
 
 1. Event Loop
 DO:
-- Remember JavaScript is single-threaded. Async behavior comes from the runtime environment (browser APIs or NodeÕs libuv).
+- Remember JavaScript is single-threaded. Async behavior comes from the runtime environment (browser APIs or Node‚Äôs libuv).
 - Understand the event loop: queued tasks only run once the call stack is empty.
 - Distinguish microtasks (Promises, queueMicrotask) vs macrotasks (setTimeout, setInterval, I/O).
 
@@ -29,10 +29,10 @@ Example:
 setTimeout(() => console.log('macro'));
 Promise.resolve().then(() => console.log('micro'));
 console.log('sync');
-// ? sync ? micro ? macro
+// ‚Üí sync ‚Üí micro ‚Üí macro
 
-DONÕT:
-- Expect parallelism Ñ concurrency is simulated through scheduling.
+DON‚ÄôT:
+- Expect parallelism ‚Äî concurrency is simulated through scheduling.
 
 ---
 
@@ -51,9 +51,9 @@ const c = counter();
 c(); // 1
 c(); // 2
 
-DONÕT:
+DON‚ÄôT:
 - Confuse lexical scoping with runtime binding of this.
-- Assume variables are resolved at import time Ñ theyÕre resolved at runtime during execution.
+- Assume variables are resolved at import time ‚Äî they‚Äôre resolved at runtime during execution.
 
 ---
 
@@ -61,7 +61,7 @@ DONÕT:
 DO:
 - Recognize hoisting is a runtime parsing phase behavior, not build-time.
 - var declarations initialize as undefined, function declarations hoist fully.
-- let, const, and class are hoisted but uninitialized Ñ exist in the TDZ until declaration executes.
+- let, const, and class are hoisted but uninitialized ‚Äî exist in the TDZ until declaration executes.
 
 Example:
 console.log(a); // undefined
@@ -70,8 +70,8 @@ var a = 1;
 console.log(b); // ReferenceError
 let b = 2;
 
-DONÕT:
-- Access let/const before declaration Ñ itÕs a ReferenceError at runtime.
+DON‚ÄôT:
+- Access let/const before declaration ‚Äî it‚Äôs a ReferenceError at runtime.
 
 ---
 
@@ -84,10 +84,10 @@ Example:
 Promise.resolve().then(() => console.log('micro'));
 setTimeout(() => console.log('macro'));
 console.log('sync');
-// sync ? micro ? macro
+// sync ‚Üí micro ‚Üí macro
 
-DONÕT:
-- Expect setTimeout(fn, 0) to run immediately Ñ the microtask queue always wins.
+DON‚ÄôT:
+- Expect setTimeout(fn, 0) to run immediately ‚Äî the microtask queue always wins.
 
 ---
 
@@ -101,12 +101,12 @@ Example:
 const obj = {
 val: 42,
 fn() {
-setTimeout(() => console.log(this.val)); // ? 42
+setTimeout(() => console.log(this.val)); // ‚úÖ 42
 },
 };
 obj.fn();
 
-DONÕT:
+DON‚ÄôT:
 - Assume this refers to the same object inside nested callbacks or event handlers.
 
 ---
@@ -114,7 +114,7 @@ DONÕT:
 6. Closures & Memory Retention
 DO:
 - Use closures for encapsulation but release references when no longer needed.
-- Remember closures hold variables by reference, not value Ñ preventing GC if objects remain referenced.
+- Remember closures hold variables by reference, not value ‚Äî preventing GC if objects remain referenced.
 
 Example:
 function make() {
@@ -122,8 +122,8 @@ const big = new Array(1e6).fill('*');
 return () => console.log(big.length);
 }
 
-DONÕT:
-- Keep persistent closures to large data Ñ they survive beyond function lifetime, leaking memory.
+DON‚ÄôT:
+- Keep persistent closures to large data ‚Äî they survive beyond function lifetime, leaking memory.
 
 ---
 
@@ -138,8 +138,8 @@ const batch = items.splice(0, 1000);
 if (items.length) setTimeout(() => process(items), 0);
 }
 
-DONÕT:
-- Run heavy synchronous computation in the browser Ñ it freezes UI until completion.
+DON‚ÄôT:
+- Run heavy synchronous computation in the browser ‚Äî it freezes UI until completion.
 
 ---
 
@@ -150,10 +150,10 @@ DO:
 
 Example:
 "use strict"
-foo = 5; // ? ReferenceError
+foo = 5; // ‚ùå ReferenceError
 
-DONÕT:
-- Assign undeclared variables Ñ in non-strict mode they auto-attach to window or globalThis.
+DON‚ÄôT:
+- Assign undeclared variables ‚Äî in non-strict mode they auto-attach to window or globalThis.
 
 ---
 
@@ -169,18 +169,18 @@ console.log(x); // undefined (inner var x hoisted)
 var x = 2;
 }
 
-DONÕT:
-- Mix var with let in the same scope Ñ it creates runtime confusion.
+DON‚ÄôT:
+- Mix var with let in the same scope ‚Äî it creates runtime confusion.
 
 ---
 
 10. Garbage Collection (GC)
 DO:
-- Remember GC is non-deterministic Ñ the runtime decides when to reclaim memory.
+- Remember GC is non-deterministic ‚Äî the runtime decides when to reclaim memory.
 - Release DOM references and event listeners when elements are removed.
 
-DONÕT:
-- Assume nulling an object triggers instant collection Ñ GC runs opportunistically.
+DON‚ÄôT:
+- Assume nulling an object triggers instant collection ‚Äî GC runs opportunistically.
 
 ---
 
@@ -195,27 +195,27 @@ const dog = Object.create(animal);
 dog.barks = true;
 console.log(dog.eats); // true (inherited via prototype)
 
-DONÕT:
-- Confuse class syntax for classical inheritance Ñ itÕs syntactic sugar over prototypes.
+DON‚ÄôT:
+- Confuse class syntax for classical inheritance ‚Äî it‚Äôs syntactic sugar over prototypes.
 
 ---
 
 12. Event Loop Phases (Node-specific)
 DO:
-- Know NodeÕs loop has additional phases: timers ? pending ? idle ? poll ? check ? close.
+- Know Node‚Äôs loop has additional phases: timers ‚Üí pending ‚Üí idle ‚Üí poll ‚Üí check ‚Üí close.
 - Microtasks (Promises, process.nextTick) still take priority after each phase.
 
-DONÕT:
-- Use process.nextTick carelessly Ñ it can starve the event loop if queued recursively.
+DON‚ÄôT:
+- Use process.nextTick carelessly ‚Äî it can starve the event loop if queued recursively.
 
 ---
 
 Diagnostic & Debugging Tools
-- performance.now() Ñ micro-timing for event loop intervals
-- console.time(), console.profile() Ñ call-stack duration analysis
-- Chrome DevTools ? inspect call stacks, scopes, closures
-- Node --inspect or --trace-events ? visualize async operations
-- Lighthouse ? measure blocking time on main thread
+- performance.now() ‚Äî micro-timing for event loop intervals
+- console.time(), console.profile() ‚Äî call-stack duration analysis
+- Chrome DevTools ‚Üí inspect call stacks, scopes, closures
+- Node --inspect or --trace-events ‚Üí visualize async operations
+- Lighthouse ‚Üí measure blocking time on main thread
 
 ---
 
@@ -223,5 +223,5 @@ Key Takeaways
 - Hoisting, scope, and async timing all happen at runtime, not during bundling.
 - Promises and microtasks always preempt macrotasks.
 - Closures and references directly impact memory stability.
-- The event loop defines perceived concurrency Ñ never block it.
+- The event loop defines perceived concurrency ‚Äî never block it.
 - Mastering the runtime = mastering JavaScript behavior across browsers, Node, and frameworks.

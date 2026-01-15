@@ -1,4 +1,4 @@
-Theming and Dark Mode Strategy ?
+Theming and Dark Mode Strategy üåó
 
 Purpose
 Theming defines how visual tokens (color, spacing, motion) adapt across modes, brands, and user preferences.
@@ -24,7 +24,7 @@ Do:
 --color-text: 235, 235, 235;
 }
 
-DonÕt (almost good):
+Don‚Äôt (almost good):
 body.dark { background: #111; color: #eee; }
 
 Avoid:
@@ -40,7 +40,7 @@ bg: "rgb(var(--color-bg) / <alpha-value>)",
 text: "rgb(var(--color-text) / <alpha-value>)"
 }}
 
-DonÕt (almost good):
+Don‚Äôt (almost good):
 colors: { bgLight: "#fff", bgDark: "#000" }
 
 Avoid:
@@ -54,7 +54,7 @@ Do:
 :root { color-scheme: dark; }
 }
 
-DonÕt (almost good):
+Don‚Äôt (almost good):
 Force dark mode with `data-theme="dark"` and ignore system settings.
 
 Avoid:
@@ -67,7 +67,7 @@ Do:
 const [theme, setTheme] = useTheme();
 document.documentElement.dataset.theme = theme;
 
-DonÕt (almost good):
+Don‚Äôt (almost good):
 const [theme, setTheme] = useState("light");
 document.body.classList.add(theme);
 
@@ -81,11 +81,11 @@ Do:
 // Use tooling like axe or Stark
 Ensure minimum 4.5:1 contrast for body text, 3:1 for large text.
 
-DonÕt (almost good):
+Don‚Äôt (almost good):
 Eyeball test for contrast in Figma.
 
 Avoid:
-Shipping unreadable themes under the guise of Òbrand color fidelity.Ó
+Shipping unreadable themes under the guise of ‚Äúbrand color fidelity.‚Äù
 
 ---
 
@@ -101,10 +101,10 @@ When Not to Apply Theming (with examples)
 - Legacy apps with no design token foundation.
 - When theming logic adds more maintenance than benefit.
 - As a patch for inconsistent design standards.
-- Per-component color overrides Ñ use global tokens instead.
+- Per-component color overrides ‚Äî use global tokens instead.
 
 ---
 
 Key Principle
 Theming manages **visual adaptability**, not visual creativity.
-Themes translate token values dynamically Ñ the design system remains constant across every mode.
+Themes translate token values dynamically ‚Äî the design system remains constant across every mode.

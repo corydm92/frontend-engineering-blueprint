@@ -1,10 +1,8 @@
-Conditional Styling with clsx
-??
-
+Conditional Styling with clsx ‚ö°Ô∏è
 
 Purpose
 clsx manages conditional classNames based on state or props.
-It bridges **component state** and **visual expression** Ñ ensuring class logic remains declarative, readable, and maintainable.
+It bridges **component state** and **visual expression** ‚Äî ensuring class logic remains declarative, readable, and maintainable.
 
 Avoids
 - Manual string concatenation for conditional styles.
@@ -19,7 +17,7 @@ Avoids
 Do:
 <button className={clsx("btn", isActive && "btn--active")}>Save</button>
 
-DonÕt (almost good):
+Don‚Äôt (almost good):
 <button className={`btn ${isActive ? "btn--active" : ""}`}>Save</button>
 
 Avoid:
@@ -35,7 +33,7 @@ variant === "primary" && "btn--primary",
 isLoading && "opacity-60 cursor-wait"
 );
 
-DonÕt (almost good):
+Don‚Äôt (almost good):
 clsx(variant && `btn--${variant}`, isLoading && "opacity-60", "btn");
 
 Avoid:
@@ -49,7 +47,7 @@ function getButtonClass({ variant, disabled }) {
 return clsx("btn", variant && `btn--${variant}`, disabled && "btn--disabled");
 }
 
-DonÕt (almost good):
+Don‚Äôt (almost good):
 clsx("btn", variant === "primary" && "text-white bg-blue-600", variant === "secondary" && "bg-gray-100");
 
 Avoid:
@@ -65,20 +63,20 @@ isOpen && "bg-gray-100",
 disabled && "opacity-50 pointer-events-none"
 )}>
 
-DonÕt (almost good):
+Don‚Äôt (almost good):
 <div className={`flex items-center justify-between ${isOpen && "bg-gray-100"} ${disabled && "opacity-50"}`}>
 
 Avoid:
-Mixing clsx and template strings Ñ pick one convention per project.
+Mixing clsx and template strings ‚Äî pick one convention per project.
 
 ---
 
-5) Derive visual state from data state Ñ not vice versa.
+5) Derive visual state from data state ‚Äî not vice versa.
 Do:
 const isError = Boolean(errors?.name);
 <label className={clsx("label", isError && "label--error")}>Name</label>
 
-DonÕt (almost good):
+Don‚Äôt (almost good):
 const labelClass = clsx("label--error");
 const isError = labelClass.includes("error");
 
@@ -99,10 +97,10 @@ When Not to Use clsx (with examples)
 - Style systems already handling variants (e.g., cva, tv, or class-variance-authority).
 - Styling logic based on async data loading (derive once, not on every render).
 - Overriding design system tokens conditionally.
-- As a theme switcher Ñ use a dedicated theme provider.
+- As a theme switcher ‚Äî use a dedicated theme provider.
 
 ---
 
 Key Principle
 clsx connects **state** to **style**, not the other way around.
-State decides appearance Ñ clsx keeps that decision expressive, predictable, and easy to refactor.
+State decides appearance ‚Äî clsx keeps that decision expressive, predictable, and easy to refactor.

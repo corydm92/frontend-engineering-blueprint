@@ -1,29 +1,29 @@
-Advanced Promises „ Event Loop, Microtasks, and Real-World Behavior
+Advanced Promises â€” Event Loop, Microtasks, and Real-World Behavior
 
 1. Mental Model
 
 A Promise is a tiny state machine inside the JavaScript engine.
 
 It has:
-- [[PromiseState]]: "pending" ? "fulfilled" | "rejected"
+- [[PromiseState]]: "pending" â†’ "fulfilled" | "rejected"
 - [[PromiseResult]]: holds the resolved value or error
 - [[PromiseFulfillReactions]]: list of .then() callbacks
 - [[PromiseRejectReactions]]: list of .catch() callbacks
 
-.then() doesnÍt make the promise run „ it registers a reaction for when it finishes.
+.then() doesnâ€™t make the promise run â€” it registers a reaction for when it finishes.
 resolve() or reject() settles the promise and queues those reactions as microtasks.
 
 ------------------------------------------------------------
 
 2. The Call Stack and Event Loop
 
-The JavaScript runtime is single-threaded „ it can only do one thing at a time.
+The JavaScript runtime is single-threaded â€” it can only do one thing at a time.
 The call stack is where synchronous code runs. Each function call is pushed onto the stack,
-and when it returns, itÍs popped off. JavaScript executes the stack top-to-bottom until itÍs empty.
+and when it returns, itâ€™s popped off. JavaScript executes the stack top-to-bottom until itâ€™s empty.
 
 The event loop watches the call stack and manages two main queues:
-- The macro task queue „ for big events like timers, network callbacks, or user input.
-- The microtask queue „ for promise reactions and other small tasks that must run before the next macro task.
+- The macro task queue â€” for big events like timers, network callbacks, or user input.
+- The microtask queue â€” for promise reactions and other small tasks that must run before the next macro task.
 
 When the call stack is empty, the event loop:
 1. Flushes all pending microtasks.
@@ -31,7 +31,7 @@ When the call stack is empty, the event loop:
 3. Runs its callback on the call stack.
 4. Repeats forever.
 
-This cycle is what makes asynchronous JavaScript appear concurrent even though itÍs single-threaded.
+This cycle is what makes asynchronous JavaScript appear concurrent even though itâ€™s single-threaded.
 
 ------------------------------------------------------------
 
@@ -54,21 +54,21 @@ console.log("E");
 
 Step-by-Step Timeline
 1. The call stack starts executing top-down.
-2. console.log("A") ? runs on the call stack.
-3. The Promise constructor runs immediately ? console.log("B").
-4. setTimeout is called ? the browser schedules a macro task; callback is stored in the macro task queue.
-5. Two .then() calls run synchronously ? their callbacks are stored inside the PromiseÍs internal reaction list.
-6. console.log("E") runs ? the call stack is now empty.
-7. Event loop checks: call stack is clear ? run next macro task (the timeout).
+2. console.log("A") â†’ runs on the call stack.
+3. The Promise constructor runs immediately â†’ console.log("B").
+4. setTimeout is called â†’ the browser schedules a macro task; callback is stored in the macro task queue.
+5. Two .then() calls run synchronously â†’ their callbacks are stored inside the Promiseâ€™s internal reaction list.
+6. console.log("E") runs â†’ the call stack is now empty.
+7. Event loop checks: call stack is clear â†’ run next macro task (the timeout).
 8. The timeout callback executes:
 - console.log("C") runs synchronously on the stack.
 - resolve("done") fulfills the promise.
 The runtime moves both .then() callbacks to the microtask queue.
 (Because both .then() handlers are attached to the same promise rather than chained,
-theyÍre treated as two separate reactions to the same fulfillment event.
+theyâ€™re treated as two separate reactions to the same fulfillment event.
 The JS engine queues both of their callbacks at the same time, in registration order.)
-9. The macro task finishes ? the event loop flushes all pending microtasks.
-10. Each .then() callback runs on the call stack ? logs "A: done" and "B: done".
+9. The macro task finishes â†’ the event loop flushes all pending microtasks.
+10. Each .then() callback runs on the call stack â†’ logs "A: done" and "B: done".
 
 Final Output
 A
@@ -78,29 +78,27 @@ C
 A: done
 B: done
 
-
 ------------------------------------------------------------
 
 4. Real-World Example: Asynchronous API Call (Browser)
 
-console.log("1 „ Script start");
+console.log("1 â€” Script start");
 
 fetch("https://api.example.com/data")
 .then((res) => res.json())
-.then((data) => console.log("3 „ Data received:", data))
+.then((data) => console.log("3 â€” Data received:", data))
 .catch((err) => console.error("Error:", err));
 
-console.log("2 „ Script end");
-
+console.log("2 â€” Script end");
 
 Step-by-Step Timeline (Call Stack Focused)
 
 1. The call stack begins executing the script.
-2. console.log("1 „ Script start") executes on the call stack.
+2. console.log("1 â€” Script start") executes on the call stack.
 
 3. fetch(...) is called:
-- The fetch function itself is synchronous JavaScript that lives in the browserÍs environment.
-- The JS engine calls into the browserÍs Fetch API subsystem, which starts the network request outside the JS engine.
+- The fetch function itself is synchronous JavaScript that lives in the browserâ€™s environment.
+- The JS engine calls into the browserâ€™s Fetch API subsystem, which starts the network request outside the JS engine.
 - The fetch call immediately returns a Promise object (Promise A).
 - Promise A is managed by the JS engine but fulfilled or rejected later by the browser once the response headers arrive.
 - This Promise A is returned to the call stack and becomes the base for the .then() chain.
@@ -111,39 +109,37 @@ Step-by-Step Timeline (Call Stack Focused)
 - The .then() call returns a new pending Promise (Promise B).
 - Promise B represents the *future result* of res.json(), not the fetch response itself.
 
-5. The second .then(data => console.log("3 „ Data received:", data)) executes synchronously:
+5. The second .then(data => console.log("3 â€” Data received:", data)) executes synchronously:
 - This attaches a fulfillment reaction to Promise B.
 - It also returns another new Promise (Promise C), which will fulfill once the second callback completes.
 - Note: each .then() in this chain is linked to the *previous* promise, not the same one.
 This means when Promise A fulfills, only the first .then() callback (res => res.json()) is queued.
 When Promise B later fulfills, its own .then() (data => console.log(...)) is queued in a *subsequent microtask cycle*.
-These reactions are not added to the microtask queue together „ each link runs when its parent settles.
+These reactions are not added to the microtask queue together â€” each link runs when its parent settles.
 
-6. console.log("2 „ Script end") executes on the call stack.
+6. console.log("2 â€” Script end") executes on the call stack.
 - The stack is now empty; the fetch promise (Promise A) remains pending while the network request continues outside JS.
 
 7. The browser continues the network request in parallel at the system level (not part of the JS call stack).
 - When headers arrive, the browser enqueues a microtask to resolve Promise A with a Response object.
 - Once that microtask runs:
-a. Promise AÍs fulfillment callback (res => res.json()) executes.
-b. res.json() returns a new Promise (still pending) ? this becomes Promise B.
+a. Promise Aâ€™s fulfillment callback (res => res.json()) executes.
+b. res.json() returns a new Promise (still pending) â†’ this becomes Promise B.
 c. Promise B fulfills when body parsing completes.
 d. When Promise B fulfills, its reaction (data => console.log(...)) is queued as a new microtask.
 e. The final .catch() will only be triggered if any of the previous promises reject.
 
-
 Key Distinction:
 - The first .then() belongs to Promise A (the fetch Promise).
 - The second .then() belongs to Promise B (the res.json() Promise).
-- They are not queued together because each depends on the previous promiseÍs resolution.
+- They are not queued together because each depends on the previous promiseâ€™s resolution.
 - Each promise in the chain queues its own reaction when it settles,
-resulting in a cascading sequence of microtasks „ one per fulfilled link in the chain vs all pushed to queue.
-
+resulting in a cascading sequence of microtasks â€” one per fulfilled link in the chain vs all pushed to queue.
 
 Final Output (simplified sequence):
-1 „ Script start
-2 „ Script end
-3 „ Data received: {...}
+1 â€” Script start
+2 â€” Script end
+3 â€” Data received: {...}
 
 (fetch network and JSON parsing happen asynchronously between the synchronous logs)
 
@@ -151,13 +147,13 @@ Final Output (simplified sequence):
 
 5. Browser-Level Orchestration of Fetch
 
-- The browserÍs network thread manages fetch, not the JS engine.
+- The browserâ€™s network thread manages fetch, not the JS engine.
 - It listens for two key events:
-1. Headers received ? queue microtask ? resolve(fetchPromise, new Response())
-2. Network error ? queue microtask ? reject(fetchPromise, TypeError('NetworkError'))
-- When headers arrive, the browser enqueues the PromiseÍs resolve() into the microtask queue.
-- The JS engine doesnÍt call resolve() directly; it just executes whatever microtasks are queued once the stack clears.
-- This ensures the fetch promise fulfills as soon as headers are available „ the body may still be downloading.
+1. Headers received â†’ queue microtask â†’ resolve(fetchPromise, new Response())
+2. Network error â†’ queue microtask â†’ reject(fetchPromise, TypeError('NetworkError'))
+- When headers arrive, the browser enqueues the Promiseâ€™s resolve() into the microtask queue.
+- The JS engine doesnâ€™t call resolve() directly; it just executes whatever microtasks are queued once the stack clears.
+- This ensures the fetch promise fulfills as soon as headers are available â€” the body may still be downloading.
 
 Example of the Response Object stored in [[PromiseResult]]:
 {
@@ -183,7 +179,7 @@ fetch("/api")
 
 At runtime:
 - fetch("/api") runs synchronously on the call stack and returns a pending Promise (fetchPromise).
-- The browserÍs network layer begins the request outside of JS.
+- The browserâ€™s network layer begins the request outside of JS.
 - The .then(res => res.json()) callback is registered but not executed yet.
 
 When the network response headers arrive:
@@ -205,11 +201,11 @@ Promise B fulfills immediately:
 
 Microtask Queue Evolution:
 [then(res=>res.json)]
-? [then(data=>data.user)]
-? [then(user=>console.log(user))]
+â†’ [then(data=>data.user)]
+â†’ [then(user=>console.log(user))]
 
 At each step:
-- One microtask runs ? its callback executes on the call stack.
+- One microtask runs â†’ its callback executes on the call stack.
 - That callback either returns a value (immediate fulfillment) or another Promise (delayed chaining).
 - Each new promise adds its own microtask to the queue in order.
 - The event loop continues flushing microtasks sequentially until the chain finishes.
@@ -228,4 +224,4 @@ At each step:
 - Microtasks always complete before the next macro task.
 
 One-liner summary:
-Promises donÍt make JavaScript asynchronous „ they make asynchronous work predictable by coordinating between the call stack, the microtask queue, and the browserÍs asynchronous environment.
+Promises donâ€™t make JavaScript asynchronous â€” they make asynchronous work predictable by coordinating between the call stack, the microtask queue, and the browserâ€™s asynchronous environment.

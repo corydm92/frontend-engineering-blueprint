@@ -3,7 +3,6 @@ Ex: text input feeding an expensive visualization
 
 Create a lagging snapshot of state so expensive consumers update later without blocking urgent input
 
-
 1. Goal and When to Use This Tool
 
 useDeferredValue() is used to keep the UI responsive when a frequently changing
@@ -29,8 +28,7 @@ You do NOT use it to:
 - enforce correctness or ordering
 
 This note builds in order:
-mental model ? mechanics ? scheduling ? render vs commit ? concrete example ? gotchas.
-
+mental model ‚Üí mechanics ‚Üí scheduling ‚Üí render vs commit ‚Üí concrete example ‚Üí gotchas.
 
 ------------------------------------------------------------
 
@@ -46,7 +44,7 @@ Key ideas:
 - renders using them may be interrupted or discarded
 
 Think of it as:
-ÒKeep the UI interactive now; update the expensive view when thereÕs time.Ó
+‚ÄúKeep the UI interactive now; update the expensive view when there‚Äôs time.‚Äù
 
 Deferred values must always be:
 - interruptible
@@ -54,7 +52,6 @@ Deferred values must always be:
 - discardable
 
 Those constraints define the API.
-
 
 ------------------------------------------------------------
 
@@ -75,7 +72,6 @@ Important:
 useDeferredValue does NOT introduce async state, timers, queues, or promises.
 It only influences render priority.
 
-
 ------------------------------------------------------------
 
 4. What useDeferredValue() Actually Does
@@ -94,7 +90,6 @@ There is NO guarantee that:
 
 The only guarantee is correctness of committed UI.
 
-
 ------------------------------------------------------------
 
 5. Deferred Values and Scheduling
@@ -108,7 +103,6 @@ That means:
 - React may restart work multiple times
 
 Deferred rendering is opportunistic, not guaranteed.
-
 
 ------------------------------------------------------------
 
@@ -172,7 +166,6 @@ Observed behavior:
 
 This is expected and correct.
 
-
 ------------------------------------------------------------
 
 7. Render vs Commit: The Critical Distinction
@@ -188,7 +181,6 @@ With useDeferredValue():
 Render execution does NOT imply commit.
 
 React is allowed to discard rendered work.
-
 
 ------------------------------------------------------------
 
@@ -206,13 +198,12 @@ In the example:
 
 Memo optimizes commits, not execution.
 
-
 ------------------------------------------------------------
 
-9. Broken Mental Model: ÒDeferred Means It WonÕt RunÓ
+9. Broken Mental Model: ‚ÄúDeferred Means It Won‚Äôt Run‚Äù
 
 Incorrect assumptions:
-- deferred components wonÕt render
+- deferred components won‚Äôt render
 - memo prevents execution
 - logs indicate committed UI
 
@@ -220,7 +211,6 @@ Why this is wrong:
 - React must evaluate work to decide whether to keep it
 - speculative rendering is fundamental to concurrency
 - logs observe speculation, not reality
-
 
 ------------------------------------------------------------
 
@@ -235,7 +225,6 @@ Deferred rendering works best when:
 - work is split into smaller units
 - React can yield between them
 
-
 ------------------------------------------------------------
 
 11. When useDeferredValue() Is the Wrong Tool
@@ -249,7 +238,6 @@ Do NOT use useDeferredValue() for:
 
 It is a UX optimization only.
 
-
 ------------------------------------------------------------
 
 12. What useDeferredValue() Is Not
@@ -262,7 +250,6 @@ useDeferredValue() is not:
 - a guarantee of skipped execution
 
 It is a render-priority hint.
-
 
 ------------------------------------------------------------
 

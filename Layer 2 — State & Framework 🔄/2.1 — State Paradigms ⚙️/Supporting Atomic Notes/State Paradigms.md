@@ -4,21 +4,21 @@ State Paradigms
 
 Treat the user interface as a finite set of valid states. Every transition between them must be explicit and intentional.
 
-?
+‚úÖ
 DO:
-¥ Define discrete states (idle, loading, success, error, empty).
-¥ Centralize transitions through reducers, actions, or state machines.
-¥ Use enums or discriminated unions for clarity.
-¥ Always model "what the user sees" from one source of truth.
+‚Ä¢ Define discrete states (idle, loading, success, error, empty).
+‚Ä¢ Centralize transitions through reducers, actions, or state machines.
+‚Ä¢ Use enums or discriminated unions for clarity.
+‚Ä¢ Always model "what the user sees" from one source of truth.
 
-?
-DONÕT:
-¥ Combine contradictory flags like isLoading && isError.
-¥ Mutate multiple states independently to represent one UI mode.
-¥ Rely on implicit conditions or timers for state.
-¥ Let UI render impossible combinations.
+‚ùå
+DON‚ÄôT:
+‚Ä¢ Combine contradictory flags like isLoading && isError.
+‚Ä¢ Mutate multiple states independently to represent one UI mode.
+‚Ä¢ Rely on implicit conditions or timers for state.
+‚Ä¢ Let UI render impossible combinations.
 
-?
+üí°
 Example:
 Bad:
 const [isLoading, setIsLoading] = useState(false);
@@ -28,28 +28,28 @@ Good:
 type UIState = 'idle' | 'loading' | 'success' | 'error';
 const [uiState, setUiState] = useState<UIState>('idle');
 
-Why it matters: Finite state modeling eliminates ambiguity. The UI never lies about whatÕs happening.
+Why it matters: Finite state modeling eliminates ambiguity. The UI never lies about what‚Äôs happening.
 ---
 
 2. Event-Driven UI (Reactive Paradigm)
 
 The UI reacts to discrete events, not manual orchestration. Events trigger transitions; components respond declaratively.
 
-?
+‚úÖ
 DO:
-¥ Model user and system actions as events.
-¥ Derive new state from those events.
-¥ Keep handlers pureÑno hidden side effects.
-¥ Use observables or subscriptions for async reactivity where needed.
+‚Ä¢ Model user and system actions as events.
+‚Ä¢ Derive new state from those events.
+‚Ä¢ Keep handlers pure‚Äîno hidden side effects.
+‚Ä¢ Use observables or subscriptions for async reactivity where needed.
 
-?
-DONÕT:
-¥ Manually poll or mutate data in arbitrary places.
-¥ Chain side effects inside unrelated components.
-¥ Depend on global flags to trigger UI updates.
-¥ Hide transitions in promises or callbacks.
+‚ùå
+DON‚ÄôT:
+‚Ä¢ Manually poll or mutate data in arbitrary places.
+‚Ä¢ Chain side effects inside unrelated components.
+‚Ä¢ Depend on global flags to trigger UI updates.
+‚Ä¢ Hide transitions in promises or callbacks.
 
-?
+üí°
 Example:
 Bad:
 onClick={() => {
@@ -75,21 +75,21 @@ Why it matters: Event-driven UIs are predictable and traceable. Every change has
 
 Data flows down; events bubble up. This ensures predictable propagation and controlled mutation.
 
-?
+‚úÖ
 DO:
-¥ Keep parent components as single sources of truth.
-¥ Pass data down via props, context, or store selectors.
-¥ Emit events upward through callbacks or dispatchers.
-¥ Use reducers for mutation control.
+‚Ä¢ Keep parent components as single sources of truth.
+‚Ä¢ Pass data down via props, context, or store selectors.
+‚Ä¢ Emit events upward through callbacks or dispatchers.
+‚Ä¢ Use reducers for mutation control.
 
-?
-DONÕT:
-¥ Mutate child state directly from parents.
-¥ Maintain parallel state copies across components.
-¥ Mix two-way bindings that obscure data origin.
-¥ Let side effects modify state outside the main loop.
+‚ùå
+DON‚ÄôT:
+‚Ä¢ Mutate child state directly from parents.
+‚Ä¢ Maintain parallel state copies across components.
+‚Ä¢ Mix two-way bindings that obscure data origin.
+‚Ä¢ Let side effects modify state outside the main loop.
 
-?
+üí°
 Example:
 Bad:
 <Child count={count} setCount={setCount} />
@@ -104,21 +104,21 @@ Why it matters: A single data direction simplifies reasoning, debugging, and tim
 
 Every piece of data lives in exactly one authoritative location. All views derive from it.
 
-?
+‚úÖ
 DO:
-¥ Store canonical data centrally (store, query cache, or context).
-¥ Compute derived state instead of duplicating values.
-¥ Sync backend and client data through clear ownership.
-¥ Invalidate caches, donÕt overwrite data blindly.
+‚Ä¢ Store canonical data centrally (store, query cache, or context).
+‚Ä¢ Compute derived state instead of duplicating values.
+‚Ä¢ Sync backend and client data through clear ownership.
+‚Ä¢ Invalidate caches, don‚Äôt overwrite data blindly.
 
-?
-DONÕT:
-¥ Mirror the same data in multiple stores.
-¥ Manually synchronize local copies.
-¥ Treat props and global state as equal sources.
-¥ Patch over desync with conditional rendering.
+‚ùå
+DON‚ÄôT:
+‚Ä¢ Mirror the same data in multiple stores.
+‚Ä¢ Manually synchronize local copies.
+‚Ä¢ Treat props and global state as equal sources.
+‚Ä¢ Patch over desync with conditional rendering.
 
-?
+üí°
 Example:
 Bad:
 const [user, setUser] = useState(getUserFromCache());
@@ -133,23 +133,23 @@ Why it matters: One truth prevents conflicting UI states and simplifies persiste
 
 5. UI as Reflection of Application State (Mirror Paradigm)
 
-The UI is never the source of truthÑitÕs a visual projection of state.
+The UI is never the source of truth‚Äîit‚Äôs a visual projection of state.
 
-?
+‚úÖ
 DO:
-¥ Derive all visual changes from state or props.
-¥ Control all form inputs.
-¥ Reflect server data and loading states directly.
-¥ Keep UI purely representational.
+‚Ä¢ Derive all visual changes from state or props.
+‚Ä¢ Control all form inputs.
+‚Ä¢ Reflect server data and loading states directly.
+‚Ä¢ Keep UI purely representational.
 
-?
-DONÕT:
-¥ Let UI state drift from data state.
-¥ Read values directly from DOM.
-¥ Hide server errors visually while keeping stale data.
-¥ Mutate UI manually.
+‚ùå
+DON‚ÄôT:
+‚Ä¢ Let UI state drift from data state.
+‚Ä¢ Read values directly from DOM.
+‚Ä¢ Hide server errors visually while keeping stale data.
+‚Ä¢ Mutate UI manually.
 
-?
+üí°
 Example:
 Bad:
 <input defaultValue="John" />
@@ -157,28 +157,28 @@ Bad:
 Good:
 <input value={user.name} onChange={e => updateName(e.target.value)} />
 
-Why it matters: When UI is just a mirror, it can always be rebuilt from stateÑno hidden dependencies.
+Why it matters: When UI is just a mirror, it can always be rebuilt from state‚Äîno hidden dependencies.
 ---
 
 6. Side-Effects Isolation (Functional Discipline)
 
 Pure logic stays separate from effects like I/O, network, or timers.
 
-?
+‚úÖ
 DO:
-¥ Keep side effects inside dedicated hooks or middleware.
-¥ Test logic without external dependencies.
-¥ Make effects idempotent and cancelable.
-¥ Handle async flow through clear entry points (sagas, thunks, queries).
+‚Ä¢ Keep side effects inside dedicated hooks or middleware.
+‚Ä¢ Test logic without external dependencies.
+‚Ä¢ Make effects idempotent and cancelable.
+‚Ä¢ Handle async flow through clear entry points (sagas, thunks, queries).
 
-?
-DONÕT:
-¥ Fire network requests inside render paths.
-¥ Mix mutation logic with view rendering.
-¥ Hide effects in anonymous callbacks.
-¥ Depend on mutable globals.
+‚ùå
+DON‚ÄôT:
+‚Ä¢ Fire network requests inside render paths.
+‚Ä¢ Mix mutation logic with view rendering.
+‚Ä¢ Hide effects in anonymous callbacks.
+‚Ä¢ Depend on mutable globals.
 
-?
+üí°
 Example:
 Bad:
 useEffect(() => {
@@ -196,4 +196,4 @@ Paradigms & Mental Models Summary
 Layer 2 defines how state behaves, flows, and transitions.
 Finite states, unidirectional flow, single authority, and isolated effects ensure every UI transition is explicit and reversible.
 
-These paradigms operationalize Layer 1Õs declarative, composable, and predictable mindsetÑturning philosophy into system behavior.
+These paradigms operationalize Layer 1‚Äôs declarative, composable, and predictable mindset‚Äîturning philosophy into system behavior.

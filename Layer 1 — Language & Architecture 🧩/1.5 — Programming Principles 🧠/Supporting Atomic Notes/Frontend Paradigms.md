@@ -1,25 +1,24 @@
 Frontend Paradigms
 
-
 1. Declarative Over Imperative
 
 Describe intent, not procedure. Code should express what outcome you want, not every step to achieve it.
 
-?
+‚úÖ
 DO:
-¥ Use JSX, configuration, and data mapping to declare behavior.
-¥ Model UI as a function of state.
-¥ Favor descriptive function and variable names over procedural comments.
-¥ Let frameworks handle orchestration through declarative APIs.
+‚Ä¢ Use JSX, configuration, and data mapping to declare behavior.
+‚Ä¢ Model UI as a function of state.
+‚Ä¢ Favor descriptive function and variable names over procedural comments.
+‚Ä¢ Let frameworks handle orchestration through declarative APIs.
 
-?
-DONÕT:
-¥ Manually mutate the DOM or global state.
-¥ Orchestrate rendering through nested imperative logic.
-¥ Use side effects to control UI flow.
-¥ Rely on comments to explain complex order of operations.
+‚ùå
+DON‚ÄôT:
+‚Ä¢ Manually mutate the DOM or global state.
+‚Ä¢ Orchestrate rendering through nested imperative logic.
+‚Ä¢ Use side effects to control UI flow.
+‚Ä¢ Rely on comments to explain complex order of operations.
 
-?
+üí°
 Example:
 Imperative (bad):
 function TodoList() {
@@ -55,23 +54,23 @@ Why it matters: Declarative systems scale because they minimize hidden state and
 
 2. Separation of Concerns (Contextualized)
 
-Each concern Ñ UI, data, logic, and side effects Ñ lives in its rightful layer. This is SoC applied specifically to frontend systems.
+Each concern ‚Äî UI, data, logic, and side effects ‚Äî lives in its rightful layer. This is SoC applied specifically to frontend systems.
 
-?
+‚úÖ
 DO:
-¥ Separate rendering, business rules, and effects (fetching, logging).
-¥ Keep data access out of components.
-¥ Define clear module boundaries aligned with layers.
-¥ Write pure functions wherever possible.
+‚Ä¢ Separate rendering, business rules, and effects (fetching, logging).
+‚Ä¢ Keep data access out of components.
+‚Ä¢ Define clear module boundaries aligned with layers.
+‚Ä¢ Write pure functions wherever possible.
 
-?
-DONÕT:
-¥ Mix network calls with component rendering.
-¥ Allow cross-layer imports (e.g., API code in UI files).
-¥ Combine presentation and domain logic.
-¥ Blur boundaries for short-term convenience.
+‚ùå
+DON‚ÄôT:
+‚Ä¢ Mix network calls with component rendering.
+‚Ä¢ Allow cross-layer imports (e.g., API code in UI files).
+‚Ä¢ Combine presentation and domain logic.
+‚Ä¢ Blur boundaries for short-term convenience.
 
-?
+üí°
 Example:
 Bad:
 function ProductCard() {
@@ -95,21 +94,21 @@ Why it matters: Separation at the system level prevents coupling and clarifies o
 
 Assemble behavior from smaller, focused units rather than rigid hierarchies.
 
-?
+‚úÖ
 DO:
-¥ Compose features from modular hooks and utilities.
-¥ Use higher-order functions or components for reuse.
-¥ Pass dependencies explicitly through composition.
-¥ Build systems that scale horizontally, not vertically.
+‚Ä¢ Compose features from modular hooks and utilities.
+‚Ä¢ Use higher-order functions or components for reuse.
+‚Ä¢ Pass dependencies explicitly through composition.
+‚Ä¢ Build systems that scale horizontally, not vertically.
 
-?
-DONÕT:
-¥ Depend on deep class hierarchies.
-¥ Share behavior through implicit inheritance.
-¥ Hide complexity in shared base classes.
-¥ Assume a single ÒgodÓ component or utility.
+‚ùå
+DON‚ÄôT:
+‚Ä¢ Depend on deep class hierarchies.
+‚Ä¢ Share behavior through implicit inheritance.
+‚Ä¢ Hide complexity in shared base classes.
+‚Ä¢ Assume a single ‚Äúgod‚Äù component or utility.
 
-?
+üí°
 Example:
 Inheritance (bad):
 class BaseModal {
@@ -149,21 +148,21 @@ Why it matters: Composition in React replaces rigid hierarchies with reusable ho
 
 Define clear boundaries for every interface and API. The system should fail loudly when a contract is broken.
 
-?
+‚úÖ
 DO:
-¥ Use TypeScript interfaces and generics to enforce shape and intent.
-¥ Validate runtime data with schemas.
-¥ Version API contracts and document expectations.
-¥ Treat types as executable documentation.
+‚Ä¢ Use TypeScript interfaces and generics to enforce shape and intent.
+‚Ä¢ Validate runtime data with schemas.
+‚Ä¢ Version API contracts and document expectations.
+‚Ä¢ Treat types as executable documentation.
 
-?
-DONÕT:
-¥ Rely on ÒanyÓ or implicit casting.
-¥ Assume third-party data shape.
-¥ Bypass compile-time safety for speed.
-¥ Leave API assumptions undocumented.
+‚ùå
+DON‚ÄôT:
+‚Ä¢ Rely on ‚Äúany‚Äù or implicit casting.
+‚Ä¢ Assume third-party data shape.
+‚Ä¢ Bypass compile-time safety for speed.
+‚Ä¢ Leave API assumptions undocumented.
 
-?
+üí°
 Example:
 Bad:
 function getUser(user) {
@@ -183,21 +182,21 @@ Why it matters: Explicit contracts protect system integrity and reduce downstrea
 
 Given the same input, the system should always produce the same result. Predictability is the antidote to chaos.
 
-?
+‚úÖ
 DO:
-¥ Keep state transitions pure and testable.
-¥ Derive all UI from state.
-¥ Isolate non-deterministic behavior (time, randomness) behind testable interfaces.
-¥ Ensure side effects are traceable and idempotent.
+‚Ä¢ Keep state transitions pure and testable.
+‚Ä¢ Derive all UI from state.
+‚Ä¢ Isolate non-deterministic behavior (time, randomness) behind testable interfaces.
+‚Ä¢ Ensure side effects are traceable and idempotent.
 
-?
-DONÕT:
-¥ Introduce hidden mutations.
-¥ Depend on external timing or ordering.
-¥ Store overlapping or conflicting sources of truth.
-¥ Hide side effects in untracked callbacks.
+‚ùå
+DON‚ÄôT:
+‚Ä¢ Introduce hidden mutations.
+‚Ä¢ Depend on external timing or ordering.
+‚Ä¢ Store overlapping or conflicting sources of truth.
+‚Ä¢ Hide side effects in untracked callbacks.
 
-?
+üí°
 Example:
 Bad:
 let counter = 0;
@@ -206,7 +205,7 @@ function increment() { counter += Math.random() * 2; }
 Good:
 function increment(counter, step = 1) { return counter + step; }
 
-Why it matters: Predictable systems are maintainable, testable, and debuggable Ñ they build confidence across the team.
+Why it matters: Predictable systems are maintainable, testable, and debuggable ‚Äî they build confidence across the team.
 ---
 
 Paradigms & Principles Summary

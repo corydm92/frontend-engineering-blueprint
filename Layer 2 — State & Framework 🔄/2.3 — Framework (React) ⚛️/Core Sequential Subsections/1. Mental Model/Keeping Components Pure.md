@@ -2,9 +2,9 @@ Keeping Components Pure
 
 1. Mental Model
 
-A pure component behaves like a pure function: same inputs ? same output, no side effects.
+A pure component behaves like a pure function: same inputs â†’ same output, no side effects.
 React relies on this purity to reason about rendering, batching, and optimization.
-When a componentÍs output depends only on its props, state, and context„and never mutates them„it becomes predictable and efficient.
+When a componentâ€™s output depends only on its props, state, and contextâ€”and never mutates themâ€”it becomes predictable and efficient.
 
 An impure component, on the other hand, reads or writes external data during render or mutates input objects, making behavior unpredictable across renders.
 
@@ -12,12 +12,12 @@ An impure component, on the other hand, reads or writes external data during ren
 
 2. Purity in Rendering
 
-ReactÍs rendering phase must be free of side effects.
+Reactâ€™s rendering phase must be free of side effects.
 During render:
 - React may call a component multiple times.
 - It may interrupt or discard renders for performance or concurrent updates.
 
-If a component modifies external variables or performs side effects during render, ReactÍs reconciliation can break.
+If a component modifies external variables or performs side effects during render, Reactâ€™s reconciliation can break.
 
 Pure render:
 - Reads inputs (props/state/context) only.
@@ -34,9 +34,7 @@ Impure render:
 3. Example: Impure Component Mutating Props
 
 function Greeting({ user }) {
-user.name = user.name.toUpperCase(); //
-?
-Mutation during render
+user.name = user.name.toUpperCase(); // âŒ Mutation during render
 return <h1>Hello, {user.name}</h1>
 }
 
@@ -44,13 +42,11 @@ Step-by-Step Timeline:
 1. Parent passes user = { name: "Cory" }.
 2. Greeting mutates it to { name: "CORY" }.
 3. Parent re-renders later, expecting user.name === "Cory".
-4. ReactÍs render output now diverges from expected state.
+4. Reactâ€™s render output now diverges from expected state.
 
 Fix:
 function Greeting({ user }) {
-const upperName = user.name.toUpperCase(); //
-?
-No mutation
+const upperName = user.name.toUpperCase(); // âœ… No mutation
 return <h1>Hello, {upperName}</h1>
 }
 
@@ -60,14 +56,14 @@ return <h1>Hello, {upperName}</h1>
 
 Side effects (network calls, DOM changes, timers, logs) must not happen during render.
 
-?
+âŒ
 Wrong:
 function Dashboard() {
 fetch('/api/data'); // runs on every render
 return <div>Loading...</div>
 }
 
-?
+âœ…
 Correct:
 function Dashboard() {
 useEffect(() => {
@@ -83,16 +79,14 @@ React may render components multiple times before committing. Running effects in
 
 5. Event Handlers Are Safe for Mutations
 
-ReactÍs render phase is pure, but event handlers are safe for mutations„they only run after React commits updates.
+Reactâ€™s render phase is pure, but event handlers are safe for mutationsâ€”they only run after React commits updates.
 
 Example:
 function Counter() {
 const [count, setCount] = useState(0);
 
 function handleClick() {
-setCount(count + 1); //
-?
-Safe, runs after commit
+setCount(count + 1); // âœ… Safe, runs after commit
 }
 
 return <button onClick={handleClick}>{count}</button>
@@ -126,10 +120,8 @@ function TodoList() {
 const [todos, setTodos] = useState([{ id: 1, text: "Learn React" }]);
 
 function addTodo() {
-todos.push({ id: 2, text: "Stay pure" }); //
-?
-Mutates state directly
-setTodos(todos); // Same reference ? React skips render
+todos.push({ id: 2, text: "Stay pure" }); // âŒ Mutates state directly
+setTodos(todos); // Same reference â†’ React skips render
 }
 
 return (
@@ -145,9 +137,7 @@ function TodoList() {
 const [todos, setTodos] = useState([{ id: 1, text: "Learn React" }]);
 
 function addTodo() {
-setTodos([...todos, { id: 2, text: "Stay pure" }]); //
-?
-Creates new reference
+setTodos([...todos, { id: 2, text: "Stay pure" }]); // âœ… Creates new reference
 }
 
 return (
@@ -160,7 +150,7 @@ return (
 
 ------------------------------------------------------------
 
-9. Mental Trick „ Think Like a Math Function
+9. Mental Trick â€” Think Like a Math Function
 
 A React component is like f(x):
 - Input: props, state, context.
@@ -176,7 +166,7 @@ If the component is pure, re-rendering is safe, predictable, and free of surpris
 
 - Pure components always return the same output for the same inputs.
 - Never mutate props, state, or context during render.
-- Never trigger side effects in render„use effects or handlers instead.
+- Never trigger side effects in renderâ€”use effects or handlers instead.
 - Impure components can cause inconsistent state, double fetches, or skipped re-renders.
 - Keeping components pure ensures React can safely optimize and schedule rendering.
 
@@ -184,4 +174,4 @@ If the component is pure, re-rendering is safe, predictable, and free of surpris
 
 11. One-liner summary
 
-Pure components make React predictable and fast„impure components break its guarantees.
+Pure components make React predictable and fastâ€”impure components break its guarantees.

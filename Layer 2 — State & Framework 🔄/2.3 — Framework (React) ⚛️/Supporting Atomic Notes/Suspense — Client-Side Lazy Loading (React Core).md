@@ -1,11 +1,8 @@
-Suspense „ Client-Side Lazy Loading (React Core)
-
+Suspense â€” Client-Side Lazy Loading (React Core)
 
 Goal
 
-
 Understand how Suspense works with client-side code splitting, dynamic imports, and lazy-loaded components in a purely client-rendered React application.
-
 
 What Client-Side Suspense Is Used For
 
@@ -18,7 +15,6 @@ This commonly occurs with:
 
 Suspense does not load code.
 It only reacts to missing render dependencies.
-
 
 Basic Client-Side Lazy Loading Example
 
@@ -40,17 +36,15 @@ Execution flow:
 8. React retries render
 9. PostsTab renders successfully
 
-
 Why Code Splitting Suspends
 
-From ReactÍs perspective, code is a render dependency.
+From Reactâ€™s perspective, code is a render dependency.
 
 If a component cannot be executed because its module is missing:
 - render cannot complete
 - suspension occurs
 
 Suspense treats missing code the same as missing data.
-
 
 Combining Code Splitting with Data Fetching
 
@@ -74,7 +68,6 @@ Possible suspension reasons:
 
 React retries render until all required dependencies are available.
 
-
 Client-Side Fallback Rules
 
 Fallback UI is shown when:
@@ -87,7 +80,6 @@ Fallback UI may be skipped when:
 - previous UI is still valid
 - React can delay committing
 
-
 What Client-Side Suspense Is Not
 
 Suspense is not:
@@ -97,7 +89,6 @@ Suspense is not:
 
 It is purely a render coordination mechanism.
 
-
 Key Invariants (Client)
 
 - missing code causes suspension
@@ -105,7 +96,6 @@ Key Invariants (Client)
 - Suspense catches thrown promises
 - fallback UI is a commit decision
 - transitions can suppress fallback display
-
 
 One-Line Mental Model
 

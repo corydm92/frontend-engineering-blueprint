@@ -2,8 +2,8 @@ Clarity / Complexity Quadrant
 
 Every piece of code lives somewhere along two axes:
 
-Clarity Ñ how easy it is to read, reason about, and maintain
-Complexity Ñ how many moving parts or cognitive steps it requires to understand
+Clarity ‚Äî how easy it is to read, reason about, and maintain
+Complexity ‚Äî how many moving parts or cognitive steps it requires to understand
 
 ----------------------------------------
 
@@ -16,7 +16,7 @@ Expert Zone (High Clarity + High Complexity)
 Complex by necessity, but intentionally structured, well-named, and documented.
 
 Trivial Zone (Low Clarity + Low Complexity)
-Unstructured or improvised code that Òjust worksÓ but offers no pattern to follow.
+Unstructured or improvised code that ‚Äújust works‚Äù but offers no pattern to follow.
 
 Danger Zone (Low Clarity + High Complexity)
 Clever, opaque code that fails silently and resists change.
@@ -24,7 +24,7 @@ Clever, opaque code that fails silently and resists change.
 ----------------------------------------
 
 Interpretation:
-Complexity itself isnÕt failure Ñ obscurity is. As complexity rises, clarity must rise with it.
+Complexity itself isn‚Äôt failure ‚Äî obscurity is. As complexity rises, clarity must rise with it.
 Good engineers make hard problems look simple; bad engineers make simple problems look hard.
 
 ----------------------------------------
@@ -38,7 +38,7 @@ Use this quadrant during reviews or refactors to ask:
 ----------------------------------------
 
 Goal:
-Keep systems in the top half Ñ high clarity at any complexity level.
+Keep systems in the top half ‚Äî high clarity at any complexity level.
 When complexity is unavoidable, invest equal effort in naming, docs, and tests to raise clarity accordingly.
 
 ----------------------------------------

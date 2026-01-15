@@ -1,4 +1,4 @@
-CSS Modules Patterns ?
+CSS Modules Patterns ðŸŽ¯
 
 Purpose
 CSS Modules provide locally scoped, predictable styling for components.
@@ -19,7 +19,7 @@ Button.tsx
 import styles from "./Button.module.css"
 <button className={styles.primary}>Save</button>
 
-DonÍt (almost good):
+Donâ€™t (almost good):
 import "./Button.module.css"
 <button className="primary">Save</button>
 
@@ -34,7 +34,7 @@ Do:
 .cardHeader {}
 .cardFooterActive {}
 
-DonÍt (almost good):
+Donâ€™t (almost good):
 .card {}
 .headerBlue {}
 .activeFooter {}
@@ -52,7 +52,7 @@ Do:
 }
 .button { background-color: var(--color-brand); margin: var(--space-md); }
 
-DonÍt (almost good):
+Donâ€™t (almost good):
 .button { background-color: #0044cc; margin: 16px; }
 
 Avoid:
@@ -65,7 +65,7 @@ Do:
 @value buttonBase from "../utils.module.css"
 .buttonPrimary { composes: buttonBase; background: var(--color-brand); }
 
-DonÍt (almost good):
+Donâ€™t (almost good):
 .buttonPrimary { padding: 12px 24px; border-radius: 6px; }
 
 Avoid:
@@ -77,7 +77,7 @@ Re-implementing patterns that already exist as utilities.
 Do:
 .input:focus { border-color: var(--color-brand); }
 
-DonÍt (almost good):
+Donâ€™t (almost good):
 .form .field .wrapper .input:focus { border-color: var(--color-brand); }
 
 Avoid:
@@ -86,7 +86,7 @@ Using deep selectors to compensate for weak component structure.
 ---
 
 When to Use CSS Modules (with examples)
-- Component-specific layouts or overrides that Tailwind canÍt express clearly.
+- Component-specific layouts or overrides that Tailwind canâ€™t express clearly.
 - Styling complex interactive states or custom animations.
 - When style isolation is critical (widgets, embeds, or microfrontends).
 - To co-locate visual logic with component code.
@@ -103,5 +103,5 @@ When Not to Use CSS Modules (with examples)
 
 Key Principle
 CSS Modules enforce **style ownership and isolation**.
-Each component owns its visual identity „ clean, scoped, and token-aligned.
+Each component owns its visual identity â€” clean, scoped, and token-aligned.
 The goal is **clarity over cleverness**, not cascading inheritance.

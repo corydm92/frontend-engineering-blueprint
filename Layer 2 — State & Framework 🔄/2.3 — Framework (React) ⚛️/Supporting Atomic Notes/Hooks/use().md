@@ -3,12 +3,10 @@ Ex: client or server component reading async data
 
 Read a promise or context during render and let React suspend until the value is ready, without effects or local loading state
 
-
 1. Goal
 
-Understand what use() does, where it fits in ReactÕs rendering model, and the exact rules that make it safe and predictable.
+Understand what use() does, where it fits in React‚Äôs rendering model, and the exact rules that make it safe and predictable.
 This note builds from basic mechanics to advanced usage, without skipping steps or assuming framework magic.
-
 
 2. What use() Is
 
@@ -28,10 +26,9 @@ use() does not:
 - retry fetches
 - replace data libraries
 
+3. Where use() Fits in React‚Äôs Render Model
 
-3. Where use() Fits in ReactÕs Render Model
-
-React rendering is synchronous from the componentÕs point of view.
+React rendering is synchronous from the component‚Äôs point of view.
 
 During render, a component must either:
 - produce a value synchronously, or
@@ -45,19 +42,17 @@ Instead of waiting, polling, or yielding:
 
 This is how async data fits into synchronous render semantics.
 
-
 4. What use() Actually Does (Exact Semantics)
 
 Given a value x, use(x):
 
-- If x is a fulfilled promise ? returns the resolved value
-- If x is a pending promise ? throws the promise (triggers Suspense)
-- If x is a rejected promise ? throws the error (triggers error handling)
-- If x is a supported non-promise resource (e.g. Context) ? returns its value
-- If x is not a supported type ? throws immediately
+- If x is a fulfilled promise ‚Üí returns the resolved value
+- If x is a pending promise ‚Üí throws the promise (triggers Suspense)
+- If x is a rejected promise ‚Üí throws the error (triggers error handling)
+- If x is a supported non-promise resource (e.g. Context) ‚Üí returns its value
+- If x is not a supported type ‚Üí throws immediately
 
-From the componentÕs perspective, use() is purely synchronous.
-
+From the component‚Äôs perspective, use() is purely synchronous.
 
 5. use() and Suspense (Foundational Requirement)
 
@@ -71,7 +66,6 @@ Without a Suspense boundary:
 - the thrown promise becomes a runtime error
 
 This makes Suspense a non-optional part of using use() with promises.
-
 
 6. Basic Example: Reading Async Data with a Cached Promise
 
@@ -97,7 +91,6 @@ Key mechanics:
 - React retries rendering when the promise resolves
 - no effects or lifecycle hooks are involved
 
-
 7. Critical Rule: Stable Identity
 
 Promises passed to use() must be referentially stable across renders.
@@ -116,7 +109,6 @@ Why this fails:
 Stable identity is not an optimization.
 It is required for correctness.
 
-
 8. Error Handling with use()
 
 If the promise passed to use() rejects:
@@ -131,7 +123,6 @@ This means:
 Suspense handles loading.
 Error boundaries handle failure.
 use() integrates with both by throwing.
-
 
 9. use() with Context
 
@@ -153,7 +144,6 @@ Behavior:
 
 This exists to unify resource reading under one primitive.
 
-
 10. use() Does Not Cache (And Why That Matters)
 
 use() does not cache anything.
@@ -162,13 +152,12 @@ If a value is cached:
 - that caching must happen outside React
 - typically in a module, framework layer, or data library
 
-ReactÕs responsibility:
+React‚Äôs responsibility:
 - observe the resource
 - retry render when it resolves
 - keep rendering deterministic
 
 Caching is intentionally not part of use().
-
 
 11. use() Is Not Async / Await
 
@@ -187,7 +176,6 @@ use():
 - or aborts render entirely
 
 Render either completes synchronously or does not complete at all.
-
 
 12. Client vs Server Usage (Important Constraint)
 
@@ -209,7 +197,6 @@ On the client:
 use() does not magically make client fetching safe.
 The same rules apply.
 
-
 13. What use() Is Not
 
 use() is not:
@@ -217,13 +204,12 @@ use() is not:
 - a data-fetching library
 - a state management solution
 - an async control-flow mechanism
-- a way to ÒpauseÓ part of a render
+- a way to ‚Äúpause‚Äù part of a render
 
 It does not:
 - trigger side effects
 - coordinate retries
 - manage request lifetimes
-
 
 14. When to Use use()
 
@@ -241,7 +227,6 @@ use() is inappropriate when:
 - promise identity cannot be stabilized
 - loading should not block rendering
 
-
 15. How use() Fits with Other Primitives
 
 use():
@@ -258,7 +243,6 @@ Suspense:
 
 Each primitive handles one axis.
 use() is the read-time primitive.
-
 
 16. One-Sentence Final Model
 

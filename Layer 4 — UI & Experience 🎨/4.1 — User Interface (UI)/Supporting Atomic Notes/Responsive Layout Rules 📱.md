@@ -1,4 +1,4 @@
-Responsive Layout Rules ?
+Responsive Layout Rules üì±
 
 Purpose
 Responsive design ensures interfaces scale predictably across devices, viewports, and densities.
@@ -9,7 +9,7 @@ Avoids
 - Hardcoding pixel values outside breakpoint scale.
 - Hiding elements between breakpoints without accessible fallbacks.
 - Using arbitrary widths or media queries scattered across files.
-- Forcing overflow scrolls to ÒfixÓ layout issues.
+- Forcing overflow scrolls to ‚Äúfix‚Äù layout issues.
 
 ---
 
@@ -20,8 +20,8 @@ theme: { screens: {
 sm: "640px", md: "768px", lg: "1024px", xl: "1280px", "2xl": "1536px"
 }}
 
-DonÕt (almost good):
-@media (max-width: 700px) { É }
+Don‚Äôt (almost good):
+@media (max-width: 700px) { ‚Ä¶ }
 
 Avoid:
 Ad-hoc breakpoints that drift from design system expectations.
@@ -32,7 +32,7 @@ Ad-hoc breakpoints that drift from design system expectations.
 Do:
 <div className="p-4 sm:p-6 lg:p-8">
 
-DonÕt (almost good):
+Don‚Äôt (almost good):
 <div className="lg:p-8 sm:p-6 p-4">
 
 Avoid:
@@ -44,8 +44,8 @@ Random ordering that breaks scanning consistency and predictability.
 Do:
 <div className="grid grid-cols-3 gap-6">
 
-DonÕt (almost good):
-<div className="flex flex-wrap"><div className="mr-8 mb-8">É</div></div>
+Don‚Äôt (almost good):
+<div className="flex flex-wrap"><div className="mr-8 mb-8">‚Ä¶</div></div>
 
 Avoid:
 Spacing layout elements manually with margins instead of structural utilities.
@@ -56,7 +56,7 @@ Spacing layout elements manually with margins instead of structural utilities.
 Do:
 <h1 className="text-2xl sm:text-3xl md:text-4xl">Title</h1>
 
-DonÕt (almost good):
+Don‚Äôt (almost good):
 <h1 className="text-[32px] sm:text-[40px] md:text-[48px]">
 
 Avoid:
@@ -66,17 +66,17 @@ Hardcoded pixel fonts that ignore token scaling rules.
 
 5) Test responsiveness across standard device widths.
 Do:
-¥ Mobile: 375px
-¥ Tablet: 768px
-¥ Laptop: 1024px
-¥ Desktop: 1440px
-¥ Large Display: 1920px
+‚Ä¢ Mobile: 375px
+‚Ä¢ Tablet: 768px
+‚Ä¢ Laptop: 1024px
+‚Ä¢ Desktop: 1440px
+‚Ä¢ Large Display: 1920px
 
-DonÕt (almost good):
+Don‚Äôt (almost good):
 Test only in the dev window or one viewport.
 
 Avoid:
-Shipping untested breakpoints Ñ every layout should degrade gracefully.
+Shipping untested breakpoints ‚Äî every layout should degrade gracefully.
 
 ---
 
@@ -98,5 +98,5 @@ When Not to Apply Responsive Rules (with examples)
 
 Key Principle
 Responsive design preserves **structure and usability** across every display context.
-Layouts flex Ñ semantics and hierarchy do not.
-Build mobile-first, test wide, and respect the systemÕs rhythm.
+Layouts flex ‚Äî semantics and hierarchy do not.
+Build mobile-first, test wide, and respect the system‚Äôs rhythm.

@@ -1,6 +1,5 @@
 Managing Packages Across Architectures
 
-
 1. Mental Model
 
 A shared registry synchronizes reusable assets (types, utilities, SDKs) across systems.
@@ -9,25 +8,25 @@ Without governance, shared code becomes duplication.
 
 ------------------------------------------------------------
 
-2. Same Language � Monorepo (Frontend + Node API)
+2. Same Language — Monorepo (Frontend + Node API)
 
 Structure:
 repo-root/
-?? apps/
-? ?? web/ ? React app
-?
-??
-api/ ? Node.js / Express service
-?? packages/
-? ?? ui/ ? shared component library
-? ?? utils/ ? shared logic and helpers
-? ?? types/ ? shared TypeScript contracts (frontend + API)
-?
-??
-config/ ? shared runtime/env config loader
-?? pnpm-workspace.yaml
+├─ apps/
+│ ├─ web/ ← React app
+│
+└─
+api/ ← Node.js / Express service
+├─ packages/
+│ ├─ ui/ ← shared component library
+│ ├─ utils/ ← shared logic and helpers
+│ ├─ types/ ← shared TypeScript contracts (frontend + API)
+│
+└─
+config/ ← shared runtime/env config loader
+├─ pnpm-workspace.yaml
 
-??
+└─
 tsconfig.base.json
 
 Mechanics:
@@ -37,7 +36,7 @@ stem shares one workspace and one lockfile.
 - Both frontend and API consume shared code directly:
 import { validateUser } from "@org/utils"
 import { UserDTO } from "@org/types"
-- Each package defines its own name and version but doesn�t need to publish to a registry.
+- Each package defines its own name and version but doesn’t need to publish to a registry.
 - CI detects affected graphs to rebuild only impacted apps.
 - Optionally, publish selected packages to an internal registry if other repos will consume them.
 
@@ -52,16 +51,16 @@ Reference:
 
 ------------------------------------------------------------
 
-3. Same Language � Split Repo
+3. Same Language — Split Repo
 
 Structure:
-shared-libs/ ? publishes shared packages
-frontend-app/ ? consumes versioned packages
-backend-services/ ? optional consumer
+shared-libs/ ← publishes shared packages
+frontend-app/ ← consumes versioned packages
+backend-services/ ← optional consumer
 
 Mechanics:
 - Shared code lives in a dedicated repo, published to an internal registry.
-- CI automates test ? build ? semantic version ? publish.
+- CI automates test → build → semantic version → publish.
 - Downstream repos install fixed versions (e.g., "@org/shared-libs@1.4.2").
 - Renovate or Dependabot update dependencies automatically.
 
@@ -75,15 +74,15 @@ Reference:
 
 ------------------------------------------------------------
 
-4. Different Language � Monorepo
+4. Different Language — Monorepo
 
 Structure:
 repo-root/
-?? frontend/ ? React + TypeScript
-?? backend/ ? Java, Go, or Python service
-?? contracts/ ? OpenAPI / GraphQL schemas
+├─ frontend/ ← React + TypeScript
+├─ backend/ ← Java, Go, or Python service
+├─ contracts/ ← OpenAPI / GraphQL schemas
 
-??
+└─
 ci.yml
 
 Mechanics:
@@ -102,18 +101,18 @@ Reference:
 
 ------------------------------------------------------------
 
-5. Different Language � Split Repo
+5. Different Language — Split Repo
 
 Structure:
-backend-service/ ? owns OpenAPI spec
-frontend-app/ ? consumes generated SDK
-internal-registry/ ? hosts published SDK
+backend-service/ ← owns OpenAPI spec
+frontend-app/ ← consumes generated SDK
+internal-registry/ ← hosts published SDK
 
 Mechanics:
 - Backend CI generates TypeScript SDK and publishes to internal npm registry.
 - Frontend depends on versioned SDK (e.g., "@org/contracts@1.2.0").
 - Frontend CI validates schema drift automatically.
-- Changes trigger coordinated pipeline (backend ? registry ? frontend).
+- Changes trigger coordinated pipeline (backend → registry → frontend).
 
 Why it works:
 - Cross-language boundaries with explicit ownership.
@@ -133,5 +132,5 @@ Reference:
 - CI + semantic versioning keep shared systems stable and observable.
 
 One-liner summary:
-A shared registry turns internal code into a governed ecosystem �
+A shared registry turns internal code into a governed ecosystem —
 local for iteration, published for scale, automated for safety.

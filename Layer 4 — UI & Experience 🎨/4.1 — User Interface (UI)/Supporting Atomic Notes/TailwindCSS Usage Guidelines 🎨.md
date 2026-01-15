@@ -1,8 +1,8 @@
-TailwindCSS Usage Guidelines ?
+TailwindCSS Usage Guidelines ðŸŽ¨
 
 Purpose
 Tailwind enables utility-first styling that prioritizes speed, consistency, and design token alignment.
-Utilities express **intent**, not decoration. The systemÍs power comes from disciplined composition, not improvisation.
+Utilities express **intent**, not decoration. The systemâ€™s power comes from disciplined composition, not improvisation.
 
 Avoids
 - Stacking arbitrary utilities without visual system alignment.
@@ -20,11 +20,11 @@ Do:
 <span>User Profile</span>
 </div>
 
-DonÍt (almost good):
+Donâ€™t (almost good):
 <div className="flex align-center text-12px gray-text">
 
 Avoid:
-Inventing classes that donÍt align to tokens or Tailwind conventions.
+Inventing classes that donâ€™t align to tokens or Tailwind conventions.
 
 ---
 
@@ -38,7 +38,7 @@ spacing: { 18: "4.5rem" }
 }
 }
 
-DonÍt (almost good):
+Donâ€™t (almost good):
 // tailwind.config.js
 theme: { colors: { blueish: "#0055ff" } }
 
@@ -51,7 +51,7 @@ Creating arbitrary design values outside the token system.
 Do:
 <div className="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm">
 
-DonÍt (almost good):
+Donâ€™t (almost good):
 <div className="bg-white justify-between p-4 flex rounded-lg shadow-sm items-center">
 
 Avoid:
@@ -65,7 +65,7 @@ Do:
 .btn-primary { @apply px-4 py-2 bg-brand text-white rounded-md; }
 }
 
-DonÍt (almost good):
+Donâ€™t (almost good):
 @apply text-sm text-white p-3 bg-blue-500 rounded-sm border-0 cursor-pointer;
 
 Avoid:
@@ -77,7 +77,7 @@ Copy-pasting full class strings across components without abstraction.
 Do:
 <button className={`${styles.button} flex items-center gap-2`}>Save</button>
 
-DonÍt (almost good):
+Donâ€™t (almost good):
 <button className="button flex gap-2 items-center">Save</button>
 
 Avoid:
@@ -94,13 +94,13 @@ When to Use Tailwind (with examples)
 
 When Not to Use Tailwind (with examples)
 - Complex, component-specific animations or dynamic states.
-- Longform content or prose styling „ use a typography plugin.
-- Deep, scoped overrides „ use CSS Modules instead.
-- Global resets or HTML element defaults „ use base layer.
-- Workarounds for inconsistent tokens „ fix the design scale instead.
+- Longform content or prose styling â€” use a typography plugin.
+- Deep, scoped overrides â€” use CSS Modules instead.
+- Global resets or HTML element defaults â€” use base layer.
+- Workarounds for inconsistent tokens â€” fix the design scale instead.
 
 ---
 
 Key Principle
 Tailwind is a **system amplifier**, not a shortcut.
-Utilities exist to enforce design token fidelity, composition speed, and visual consistency „ never as creative freedom.
+Utilities exist to enforce design token fidelity, composition speed, and visual consistency â€” never as creative freedom.

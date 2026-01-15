@@ -138,7 +138,7 @@ Purpose:
 
 routeTree.gen.ts is generated code, not handwritten.
 
-It is produced by TanStack RouterÍs file-based routing compiler, which:
+It is produced by TanStack Routerâ€™s file-based routing compiler, which:
 - Scans the src/router directory
 - Reads __root.tsx, *.route.tsx, *.lazy.tsx
 - Extracts paths, loaders, components, and parent/child relationships
@@ -161,7 +161,7 @@ At runtime:
 Key properties:
 - Routes are evaluated before render
 - No route exists unless it passes validation
-- The UI never asks if itÍs allowed „ the router already decided
+- The UI never asks if itâ€™s allowed â€” the router already decided
 
 ------------------------------------------------------------
 
