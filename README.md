@@ -1,8 +1,8 @@
 # Frontend Engineering Blueprint
 
-This repository contains my ongoing work for my Frontend Engineering Blueprint — a seven layered architectural model for front end applications, where each layer builds off the last making correctness and stability the default throughout the SDLC. 
+This repo documents my Frontend Engineering Blueprint: a 7-layer model for building and operating frontend applications, where each layer defines enforceable boundaries that make correctness and stability the default across the SDLC.
 
-The patterns in this blueprint come from real problems I’ve had to solve in production React systems: migrations, performance regressions, unclear ownership boundaries, and scaling team workflows. Examples are generalized to avoid proprietary details.
+The patterns in this blueprint come from recurring problems I’ve had to solve in production React systems: migrations, performance regressions, unclear ownership boundaries, and scaling team workflows. Examples are generalized to avoid proprietary details.
 
 ## What this represents
 
@@ -19,10 +19,10 @@ It’s the kind of framework I build when I’m responsible for long-lived syste
 Start with this README, then pick an edition based on what you want:
 
 - **Public Edition** (high-level overview)
-- **Team Edition** (more technical, meant for real team adoption)
+- **Team Edition** (more technical, designed for team rollout)
+- **Master Edition** (full reference: contracts, patterns, edge cases)
 
 After that, browse the **Layer** folders to see how the system is organized.  
-If you want the full detail, go straight to the **Master Edition**.
 
 ---
 
@@ -76,18 +76,7 @@ Together, these show how the same system can scale up or down depending on audie
 
 ---
 
-## How I work
-
-This project reflects how I operate as a senior frontend engineer:
-
-- I design systems before features
-- I prioritize predictability over cleverness
-- I treat documentation as an engineering tool, not an afterthought
-- I care about how teams scale, not just how code compiles
-
----
-
-## Status
+## Blueprint Status
 
 Active and evolving.  
 This Blueprint is continuously refined as I validate ideas against real-world frontend problems.
