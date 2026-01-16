@@ -2,7 +2,7 @@
 
 This repository contains my ongoing work for my Frontend Engineering Blueprint — a seven layered architectural model for front end applications, where each layer builds off the last making correctness and stability the default throughout the SDLC. 
 
-The patterns in this blueprint are derived from repeated frontend failures and successes in large React codebases: migrations, performance regressions, unclear ownership, and scaling team workflows. Examples are generalized to avoid proprietary detail.
+The patterns in this blueprint come from real problems I’ve had to solve in production React systems: migrations, performance regressions, unclear ownership boundaries, and scaling team workflows. Examples are generalized to avoid proprietary details.
 
 ## What this represents
 
