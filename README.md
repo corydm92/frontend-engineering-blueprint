@@ -1,6 +1,6 @@
 # Frontend Engineering Blueprint
 
-This repository contains my ongoing work on the Frontend Engineering Blueprint — a structured, layered system for designing, building, and maintaining modern frontend applications with predictability and discipline.
+This repository contains my ongoing work for my Frontend Engineering Blueprint — a seven layered architectural model for front end applications, where each layer builds off the last making correctness and stability the default throughout the SDLC. 
 
 This is not a tutorial repo or a collection of blog posts.  
 It’s a living systems document that reflects how I think about frontend architecture at scale.
@@ -85,9 +85,6 @@ This project reflects how I operate as a senior frontend engineer:
 - I prioritize predictability over cleverness
 - I treat documentation as an engineering tool, not an afterthought
 - I care about how teams scale, not just how code compiles
-
-If you’re looking for flashy demos, this repo won’t help.  
-If you’re looking for evidence of architectural thinking, long-term ownership, and disciplined frontend systems — this is the work.
 
 ---
 
