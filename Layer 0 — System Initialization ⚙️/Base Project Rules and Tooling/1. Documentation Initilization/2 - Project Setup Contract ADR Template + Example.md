@@ -16,7 +16,7 @@ Formal decisions and change control come later (Steps 3–4).
 ## Template
 
 <details>
-<summary><strong>Project Stack Summary (click to expand)</strong></summary>
+<summary><strong>Project Stack Summary — Template (click to expand)</strong></summary>
 
 ```md
 # Project Stack Summary
