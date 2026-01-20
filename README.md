@@ -1,8 +1,13 @@
 # Frontend Engineering Blueprint
 
+The patterns in this blueprint come from recurring problems I’ve had to solve in production React systems: migrations, performance regressions, unclear ownership boundaries, and scaling team workflows. Examples are generalized to avoid proprietary details.
+
 This repo documents my Frontend Engineering Blueprint: a 7-layer model for building and operating frontend applications, where each layer defines enforceable boundaries that make correctness and stability the default across the SDLC.
 
-The patterns in this blueprint come from recurring problems I’ve had to solve in production React systems: migrations, performance regressions, unclear ownership boundaries, and scaling team workflows. Examples are generalized to avoid proprietary details.
+## Licensing
+
+This project is licensed under Creative Commons Attribution 4.0 (CC BY 4.0).
+You are free to use, adapt, and share this work — including commercially — provided proper attribution is given.
 
 ## What this represents
 
