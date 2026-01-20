@@ -11,9 +11,6 @@ Create a predictable `/docs` structure and framing `README.md` files so contribu
 → /docs/process — workflows + templates used to run the project  
 → /docs/references — diagrams and external notes  
 
-Blueprint Layers  
-/docs/blueprint/layers/{00..06-*}
-
 ---
 
 ## Script Location
