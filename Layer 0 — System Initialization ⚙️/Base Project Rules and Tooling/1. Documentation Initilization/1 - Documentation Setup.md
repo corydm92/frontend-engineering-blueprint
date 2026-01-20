@@ -1,4 +1,4 @@
-# 1 — Documentation Framing + Directory READMEs
+# 1 — Documentation Setup + Directory READMEs
 
 ## Goal
 Create a predictable `/docs` structure and framing `README.md` files so contributors know where information lives before we write product code.
