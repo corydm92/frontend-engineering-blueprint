@@ -20,8 +20,7 @@ The script is already written. Please copy it to the base directory of your proj
 
 ### Execute the script in your project
 
-`chmod +x init-docs.sh`
-`./init-docs.sh`
+`chmod +x init-docs.sh && ./init-docs.sh`
 
 ## Verification
 - `docs/` exists with: `_project`, `adr`, `blueprint`, `process`, `references`
