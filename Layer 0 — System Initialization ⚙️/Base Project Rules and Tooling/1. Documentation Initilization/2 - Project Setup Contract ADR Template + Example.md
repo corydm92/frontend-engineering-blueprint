@@ -13,13 +13,6 @@ It is explanatory, current-state documentation meant for onboarding and shared u
 
 Formal decisions and change control come later (Steps 3–4).
 
-## Output Artifact
-
-File:  
-`/docs/_project/stack-summary.md`
-
-This file represents the current truth of the project’s stack in plain language.
-
 ## Template
 
 <details>
