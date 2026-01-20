@@ -2,7 +2,7 @@
 
 The patterns in this blueprint come from recurring problems I’ve had to solve in production React systems: migrations, performance regressions, unclear ownership boundaries, and scaling team workflows. Examples are generalized to avoid proprietary details.
 
-This repo documents my Frontend Engineering Blueprint: a 7-layer model for building and operating frontend applications, where each layer defines enforceable boundaries that make correctness and stability the default across the SDLC.
+This repo documents my Frontend Engineering Blueprint: a 7-layer architectural model for building and operating frontend applications, where each layer defines enforceable boundaries that make correctness and stability the default across the SDLC.
 
 ## Licensing
 
