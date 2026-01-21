@@ -1,25 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# ------------------------------------------------------------------------------
-# Interactive mode selector (arrow keys + Enter)
-# ------------------------------------------------------------------------------
-# Options:
-# 1) Organized Layer Structure:
-#    /Base Project Rules and Tooling
-#    /Core Sequential Subsections
-#    /Supporting Atomic Notes
-#
-# 2) Open Layer Structure:
-#    Layer folders only (open/configurable)
-# ------------------------------------------------------------------------------
-
 OPTIONS=(
   "Organized Layer Structure (Base Project Rules and Tooling / Core Sequential Subsections / Supporting Atomic Notes)"
   "Open Layer Structure (open and configurable)"
 )
 
-MODE=""  # "organized" | "open"
+MODE=""
 SELECTED=0
 
 supports_tput() { command -v tput >/dev/null 2>&1; }
@@ -31,14 +18,11 @@ cleanup() { show_cursor; }
 trap cleanup EXIT
 
 draw_menu() {
-  # Move to a safe spot and clear from there down, avoiding top-line clipping
-  tput cup 2 0   # row 2, col 0 (0-indexed); adjust to 1 or 3 if you prefer
-  tput ed        # clear to end of screen
-
+  tput cup 2 0
+  tput ed
   echo "Docs init: choose a layer folder structure"
   echo "Use ↑/↓ and Enter"
   echo
-
   for i in "${!OPTIONS[@]}"; do
     if [[ "$i" -eq "$SELECTED" ]]; then
       printf "  > %s\n" "${OPTIONS[$i]}"
@@ -48,11 +32,9 @@ draw_menu() {
   done
 }
 
-
 read_key() {
   local key
   IFS= read -rsn1 key
-  # Handle escape sequences for arrow keys: ESC [ A/B
   if [[ "$key" == $'\x1b' ]]; then
     IFS= read -rsn2 key
     echo "$key"
@@ -65,17 +47,16 @@ hide_cursor
 while true; do
   draw_menu
   key="$(read_key)"
-
   case "$key" in
-    "[A") # Up
+    "[A")
       ((SELECTED--))
       if (( SELECTED < 0 )); then SELECTED=$((${#OPTIONS[@]} - 1)); fi
       ;;
-    "[B") # Down
+    "[B")
       ((SELECTED++))
       if (( SELECTED >= ${#OPTIONS[@]} )); then SELECTED=0; fi
       ;;
-    "") # Enter
+    "")
       if (( SELECTED == 0 )); then MODE="organized"; else MODE="open"; fi
       break
       ;;
@@ -86,15 +67,22 @@ show_cursor
 echo "Selected: ${OPTIONS[$SELECTED]}"
 echo
 
-# ------------------------------------------------------------------------------
-# Create docs directories (always)
-# ------------------------------------------------------------------------------
 mkdir -p docs/{_project,adr,blueprint,process,references}
-mkdir -p docs/blueprint/{00-system-initialization,01-language-architecture,02-state-framework,03-quality-stability,04-ui-experience,05-build-delivery,06-security-observability}
 
-# ------------------------------------------------------------------------------
-# README stubs (framing only)
-# ------------------------------------------------------------------------------
+LAYER_DIRS=(
+  "00 System Initialization"
+  "01 Language Architecture"
+  "02 State Framework"
+  "03 Quality Stability"
+  "04 UI Experience"
+  "05 Build Delivery"
+  "06 Security Observability"
+)
+
+for layer in "${LAYER_DIRS[@]}"; do
+  mkdir -p "docs/blueprint/${layer}"
+done
+
 cat > docs/README.md <<'EOF'
 # Documentation
 
@@ -161,83 +149,108 @@ Rules:
 - Don’t duplicate canonical documentation here
 EOF
 
-# ------------------------------------------------------------------------------
-# Layer README + optional organized sub-structure
-# ------------------------------------------------------------------------------
 for dir in docs/blueprint/*; do
   [[ -d "$dir" ]] || continue
   layer="$(basename "$dir")"
 
-
   if [[ "$MODE" == "organized" ]]; then
-    # Create organized sub-structure (directories only + README framing only)
-    mkdir -p \
-      "$dir/Base Project Rules and Tooling" \
-      "$dir/Core Sequential Subsections" \
-      "$dir/Supporting Atomic Notes"
-
     cat > "$dir/README.md" <<EOF
 # ${layer}
 
 Layer guide directory.
 
-Structure (organized):
-- Base Project Rules and Tooling — standards and defaults that apply broadly in this layer
-- Core Sequential Subsections — the recommended “do this in order” setup for the layer
-- Supporting Atomic Notes — smaller, focused notes (single concepts, gotchas, examples)
+This layer contains Sections only.
+Each Section contains:
+- Base Project Rules and Tooling (includes 00 Initialization)
+- Core Sequential Subsections
+- Supporting Atomic Notes
+EOF
+  else
+    cat > "$dir/README.md" <<EOF
+# ${layer}
+
+Layer guide directory.
 
 This folder contains:
 - Standards
 - Examples
 - Checklists
 - “How to implement” docs for this layer
+
+Structure: open and configurable (no required subfolders).
+EOF
+  fi
+
+  SECTION_EXAMPLE_DIR="$dir/00 Section Example"
+  mkdir -p "$SECTION_EXAMPLE_DIR"
+
+  if [[ "$MODE" == "organized" ]]; then
+    mkdir -p \
+      "$SECTION_EXAMPLE_DIR/Base Project Rules and Tooling/00 Initialization" \
+      "$SECTION_EXAMPLE_DIR/Core Sequential Subsections" \
+      "$SECTION_EXAMPLE_DIR/Supporting Atomic Notes"
+
+    cat > "$SECTION_EXAMPLE_DIR/README.md" <<'EOF'
+# 00 Section Example
+
+Copy this folder to create a new section in this layer, then rename it.
+
+Structure (organized):
+- Base Project Rules and Tooling
+  - 00 Initialization
+- Core Sequential Subsections
+- Supporting Atomic Notes
 EOF
 
-    cat > "$dir/Base Project Rules and Tooling/README.md" <<EOF
+    cat > "$SECTION_EXAMPLE_DIR/Base Project Rules and Tooling/README.md" <<'EOF'
 # Base Project Rules and Tooling
 
-Broad standards and defaults for this layer.
+Enforced project rules and configuration for this section.
 
-Use this for:
-- conventions
-- tooling rules
-- guardrails that keep projects consistent
+This folder contains:
+- Non-negotiable rules and standards
+- Tooling requirements
+- 00 Initialization (setup path for adding this module to a project)
 EOF
 
-    cat > "$dir/Core Sequential Subsections/README.md" <<EOF
+    cat > "$SECTION_EXAMPLE_DIR/Base Project Rules and Tooling/00 Initialization/README.md" <<'EOF'
+# 00 Initialization
+
+How to add this section to a project.
+
+This folder is the practical setup path for this module:
+- What to add (files, packages, scripts, config)
+- How to configure it (required settings + defaults)
+- How to verify it works (commands + expected output)
+- Common setup issues (symptoms + fixes)
+EOF
+
+    cat > "$SECTION_EXAMPLE_DIR/Core Sequential Subsections/README.md" <<'EOF'
 # Core Sequential Subsections
 
-The recommended step-by-step setup sequence for this layer.
+The ordered learning path for this section.
 
-Use this for:
-- ordered checklists
-- “do this first, then that” initialization
-- verification steps
+Rules:
+- Progressive sequence
+- Each step assumes the prior step
+- No jumps, no orphan concepts
 EOF
 
-    cat > "$dir/Supporting Atomic Notes/README.md" <<EOF
+    cat > "$SECTION_EXAMPLE_DIR/Supporting Atomic Notes/README.md" <<'EOF'
 # Supporting Atomic Notes
 
-Small, focused notes for this layer.
+Small, focused notes that support this section without bloating Core.
 
 Use this for:
 - single-topic explanations
 - examples
 - gotchas and edge cases
 EOF
-
   else
-    # Open structure: only layer directory README framing
-    cat > "$dir/README.md" <<EOF
-# ${layer}
+    cat > "$SECTION_EXAMPLE_DIR/README.md" <<'EOF'
+# 00 Section Example
 
-Layer guide directory.
-
-This folder contains:
-- Standards
-- Examples
-- Checklists
-- “How to implement” docs for this layer
+Copy this folder to create a new section in this layer, then rename it.
 
 Structure: open and configurable (no required subfolders).
 EOF

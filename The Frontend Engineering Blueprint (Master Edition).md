@@ -252,27 +252,29 @@ All material belongs to a specific Section.
 
 Every Section uses the same three-folder structure:
 
-1. Base Project Rules and Tooling This is the most important of the three, the rules that govern what shape our code takes. It answers what rules exist and why they were chosen.
-Guard rails and the contract for the topic: setup steps, enforced standards, conventions, and ADRs. This is implementation reality (what we decided + what you must configure to comply).
+1. Base Project Rules and Tooling
+   This is the most important of the three, the rules that govern what shape our code takes. It answers what rules exist and why they were chosen.
+
+   Guard rails and the contract for the topic: setup steps, enforced standards, conventions, and ADRs. This is implementation reality (what we decided + what you must configure to comply).
 
 - Ex (TypeScript): no implicit any, strict mode, ES modules only (no CommonJS), shared tsconfig inheritance rules.
 
 2. Core Sequential Subsections
-The knowledge-transfer spine. The ordered, canonical explanation of how the topic works, written to be learned and taught step-by-step.
-Rules: progressive sequence, each step assumes the prior step, no jumps, no orphan concepts.
+   The knowledge-transfer spine. The ordered, canonical explanation of how the topic works, written to be learned and taught step-by-step.
+   Rules: progressive sequence, each step assumes the prior step, no jumps, no orphan concepts.
 
 - Ex (TypeScript): Types → Interfaces → Unions → Generics → Type Narrowing.
 
 3. Supporting Atomic Notes
-Small, scoped notes that support the topic without bloating Core. Reference and depth material that may be linked from Core, but is not part of the main sequence.
+   Small, scoped notes that support the topic without bloating Core. Reference and depth material that may be linked from Core, but is not part of the main sequence.
 
-- Ex (TypeScript): unknown vs any, as const inference behavior, common compiler errors, type-level performance pitfalls. 
+- Ex (TypeScript): unknown vs any, as const inference behavior, common compiler errors, type-level performance pitfalls.
 
-===== IMPORTANT =====  
+===== IMPORTANT =====
 
-We MUST ensure that shared standards are included in Base Project Rules and Tooling.   
-This is our core project quality area, where the rest support technical growth, so prioritize this directory first. 
-While Core Sequential Subsection and Atomic Notes are important, they don’t need to be defined for every project. 
+We MUST ensure that shared standards are included in Base Project Rules and Tooling.
+This is our core project quality area, where the rest support technical growth, so prioritize this directory first.
+While Core Sequential Subsection and Atomic Notes are important, they don’t need to be defined for every project.
 
 ---
 
