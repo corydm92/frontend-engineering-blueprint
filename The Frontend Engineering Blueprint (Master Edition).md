@@ -197,195 +197,327 @@ Applied consistently, they turn technical chaos into predictable momentum.
 
 This Blueprint is structured as a layered system — a hierarchy of interdependent stages that represent the full lifecycle of frontend engineering, from setup to observability.
 
-Each Layer is composed of multiple Sections, and each Section follows the same expandable folder structure.
+Each Layer is composed of multiple Sections. Each Section follows the same expandable folder structure.
 
 This model provides consistency across the Blueprint. Every topic, from TypeScript to Next.js to Security, can grow without losing structure or clarity.
 
 ---
 
-1. Layers
+## Layers
 
-The Blueprint is organized into seven interconnected Layers:
+The Blueprint is composed of seven interconnected Layers.
 
-Layer 0 — System Initialization
+Each Layer represents a major stage of the frontend lifecycle and contains multiple Sections.
+
+```
+docs/
+└─ blueprint/
+   ├─ 00 System Initialization/
+   ├─ 01 Language & Architecture/
+   ├─ 02 State & Framework/
+   ├─ 03 Quality & Stability/
+   ├─ 04 UI & Experience/
+   ├─ 05 Build & Delivery/
+   └─ 06 Security & Observability/
+```
+
+#### Layer responsibilities:
+
+Layer 0 — System Initialization  
 Establishes technical contracts, stack decisions, and setup standards.
 
-Layer 1 — Language & Architecture
+Layer 1 — Language & Architecture  
 Defines code-level structure, style, and shared type systems.
 
-Layer 2 — State & Framework
+Layer 2 — State & Framework  
 Governs predictable data flow, rendering models, and framework-specific behavior.
 
-Layer 3 — Quality & Stability
+Layer 3 — Quality & Stability  
 Enforces testing, performance, and accessibility discipline.
 
-Layer 4 — UI & Experience
+Layer 4 — UI & Experience  
 Shapes presentation, usability, and design-system consistency.
 
-Layer 5 — Build & Delivery
+Layer 5 — Build & Delivery  
 Manages pipelines, versioning, and deployment reliability.
 
-Layer 6 — Security & Observability
+Layer 6 — Security & Observability  
 Safeguards users and turns production into measurable feedback.
 
 ---
 
-2. Sections
+## Sections
 
-Each Layer contains multiple Sections (topic-level modules).
+Each Layer is composed of multiple Sections.
 
-Example: Layer 2 — State & Framework includes:
+A Section is a topic-level module that owns **all documentation, rules, and learning material for that topic**.
 
-1. State Paradigms
-   Defines how application data behaves, transitions, and flows.
+Sections are the primary unit of organization in the Blueprint.
 
-2. State Management
-   Enforces predictable, isolated control of local and global state.
+```
+docs/
+└─ blueprint/
+   └─ 01 Language & Architecture/
+      ├─ README.md
+      ├─ 1.1 TypeScript and JavaScript/
+      ├─ 1.2 Frontend Architecture/
+      ├─ 1.3 Shared API Contracts/
+      ├─ 1.4 Shared Registry/
+      └─ 1.5 Programming Principles/
+```
 
-3. Framework (React, Vue, Next, etc.)
-   Establishes rendering discipline, composition, and hydration models.
+Rules for Sections:
 
-No notes or documentation should exist directly at the Layer level.
-All material belongs to a specific Section.
+- Sections live one level below their Layer.
+- Section names are prefixed with their position inside the Layer (e.g. 1.1, 2.3).
+- No documentation should exist directly at the Layer level beyond a README.
+- All standards, setup, and learning material must belong to a specific Section.
 
----
-
-Every Section uses the same three-folder structure:
-
-1. Base Project Rules and Tooling
-   This is the most important of the three, the rules that govern what shape our code takes. It answers what rules exist and why they were chosen.
-
-   Guard rails and the contract for the topic: setup steps, enforced standards, conventions, and ADRs. This is implementation reality (what we decided + what you must configure to comply).
-
-- Ex (TypeScript): no implicit any, strict mode, ES modules only (no CommonJS), shared tsconfig inheritance rules.
-
-2. Core Sequential Subsections
-   The knowledge-transfer spine. The ordered, canonical explanation of how the topic works, written to be learned and taught step-by-step.
-   Rules: progressive sequence, each step assumes the prior step, no jumps, no orphan concepts.
-
-- Ex (TypeScript): Types → Interfaces → Unions → Generics → Type Narrowing.
-
-3. Supporting Atomic Notes
-   Small, scoped notes that support the topic without bloating Core. Reference and depth material that may be linked from Core, but is not part of the main sequence.
-
-- Ex (TypeScript): unknown vs any, as const inference behavior, common compiler errors, type-level performance pitfalls.
-
-===== IMPORTANT =====
-
-We MUST ensure that shared standards are included in Base Project Rules and Tooling.
-This is our core project quality area, where the rest support technical growth, so prioritize this directory first.
-While Core Sequential Subsection and Atomic Notes are important, they don’t need to be defined for every project.
+Each Section is self-contained and expandable, allowing topics to grow without affecting neighboring Sections.
 
 ---
 
-4. Core Sequential Subsections Sub Sections (Deeper Overview)
+## Section Structure
 
-Defines the ordered learning path within each Section.
-Each subsection builds progressively on the previous one — establishing a clear narrative from foundational concepts to advanced system behavior.
-Every topic begins with a “0. Subsection Summary” that defines its scope and learning goal, followed by incrementally numbered notes that deepen understanding step by step.
+Every Section in the Blueprint uses the same internal structure.
 
-Example structure — Framework (Next.js):
+> Up to this point, the Blueprint has been defined as a mandatory-by-default system. The initialization script reflects that: you can either choose an open structure (leave Section directories empty and define your own rules), or follow the Blueprint structure defined below.
 
-1. Mental Model
-2. Subsection Summary — defines the goal of understanding how React and Next.js compose the app tree.
-3. Application Composition Model — how React’s component tree maps to Next.js’ route structure and layout hierarchy.
-4. Routing Model — Segments, Layouts, and Boundaries: how file-based routing drives component composition and isolation.
-5. Rendering Boundaries — understanding Server vs Client Components and how boundaries affect hydration and data flow.
-6. RSC Tree Generation — how Next.js produces and serializes the React Server Component payload.
-7. Shared Context Propagation — how context values and providers persist across server and client boundaries.
-   ...etc
+Sections are the unit of expansion in the Blueprint, and this structure ensures that every topic can be adopted, learned, and extended in a predictable way.
 
-8. Rendering and Data Flow
-9. Subsection Summary — describes how Next.js transforms requests into HTML and RSC payloads.
-10. Static vs Dynamic Routes — defines route classification rules and determines rendering behavior.
-11. Route Classification and Data Fetching Behavior — explains how Next.js decides between static, dynamic, and streaming render paths based on data hooks.
-12. Static Route Build Process — what happens at build time after classification (HTML + RSC generation).
-13. Rendering Modes — Static, ISR, and Dynamic rendering explained across build-time and runtime contexts.
-14. Runtime Request Flow — how Next.js handles incoming requests, matches routes, and executes the appropriate render path.
-    ...etc
+At a high level, each Section is composed of three directories.
 
-15. Code Splitting & Prefetching
-16. Subsection Summary — explains how bundles are generated, split, and delivered on navigation.
-17. Automatic Code Splitting — how Next.js creates route-based chunks and isolates dependencies.
-18. Build Graph and Chunk Mapping — how segments translate into entries in the compilation graph.
-19. Controlling Code Splitting with Layout Boundaries — managing chunk scope through layout segmentation.
-20. Lazy Loading and Dynamic Imports — manual optimization strategies for async resource delivery.
-21. React Suspense Integration — orchestrating async boundaries and streaming hydration.
-    ...etc
+```
+docs/
+└─ blueprint/
+   └─ <Layer>/
+      └─ <Section>/
+         ├─ README.md
+         ├─ Base Project Rules and Tooling/
+         ├─ Core Sequential Subsections/
+         └─ Supporting Atomic Notes/
+```
 
-22. Execution & Deployment Context
-23. Subsection Summary — outlines where rendering occurs (server, edge, client) and how runtime context changes behavior.
-24. Runtime Environments — Node vs Edge.
-25. Execution Model and Request Lifecycle — how Next.js coordinates rendering, middleware, and responses.
-26. Middleware and Edge Functions — intercepting and modifying requests pre-render.
-27. Streaming and Partial Hydration — how the client progressively rebuilds from streamed data.
-28. Environment Boundaries and Revalidation — managing freshness, ISR updates, and deployment zones.
-    ...etc
-
-Purpose: ensure each subsection flows logically, eliminates conceptual gaps, and maintains consistent depth and ordering across the Blueprint.
-
-Numbering inside each subsection resets — 0 always represents the summary, followed by incremental steps that build on top of each other.
-This ensures that learning remains linear and cumulative, with no jumps or gaps between concepts.
-Foundational ideas always precede applied ones, creating a predictable sequence from theory to practice.
+Each directory has a distinct responsibility. Together, they separate implementation reality, learning sequence, and reference depth.
 
 ---
 
-5. Example of full section
+### Base Project Rules and Tooling
 
-Hierarchy Example for Section 2.3:
+Project rules and tooling standards for the Section.
 
-2.3 — Framework (Next.js)
+This directory represents implementation reality: what we decided, and what you add or configure to adopt the module in a project.
 
-> Base Project Rules and Tooling/
-> ├─ nextjs-tooling-configuration.md
-> ├─ routing-and-directory-conventions.md
-> ├─ build-and-deployment-rules.md
-> └─ runtime-and-environment-settings.md
+It defines the contract for the topic:
 
-> Core Sequential Subsections/
+- Required configuration
+- Enforced standards
+- Non-negotiable constraints
 
-├─ mental-model/
-│ ├─ 0_subsection-summary.md
-│ ├─ 1_application-composition-model.md
-│ ├─ 2_routing-model.md
-│ ├─ 3_rendering-boundaries.md
-│ ├─ 4_rsc-tree-generation.md
-│ └─ 5_shared-context-propagation.md
+Includes \_\_Initialization/, which is required for every Section.
 
-├─ rendering-and-data-flow/
-│ ├─ 0_subsection-summary.md
-│ ├─ 1_static-vs-dynamic-routes.md
-│ ├─ 2_route-classification-and-data-fetching.md
-│ ├─ 3_static-route-build-process.md
-│ ├─ 4_rendering-modes.md
-│ └─ 5_runtime-request-flow.md
+\_\_Initialization/ is the repeatable setup path to add this module to a project:
 
-├─ code-splitting-and-prefetching/
-│ ├─ 0_subsection-summary.md
-│ ├─ 1_automatic-code-splitting.md
-│ ├─ 2_build-graph-and-chunk-mapping.md
-│ ├─ 3_controlling-code-splitting-with-layout-boundaries.md
-│ ├─ 4_lazy-loading-and-dynamic-imports.md
-│ └─ 5_react-suspense-integration.md
+- What to add
+- What to configure
+- How to verify
+- Common failure modes
 
-└─ execution-and-deployment-context/
-├─ 0_subsection-summary.md
-├─ 1_runtime-environments.md
-├─ 2_execution-model-and-request-lifecycle.md
-├─ 3_middleware-and-edge-functions.md
-├─ 4_streaming-and-partial-hydration.md
-└─ 5_environment-boundaries-and-revalidation.md
+Some Sections won’t require meaningful setup, but \_\_Initialization/ still exists so every Section has a consistent “how to adopt this” entry point across projects.
 
-> Supporting Atomic Notes/
-> ├─ react-and-nextjs-extended-fiber-lifecycle.md
-> ├─ browser-rendering-pipeline.md
-> └─ suspense-and-streaming-internals.md
+```
+docs/
+└─ blueprint/
+   └─ 01 Language & Architecture/
+      └─ 1.1 TypeScript and JavaScript/
+         └─ Base Project Rules and Tooling/
+            ├─ __Initialization/
+            │  └─ README.md
+            ├─ TypeScript Strictness Rules.md
+            └─ Module System and TSConfig Inheritance.md
+```
+
+---
+
+### Core Sequential Subsections
+
+The knowledge-transfer spine of the Section.
+
+This directory contains the ordered, canonical explanation of how the topic works, written to be learned and taught step by step.
+
+Rules:
+
+- Progressive sequence
+- Each step assumes the previous one
+- Concepts appear once
+- No jumps
+- No orphaned ideas
+
+All setup and configuration lives in Base Project Rules and Tooling / \_\_Initialization, not here.
+
+```
+docs/
+└─ blueprint/
+   └─ 01 Language & Architecture/
+      └─ 1.1 TypeScript and JavaScript/
+         └─ Core Sequential Subsections/
+            ├─ 1 Mental Model/
+            ├─ 2 Types and Type Inference/
+            ├─ 3 Interfaces and Object Shapes/
+            ├─ 4 Unions and Discriminated Unions/
+            ├─ 5 Generics and Constraints/
+            └─ 6 Narrowing and Type Guards/
+```
+
+---
+
+### Supporting Atomic Notes
+
+Small, scoped notes that support the Section without bloating the Core learning path.
+
+Atomic Notes provide depth, edge cases, or clarifications that may be linked from Core, but are not part of the main sequence.
+
+They are reference material, not required reading, and should remain tightly scoped.
+
+```
+docs/
+└─ blueprint/
+   └─ 01 Language & Architecture/
+      └─ 1.1 TypeScript and JavaScript/
+         └─ Supporting Atomic Notes/
+            ├─ Unknown vs Any.md
+            ├─ As Const and Literal Inference.md
+            ├─ Common Compiler Errors.md
+            └─ Type Level Performance Pitfalls.md
+```
+
+---
+
+This structure ensures that every Section:
+
+- Has a clear adoption path
+- Has a clean, linear learning sequence
+- Can grow in depth without becoming unstructured
+
+The result is a Blueprint that scales cleanly across projects, teams, and levels of experience.
+
+### Important
+
+Shared standards belong in Base Project Rules and Tooling. Prioritize that directory first.
+
+Core Sequential Subsections and Supporting Atomic Notes are valuable, but don’t need to be defined for every project.
+
+This keeps the Blueprint consistent, adaptable, and easy to reason about across teams and environments.
+
+---
+
+## Example of Full Blueprint Structure
+
+Hierarchy Example for Section 2.3 — Framework (Next.js)
+
+```
+docs/
+└─ blueprint/
+   ├─ 00 System Initialization/
+   │  ├─ README.md
+   │  ├─ 0.1 Setup Blueprint in Project/
+   │  ├─ 0.2 Application Initialization Checklist/
+   │  └─ ...
+   │
+   ├─ 01 Language & Architecture/
+   │  ├─ README.md
+   │  ├─ 1.1 TypeScript and JavaScript/
+   │  ├─ 1.2 Frontend Architecture/
+   │  ├─ 1.3 Shared API Contracts/
+   │  ├─ 1.4 Shared Registry/
+   │  └─ 1.5 Programming Principles/
+   │
+   ├─ 02 State & Framework/
+   │  ├─ README.md
+   │  ├─ 2.1 State Paradigms/
+   │  ├─ 2.2 State Management/
+   │  └─ 2.3 Framework (Next.js)/
+   │     ├─ README.md
+   │
+   │     ├─ Base Project Rules and Tooling/
+   │     │  ├─ __Initialization/
+   │     │  │  ├─ README.md
+   │     │  │  └─ ...
+   │     │  ├─ Framework Tooling Configuration.md
+   │     │  ├─ Routing and Directory Conventions.md
+   │     │  ├─ Build and Deployment Rules.md
+   │     │  └─ Runtime and Environment Settings.md
+   │
+   │     ├─ Core Sequential Subsections/
+   │     │  ├─ 1 Mental Model/
+   │     │  │  ├─ 0 Subsection Summary.md
+   │     │  │  ├─ 1 Application Composition Model.md
+   │     │  │  ├─ 2 Routing Model.md
+   │     │  │  ├─ 3 Rendering Boundaries.md
+   │     │  │  ├─ 4 RSC Tree Generation.md
+   │     │  │  └─ 5 Shared Context Propagation.md
+   │     │  │
+   │     │  ├─ 2 Rendering and Data Flow/
+   │     │  │  ├─ 0 Subsection Summary.md
+   │     │  │  ├─ 1 Static vs Dynamic Routes.md
+   │     │  │  ├─ 2 Route Classification and Data Fetching.md
+   │     │  │  ├─ 3 Static Route Build Process.md
+   │     │  │  ├─ 4 Rendering Modes.md
+   │     │  │  └─ 5 Runtime Request Flow.md
+   │     │  │
+   │     │  ├─ 3 Code Splitting and Prefetching/
+   │     │  │  ├─ 0 Subsection Summary.md
+   │     │  │  ├─ 1 Automatic Code Splitting.md
+   │     │  │  ├─ 2 Build Graph and Chunk Mapping.md
+   │     │  │  ├─ 3 Controlling Code Splitting with Layout Boundaries.md
+   │     │  │  ├─ 4 Lazy Loading and Dynamic Imports.md
+   │     │  │  └─ 5 React Suspense Integration.md
+   │     │  │
+   │     │  └─ 4 Execution and Deployment Context/
+   │     │     ├─ 0 Subsection Summary.md
+   │     │     ├─ 1 Runtime Environments.md
+   │     │     ├─ 2 Execution Model and Request Lifecycle.md
+   │     │     ├─ 3 Middleware and Edge Functions.md
+   │     │     ├─ 4 Streaming and Partial Hydration.md
+   │     │     └─ 5 Environment Boundaries and Revalidation.md
+   │
+   │     └─ Supporting Atomic Notes/
+   │        ├─ React and Next.js Extended Fiber Lifecycle.md
+   │        ├─ Browser Rendering Pipeline.md
+   │        └─ Suspense and Streaming Internals.md
+   │
+   ├─ 03 Quality & Stability/
+   │  ├─ README.md
+   │  ├─ 3.1 Testing/
+   │  ├─ 3.2 Performance Optimization/
+   │  └─ 3.3 Accessibility/
+   │
+   ├─ 04 UI & Experience/
+   │  ├─ README.md
+   │  ├─ 4.1 User Interface/
+   │  ├─ 4.2 User Experience/
+   │  └─ 4.3 Design Systems/
+   │
+   ├─ 05 Build & Delivery/
+   │  ├─ README.md
+   │  ├─ 5.1 Modern Build Tools/
+   │  ├─ 5.2 Version Control and Collaboration/
+   │  ├─ 5.3 DevOps and CI CD/
+   │  └─ 5.4 Documentation/
+   │
+   └─ 06 Security & Observability/
+      ├─ README.md
+      ├─ 6.1 Security Best Practices/
+      └─ 6.2 Observability and Performance Profiling/
+```
 
 This structure ensures:
-• Each Base folder documents implementation reality.
-• Each Core subsection starts with 0 (Subsection Summary) and builds incrementally with numbered notes.
-• Each step intentionally builds on the one before it — no jumps, no skipped logic, no orphaned concepts.
-• Each Atomic folder captures supplemental or investigative depth.
+
+- Base Project Rules and Tooling captures implementation reality, including `__Initialization/` as the setup path for adopting the module.
+
+- Core Sequential Subsections stays purely educational. It starts at 0 (Subsection Summary) and builds incrementally with no jumps.
+
+- Supporting Atomic Notes captures supplemental depth without bloating the learning path.
 
 The result is a linear, self-documenting system where every topic expands cleanly, builds logically, and reinforces understanding without overlap.
 
