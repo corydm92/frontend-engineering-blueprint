@@ -25,7 +25,7 @@ Start with this README, then pick an edition based on what you want:
 
 After that, browse the **Layer** folders to see how the system is organized.
 
-> 🏗️ Ready to adopt it in a real repo? Start with [Blueprint Initialization](https://github.com/corydm92/frontend-engineering-blueprint/blob/main/Layer%200%20%E2%80%94%20System%20Initialization%20%E2%9A%)
+> 🏗️ Ready to adopt it in a real repo? Start with [Blueprint Initialization](https://github.com/corydm92/frontend-engineering-blueprint/blob/main/Layer%200%20%E2%80%94%20System%20Initialization%20%E2%9A%99%EF%B8%8F/0.1%20%E2%80%94%20Setup%20Blueprint%20In%20Project%3A%20%F0%9F%A7%AD/Base%20Project%20Rules%20and%20Tooling/_Initialization/1%20-%20Blueprint%20Setup.md)
 
 
 ## 🗂 What’s in this repo
