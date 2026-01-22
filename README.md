@@ -1,4 +1,4 @@
-# Frontend Engineering Blueprint
+# 📘 Frontend Engineering Blueprint
 
 The patterns in this blueprint come from recurring problems I’ve had to solve in production React systems: migrations, performance regressions, unclear ownership boundaries, and scaling team workflows. Examples are generalized to avoid proprietary details.
 
@@ -7,12 +7,7 @@ This repo documents my Frontend Engineering Blueprint: a 7-layer architectural m
 > ⭐ If this blueprint is useful to you, consider starring the repo.  
 > It helps signal that this kind of long-form, systems-level frontend documentation is worth maintaining and evolving.
 
-## Licensing
-
-This project is licensed under Creative Commons Attribution 4.0 (CC BY 4.0).
-You are free to use, adapt, and share this work — including commercially — provided proper attribution is given.
-
-## What this represents
+## 🧭 What this represents
 
 - How I reason about frontend correctness, scale, and team alignment
 - How I break complex frontend problems into ordered, enforceable layers
@@ -20,9 +15,7 @@ You are free to use, adapt, and share this work — including commercially — p
 
 It’s the kind of framework I build when I’m responsible for long-lived systems, not one-off features.
 
----
-
-## Where to start?
+## 🚀 Where to start?
 
 Start with this README, then pick an edition based on what you want:
 
@@ -32,9 +25,7 @@ Start with this README, then pick an edition based on what you want:
 
 After that, browse the **Layer** folders to see how the system is organized.  
 
----
-
-## What’s in this repo
+## 🗂 What’s in this repo
 
 The Blueprint is organized into seven layers, each representing a stage in the frontend lifecycle:
 
@@ -59,40 +50,38 @@ Each layer contains multiple sections, and every section follows the same struct
 
 This structure is intentional. It prevents documentation drift, enforces clarity, and keeps knowledge scalable as systems and teams grow.
 
----
-
-## Editions of the Blueprint
+## 📚 Editions of the Blueprint
 
 This repo contains three versions of the Blueprint, each serving a different audience:
 
-### Master Edition
+### 🧠 Master Edition
 
 The complete, opinionated reference — dense, detailed, and system-level. This is my personal go-to copy.
 
 Each project gets its own Master copy (built using the Layer 0 setup flow) because every project has different needs. When conventions overlap, I pull from this Master into the project copy. When a project forces something new (new language, new constraint, new pattern), I define it in the project first, then upstream it back into this Master once it proves out.
 
-
-### Team Edition
+### 🧰 Team Edition
 
 A shorter, practical version designed for teams to adopt, adapt, and govern.  
 This is the jumping-off point I’d like to see others take and customize.
 
-### Public Edition
+### 🌐 Public Edition
 
 A readable overview intended for sharing context without internal depth.  
 This is for a general audience and explains the Blueprint without going deep into implementation details.
 
 Together, these show how the same system can scale up or down depending on audience and maturity.
 
----
-
-## Blueprint Status
+## 🧪 Blueprint Status
 
 Active and evolving.  
 This Blueprint is continuously refined as I validate ideas against real-world frontend problems.
 
----
-
-## Contact
+## 🤝 Contact
 
 If you want to talk about frontend architecture, system design, or scaling teams, feel free to reach out via GitHub or LinkedIn.
+
+## ⚖️ Licensing
+
+This project is licensed under Creative Commons Attribution 4.0 (CC BY 4.0).
+You are free to use, adapt, and share this work — including commercially — provided proper attribution is given.
