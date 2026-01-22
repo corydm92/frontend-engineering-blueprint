@@ -23,7 +23,9 @@ Start with this README, then pick an edition based on what you want:
 - **Team Edition** (more technical, designed for team rollout)
 - **Master Edition** (full reference: contracts, patterns, edge cases)
 
-After that, browse the **Layer** folders to see how the system is organized.  
+After that, browse the **Layer** folders to see how the system is organized. 
+
+To add this Blueprint to a new or existing project, start here: [Blueprint Initialization](https://github.com/corydm92/frontend-engineering-blueprint/blob/main/Layer%200%20%E2%80%94%20System%20Initialization%20%E2%9A%)
 
 ## 🗂 What’s in this repo
 
