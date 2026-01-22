@@ -62,7 +62,7 @@ This repo contains three versions of the Blueprint, each serving a different aud
 
 The complete, opinionated reference — dense, detailed, and system-level. This is my personal go-to copy.
 
-Each project gets its own Master copy (built using the Layer 0 setup flow) because every project has different needs. When conventions overlap, I pull from this Master into the project copy. When a project forces something new (new language, new constraint, new pattern), I define it in the project first, then upstream it back into this Master once it proves out.
+Each project gets its own Master copy (built using the Layer 0 setup flow) because every project has different needs. When conventions overlap, I pull from this Master into the project copy. When a project offers something new (new language, new constraint, new pattern), I define it in the project first, then upstream it back into this Master once it proves out.
 
 ### 🧰 Team Edition
 
