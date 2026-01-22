@@ -4,6 +4,9 @@ The patterns in this blueprint come from recurring problems I’ve had to solve 
 
 This repo documents my Frontend Engineering Blueprint: a 7-layer architectural model for building and operating frontend applications, where each layer defines enforceable boundaries that make correctness and stability the default across the SDLC.
 
+> ⭐ If this blueprint is useful to you, consider starring the repo.  
+> It helps signal that this kind of long-form, systems-level frontend documentation is worth maintaining and evolving.
+
 ## Licensing
 
 This project is licensed under Creative Commons Attribution 4.0 (CC BY 4.0).
