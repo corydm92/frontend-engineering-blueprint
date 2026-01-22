@@ -35,7 +35,6 @@ Create a predictable `/docs` structure and framing `README.md` files so contribu
 │     └─ ...
 ├─ process/                         # Workflows + templates used to run the project
 └─ references/                      # Diagrams and external notes (supporting material, not canonical)
-
 ```
 
 ## Script Location
