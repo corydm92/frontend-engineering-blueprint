@@ -15,8 +15,6 @@ It’s onboarding-grade, current-state documentation.
 
 Formal decisions and change control come later (Steps 3–5).
 
----
-
 ## 📦 What This Step Produces
 
 This step produces **one artifact**:
@@ -32,8 +30,6 @@ The rule:
 - ADRs define **decision history**
 - Stack Summary reflects **current reality**
 
----
-
 ## 🧠 Mental Model
 
 Think of the Stack Summary as the project’s “What are we running, and why?” page:
@@ -48,8 +44,6 @@ Flow:
 - Someone proposes a tool change → ADR
 - ADR gets accepted → Stack Summary gets updated to match the new baseline
 - Stack Summary always stays “the truth right now”
-
----
 
 ## 🧩 Template
 
@@ -674,8 +668,6 @@ Owner: Frontend Engineering
 
 </details>
 
----
-
 ## 🛠 Setup Steps
 
 1. Create the stack summary file  
@@ -683,8 +675,6 @@ Owner: Frontend Engineering
 
 2. Populate it using the template above  
    Focus on clarity and intent, not exhaustiveness.
-
----
 
 ## ✅ Verification
 

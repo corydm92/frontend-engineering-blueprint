@@ -13,8 +13,6 @@ This ensures:
 ADRs govern _decisions_.  
 The Project Stack Summary reflects the _current state_ after those decisions are accepted.
 
----
-
 ## 📦 What This Step Produces
 
 This process produces **two artifacts over time**:
@@ -27,8 +25,6 @@ Only one artifact exists at a time:
 - **Before acceptance** → ADR only
 - **After acceptance** → ADR (immutable) + updated Project Stack Summary
 
----
-
 ## 🧠 Mental Model
 
 - **ADR** = decision history and governance
@@ -38,8 +34,6 @@ ADRs answer: _“Why did we decide this?”_
 The Stack Summary answers: _“What are we using right now?”_
 
 Both are required. Neither replaces the other.
-
----
 
 ## 🧭 Required Context Before Starting
 
@@ -57,8 +51,6 @@ Before proposing a tool change, the following must already exist:
   - why this change matters now
 
 If the change is not architectural or foundational, **do not write an ADR**.
-
----
 
 ## 🔁 Standard Flow for Adding or Changing Tools
 
@@ -79,8 +71,6 @@ At this stage:
 
 The proposal is under discussion, not law.
 
----
-
 ### 2 - Review and Accept the ADR
 
 Once the decision is agreed upon:
@@ -95,8 +85,6 @@ From this point forward:
 
 - the ADR is **immutable**
 - any future change requires a **new ADR**
-
----
 
 ### 3 - Update the Project Stack Summary
 
@@ -117,8 +105,6 @@ The Project Stack Summary should read as:
 
 > “This is how the project is built today.”
 
----
-
 ### 4 - (Optional) Supersede an Existing ADR
 
 If the new decision replaces a prior one:
@@ -128,8 +114,6 @@ If the new decision replaces a prior one:
 - Explicitly reference the new ADR in the old one
 
 Never edit an accepted ADR to “update” it.
-
----
 
 ## 🛠 Setup Steps
 
@@ -164,8 +148,6 @@ They are followed later, whenever a foundational tool change is needed.
    - If replacing a prior decision, mark the old ADR as `Superseded`
    - Reference the new ADR explicitly
    - Never edit an accepted ADR to change the decision
-
----
 
 ## ✅ Verification Checklist
 

@@ -13,8 +13,6 @@ Now we convert that stack truth into an enforceable contract by writing **ADR-00
 
 This prevents the baseline from drifting via “silent defaults” or “tribal memory.”
 
----
-
 ## 📦 What This Step Produces
 
 This step produces **one artifact**:
@@ -24,8 +22,6 @@ This step produces **one artifact**:
 No new tools are chosen here  
 No implementation steps are performed here  
 This is the formal decision record for the baseline already described in Step 2
-
----
 
 ## 🧠 Mental Model
 
@@ -43,8 +39,6 @@ This step freezes the starting line:
 
 Result: the project has a clear, enforceable baseline that future changes must consciously evolve from.
 
----
-
 ## 🧩 Inputs
 
 This ADR should be derived directly from:
@@ -53,8 +47,6 @@ This ADR should be derived directly from:
 - Step 3: `/docs/process/adr-template.md` (the enforced structure)
 
 The ADR should **link to the Stack Summary** as supporting context, but the ADR remains the authoritative decision record.
-
----
 
 ## 🧪 ADR-0001 — Project Setup Contract Example
 
@@ -164,8 +156,6 @@ Review cadence:
 
 </details>
 
----
-
 ## 🛠 Setup Steps
 
 1. Create the ADR file  
@@ -183,8 +173,6 @@ Review cadence:
 5. Lock the baseline  
    Once accepted, do not edit this ADR.  
    Any future baseline change requires a new ADR.
-
----
 
 ## ✅ Verification
 

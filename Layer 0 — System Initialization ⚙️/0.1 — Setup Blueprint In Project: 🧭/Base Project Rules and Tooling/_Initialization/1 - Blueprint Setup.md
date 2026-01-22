@@ -4,8 +4,6 @@
 
 Create a predictable `/docs` structure and framing `README.md` files so contributors know where information lives before we write product code.
 
----
-
 ## 📦 What This Step Produces
 
 This step produces **two artifacts**:
@@ -17,8 +15,6 @@ No project decisions are recorded yet
 No tooling is chosen yet  
 This step only establishes the _documentation skeleton_ so future docs land in the right place
 
----
-
 ## 🧠 Mental Model
 
 Treat `/docs` like the project’s “operating system” for knowledge:
@@ -29,8 +25,6 @@ Treat `/docs` like the project’s “operating system” for knowledge:
 - If a doc doesn’t have an obvious home, that’s a signal the structure (or the doc) needs clarification
 
 Result: onboarding is faster, reviews are cleaner, and decisions don’t get lost in Slack archaeology
-
----
 
 ## 🗂 Blueprint Structure
 
@@ -65,8 +59,6 @@ Result: onboarding is faster, reviews are cleaner, and decisions don’t get los
 └─ references/                      # Diagrams and external notes (supporting material, not canonical)
 ```
 
----
-
 ## 🛠 Setup Steps
 
 This step uses an existing script in this repository:
@@ -76,8 +68,6 @@ This step uses an existing script in this repository:
 Copy it to the base directory of your project and run:
 
 `chmod +x init-docs.sh && ./init-docs.sh`
-
----
 
 ## ✅ Verification
 

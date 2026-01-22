@@ -6,8 +6,6 @@ Establish a single, enforceable template for recording **all architectural and f
 
 This ensures decisions are explicit, reviewable, and historically traceable instead of living in PR comments, Slack threads, or tribal memory.
 
----
-
 ## 📦 What This Step Produces
 
 This step produces **one artifact**:
@@ -17,8 +15,6 @@ This step produces **one artifact**:
 No decisions are recorded yet  
 No tools are chosen yet  
 This step only defines the structure that decisions must follow
-
----
 
 ## 🧠 Mental Model
 
@@ -35,8 +31,6 @@ Workflow:
 - If the decision changes later, write a new ADR and mark the old one `Superseded`
 
 Result: architecture changes stay intentional, reviewable, and traceable
-
----
 
 ## 🔍 ADR Scope
 
@@ -60,8 +54,6 @@ ADRs are **not required** for:
 - dependency patch or minor upgrades
 - internal implementation details
 
----
-
 ## 📜 ADR Rules
 
 - Status must be one of: `Proposed`, `Accepted`, `Rejected`, `Superseded`
@@ -74,8 +66,6 @@ ADRs are **not required** for:
   - ADRs are referenced by filename in PRs, issues, and documentation
   - Renaming files on status changes creates broken links and noisy history
   - Status is lifecycle metadata, not part of an ADR’s identity
-
----
 
 ## 🧩 ADR Template
 
@@ -299,8 +289,6 @@ Follow-ups:
 
 </details>
 
----
-
 ## 🛠 Setup Steps
 
 1. Create the ADR template file  
@@ -314,8 +302,6 @@ Follow-ups:
 
 4. Enforce usage going forward  
    New tools, major changes, and foundational decisions require an ADR before implementation.
-
----
 
 ## ✅ Verification
 
