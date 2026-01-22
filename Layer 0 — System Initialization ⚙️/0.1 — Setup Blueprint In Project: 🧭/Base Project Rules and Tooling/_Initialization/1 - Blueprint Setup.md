@@ -1,4 +1,4 @@
-# 1 — Blueprint Setup + Directory READMEs
+# 1 — Blueprint Setup
 
 ## 🎯 Goal
 
