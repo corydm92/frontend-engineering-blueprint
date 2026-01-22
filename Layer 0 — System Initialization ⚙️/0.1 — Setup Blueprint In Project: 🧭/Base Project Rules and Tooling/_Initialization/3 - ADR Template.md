@@ -6,6 +6,8 @@ Establish a single, enforceable template for recording **all architectural and f
 
 This ensures decisions are explicit, reviewable, and historically traceable instead of living in PR comments, Slack threads, or tribal memory.
 
+---
+
 ## 📦 What This Step Produces
 
 This step produces **one artifact**:
@@ -15,6 +17,8 @@ This step produces **one artifact**:
 No decisions are recorded yet  
 No tools are chosen yet  
 This step only defines the structure that decisions must follow
+
+---
 
 ## 🔍 ADR Scope
 
@@ -38,14 +42,22 @@ ADRs are **not required** for:
 - dependency patch or minor upgrades
 - internal implementation details
 
+---
+
 ## 📜 ADR Rules
 
 - Status must be one of: `Proposed`, `Accepted`, `Rejected`, `Superseded`
 - ADRs may be edited while `Proposed` (until accepted or rejected)
 - Once `Accepted`, the decision is immutable (no decision changes in-place)
 - A decision change requires a new ADR; the old ADR becomes `Superseded`
-- `Superseded` ADRs must reference the ADR that replaces them
+- `Superseded` ADRs must explicitly reference the ADR that replaces them
 - When moving to `Accepted` or `Rejected`, record the final approval context (PR, issue, or date) in Notes
+- Filenames must not track status
+  - ADRs are referenced by filename in PRs, issues, and documentation
+  - Renaming files on status changes creates broken links and noisy history
+  - Status is lifecycle metadata, not part of an ADR’s identity
+
+---
 
 ## 🧩 ADR Template
 
@@ -157,16 +169,16 @@ Examples:
 
 ## 🧪 ADR Example
 
-<details> <summary><strong>ADR-0001 — Project Setup Contract (Synct) (click to expand)</strong></summary>
+<details> <summary><strong>ADR-0007 — Add TanStack Query for Server/Client Data Fetching (click to expand)</strong></summary>
 
 ```md
 # Architecture Decision Record
 
-Title: ADR-0001 — Project Setup Contract (Synct v0.2)  
+Title: ADR-0007 — Add TanStack Query for Server/Client Data Fetching
 Status: Accepted
 
-Proposed Date: 2025-10-28  
-Accepted Date: 2025-10-28
+Proposed Date: 2025-11-02  
+Accepted Date: 2025-11-03
 
 Owner: Cory Morrissey  
 Approver(s): Cory Morrissey
@@ -175,55 +187,60 @@ Approver(s): Cory Morrissey
 
 ## Context
 
-Synct needs a consistent, enforceable baseline for all new development so the repo is predictable across local development, CI, and deployment.  
-Prior iterations allowed drift in runtime versions, package manager behavior, and build defaults, which created avoidable failures and onboarding friction.  
-This ADR defines the Layer 0 foundation (framework, language, runtime, tooling) so future changes can be reviewed as intentional decisions.
+Synct needs a single, consistent data-fetching + caching layer for client-interactive screens.
+
+Right now, async data behavior is fragmented:
+
+- ad-hoc `fetch()` calls live in components
+- cache behavior is inconsistent (duplicate requests, stale UI, manual loading/error wiring)
+- mutations don’t have a reliable invalidation story, causing correctness issues after writes
+
+We need a standard library that:
+
+- centralizes caching, deduplication, retries, and background refresh
+- provides a predictable mutation → invalidation pattern
+- supports Next.js App Router patterns (server components for initial fetch + client cache hydration where needed)
+
+This is a foundational dependency decision, so it requires an ADR.
 
 ---
 
 ## Decision
 
-Adopt the following baseline for Synct v0.2:
+Adopt **TanStack Query** as Synct’s primary client-side async data layer.
 
-- Framework: Next.js 16 (App Router)
-- React: 19
-- Language: TypeScript 5.6 (strict)
-- Runtime: Node 24 LTS
-- Package Manager: pnpm 10+
-- Build System: Next.js default bundler (Turbopack where applicable)
-- Unit/Integration Testing: Vitest + React Testing Library
-- E2E Testing: Playwright Test
-- Linting/Formatting: ESLint + Prettier
-- CI/CD: GitHub Actions + Vercel
-- Documentation: `/docs` structure with `/docs/_project`, `/docs/adr`, `/docs/blueprint`, `/docs/process`, `/docs/references`
+We will:
+
+- use TanStack Query in client components for cache + mutations
+- hydrate initial server-fetched data into the client cache where it improves UX
+- define query key conventions and invalidation rules as part of the data contract
 
 Explicitly not chosen:
 
-- Next.js 15 baseline
-- Node 20 baseline
-- Cypress for E2E
+- Redux Toolkit as the primary async cache layer (RTK Query)
+- “plain fetch everywhere” as the long-term pattern
 
 ---
 
 ## Rationale
 
-- Next.js 16 + React 19 provide a modern foundation for hybrid rendering and future-facing patterns without custom infra.
-- Node 24 LTS reduces environment drift and supports modern runtime APIs that simplify platform code.
-- TypeScript strict mode forces correctness and prevents long-term type debt.
-- pnpm improves install determinism and supports workspace scaling if the repo grows into a monorepo.
-- Vitest + React Testing Library provides fast unit/integration feedback while keeping tests aligned to user-visible behavior.
-- Playwright provides stable browser-level confidence for critical journeys, especially where server-rendered async flows are involved.
-- GitHub Actions + Vercel standardizes validation and deployment with preview environments for PR review.
+- TanStack Query gives us **standardized caching + request dedupe** without custom infra.
+- It provides a **first-class mutation model** with invalidation, optimistic updates, and error rollback patterns.
+- It reduces boilerplate: loading/error states and refetch logic become consistent and reusable.
+- It scales across feature teams: query key conventions + shared fetchers enable predictable extension.
 
 ---
 
 ## Alternatives Considered
 
-- Next.js 15 — rejected due to older baseline and weaker alignment with the intended Next 16 + React 19 foundation.
-- Node 20 LTS — rejected to avoid lagging runtime capabilities and to reduce near-term upgrade churn.
-- npm / yarn — rejected due to slower installs and weaker workspace ergonomics compared to pnpm.
-- Jest — viable, but rejected for this baseline in favor of Vitest’s faster feedback and TypeScript ergonomics.
-- Cypress — rejected in favor of Playwright for cross-browser coverage and modern tooling.
+- RTK Query  
+  Rejected: viable, but tighter coupling to Redux. We want Redux reserved for cross-cutting UI/app state, not as the default async cache for every feature.
+
+- Plain `fetch()` + handcrafted caching  
+  Rejected: reinvents cache policy, invalidation rules, retries, and dedupe. High drift risk and inconsistent UX.
+
+- SWR  
+  Rejected: good for revalidation-driven reads, but TanStack Query provides stronger mutation workflows and more explicit cache control for complex CRUD flows.
 
 ---
 
@@ -231,15 +248,16 @@ Explicitly not chosen:
 
 Positive:
 
-- Predictable local/CI/deploy environments with reduced drift
-- Faster dev/test loops and clearer enforcement of correctness
-- Stronger long-term maintainability through explicit foundations
+- Consistent data loading, caching, and mutation patterns across the app
+- Fewer duplicate requests and less UI thrash from inconsistent async state
+- Clear invalidation rules improve post-mutation correctness
+- Shared conventions make onboarding and reviews faster
 
 Tradeoffs / Risks:
 
-- Requires intentional governance for major version upgrades
-- Some async server-rendered behavior is best validated via E2E rather than unit tests
-- Tooling changes become more process-driven (ADR required)
+- Adds a foundational dependency that must be governed (major upgrades require ADR)
+- Requires discipline around query keys, cache boundaries, and invalidation strategy
+- Some server-component-only flows may not need it; avoid cargo-cult usage
 
 ---
 
@@ -253,15 +271,17 @@ None
 
 Approval context:
 
-- Accepted as the Layer 0 baseline for Synct v0.2
+- Accepted as the standard client async data layer for Synct v0.2
 
-Review cadence:
+Follow-ups:
 
-- Quarterly review of framework/runtime/tooling baseline
-- New ADR required for major upgrades (e.g., Next 17, Node 26)
+- Update `/docs/_project/stack-summary.md` to reflect TanStack Query under “Data Fetching”
+- Add query key conventions + invalidation rules under `02 State & Framework/2.2 State Management/` (Base Project Rules and Tooling)
 ```
 
 </details>
+
+---
 
 ## ✅ Verification
 
