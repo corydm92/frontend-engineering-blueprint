@@ -1,10 +1,38 @@
 # 1 — Blueprint Setup + Directory READMEs
 
-## Goal
+## 🎯 Goal
 
 Create a predictable `/docs` structure and framing `README.md` files so contributors know where information lives before we write product code.
 
-## Blueprint Structure
+---
+
+## 📦 What This Step Produces
+
+This step produces **two artifacts**:
+
+- A standardized `/docs` directory structure (project docs, ADRs, blueprint, process, references)
+- A `README.md` in each directory that explains what belongs there
+
+No project decisions are recorded yet  
+No tooling is chosen yet  
+This step only establishes the _documentation skeleton_ so future docs land in the right place
+
+---
+
+## 🧠 Mental Model
+
+Treat `/docs` like the project’s “operating system” for knowledge:
+
+- The folders are **well-known addresses** (people can reliably point to one place for one kind of truth)
+- The READMEs are **signposts** (prevent “random-doc sprawl” before it starts)
+- The Blueprint is **standards + learning**, while ADRs are **decision history**
+- If a doc doesn’t have an obvious home, that’s a signal the structure (or the doc) needs clarification
+
+Result: onboarding is faster, reviews are cleaner, and decisions don’t get lost in Slack archaeology
+
+---
+
+## 🗂 Blueprint Structure
 
 ```
 /docs
@@ -37,26 +65,23 @@ Create a predictable `/docs` structure and framing `README.md` files so contribu
 └─ references/                      # Diagrams and external notes (supporting material, not canonical)
 ```
 
-## Script Location
+---
 
-This step uses an existing script:
+## 🛠 Setup Steps
+
+This step uses an existing script in this repository:
 
 `scripts/init-docs.sh`
 
-The script is already written. Please copy it to the base directory of your project
-
-### Execute the script in your project
+Copy it to the base directory of your project and run:
 
 `chmod +x init-docs.sh && ./init-docs.sh`
 
-## Verification
+---
 
-- `docs/` exists with: `_project`, `adr`, `blueprint`, `process`, `references`
-- Each directory contains a `README.md`
-- `docs/blueprint/layers/*` exists and each layer directory contains a `README.md`
-- Script created only directories and `README.md` files (no other placeholders)
+## ✅ Verification
 
-## Commit
-
-Commit message:  
-`feat(docs): add docs structure and directory README framing`
+- docs/ exists with: \_project, adr, blueprint, process, references
+- Each directory contains a README.md
+- docs/blueprint/\* exists and each layer directory contains a README.md
+- Script created only directories and README.md files (no other placeholders)

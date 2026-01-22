@@ -1,21 +1,57 @@
-# 2 — Project Stack Summary (`/docs/_project`)
+# 2 — Project Stack Summary (`/docs/__project`)
 
-## Goal
+## 🎯 Goal
 
-Create a human-readable snapshot of the project’s current technical foundation.
+Create a human-readable snapshot of the project’s **current** technical foundation.
 
 This step answers:
 
 - What tools are we using?
 - What problem does each tool solve?
-- Why was it chosen at a high level?
+- Why was it chosen (at a high level)?
 
 This is not an Architecture Decision Record and is not immutable.  
-It is explanatory, current-state documentation meant for onboarding and shared understanding.
+It’s onboarding-grade, current-state documentation.
 
-Formal decisions and change control come later (Steps 3–4).
+Formal decisions and change control come later (Steps 3–5).
 
-## Template
+---
+
+## 📦 What This Step Produces
+
+This step produces **one artifact**:
+
+- `docs/__project/stack-summary.md` — the living “current stack” document
+
+No decisions are locked yet  
+No change control happens here  
+This file is allowed to evolve as the system evolves
+
+The rule:
+
+- ADRs define **decision history**
+- Stack Summary reflects **current reality**
+
+---
+
+## 🧠 Mental Model
+
+Think of the Stack Summary as the project’s “What are we running, and why?” page:
+
+- It’s optimized for **speed of understanding**
+- It describes the **present**, not the debate that led there
+- It should be readable without code context
+- It stays accurate by being updated **after** an ADR is accepted
+
+Flow:
+
+- Someone proposes a tool change → ADR
+- ADR gets accepted → Stack Summary gets updated to match the new baseline
+- Stack Summary always stays “the truth right now”
+
+---
+
+## 🧩 Template
 
 <details>
 <summary><strong>Project Stack Summary — Template (click to expand)</strong></summary>
@@ -323,7 +359,7 @@ Owner: person or team
 
 </details>
 
-## Real Example
+## 🧪 Real Example
 
 <details>
 <summary><strong>Project Stack Summary — Example (click to expand)</strong></summary>
@@ -638,18 +674,21 @@ Owner: Frontend Engineering
 
 </details>
 
-## Setup Steps
+---
+
+## 🛠 Setup Steps
 
 1. Create the stack summary file  
-   Create:  
-   `docs/_project/stack-summary.md`
+   Create: `docs/__project/stack-summary.md`
 
 2. Populate it using the template above  
    Focus on clarity and intent, not exhaustiveness.
 
-## Verification
+---
 
-- `/docs/_project/stack-summary.md` exists
+## ✅ Verification
+
+- `/docs/__project/stack-summary.md` exists
 - File explains why each major tool exists
 - No ADR language (status, alternatives, approvals)
 - A new engineer can understand the stack without reading code

@@ -27,6 +27,24 @@ This is the formal decision record for the baseline already described in Step 2
 
 ---
 
+## 🧠 Mental Model
+
+Think of ADR-0001 as the project’s **constitution**.
+
+- The Stack Summary describes _what the project looks like today_
+- ADR-0001 turns that description into a **binding contract**
+- From this point on, the baseline only changes through explicit, reviewable decisions
+
+This step freezes the starting line:
+
+- No more “default choices”
+- No more “I thought we were using…”
+- Every foundational change now has to justify itself against this contract
+
+Result: the project has a clear, enforceable baseline that future changes must consciously evolve from.
+
+---
+
 ## 🧩 Inputs
 
 This ADR should be derived directly from:
@@ -145,6 +163,26 @@ Review cadence:
 ```
 
 </details>
+
+---
+
+## 🛠 Setup Steps
+
+1. Create the ADR file  
+   Create: `docs/adr/ADR-0001 — Project Setup Contract.md`
+
+2. Populate it using the ADR Template  
+   Copy the structure from `/docs/process/adr-template.md`.
+
+3. Derive content from the Stack Summary  
+   Use `/docs/_project/stack-summary.md` as the source of truth for tools and versions.
+
+4. Review and approve  
+   Confirm Owner and Approver(s), then move status to `Accepted`.
+
+5. Lock the baseline  
+   Once accepted, do not edit this ADR.  
+   Any future baseline change requires a new ADR.
 
 ---
 

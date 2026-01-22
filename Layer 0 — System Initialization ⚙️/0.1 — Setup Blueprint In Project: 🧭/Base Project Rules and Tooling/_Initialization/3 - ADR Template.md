@@ -20,6 +20,24 @@ This step only defines the structure that decisions must follow
 
 ---
 
+## 🧠 Mental Model
+
+An ADR is the project’s **memory of why** a foundational decision was made.
+
+- Code shows **what** we built
+- Project Stack Summary shows **what exists now**
+- ADRs record **why we chose this path**, including tradeoffs and rejected alternatives
+
+Workflow:
+
+- Draft + edit while `Proposed`
+- Once `Accepted` or `Rejected`, it’s immutable
+- If the decision changes later, write a new ADR and mark the old one `Superseded`
+
+Result: architecture changes stay intentional, reviewable, and traceable
+
+---
+
 ## 🔍 ADR Scope
 
 ADRs are **required** for:
@@ -283,10 +301,24 @@ Follow-ups:
 
 ---
 
+## 🛠 Setup Steps
+
+1. Create the ADR template file  
+   Create: `docs/process/adr-template.md`
+
+2. Paste the ADR template into the file  
+   Use the template defined in this step verbatim.
+
+3. Share the rules with the team  
+   Confirm that all architectural and foundational decisions must use this template.
+
+4. Enforce usage going forward  
+   New tools, major changes, and foundational decisions require an ADR before implementation.
+
+---
+
 ## ✅ Verification
 
-docs/process/adr-template.md exists
-
-The template matches the structure above
-
-Team agrees this is the required format for architectural decisions
+- `docs/process/adr-template.md` exists
+- The template matches the structure above
+- Team agrees this is the required format for architectural decisions

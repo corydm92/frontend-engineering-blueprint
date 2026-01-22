@@ -29,6 +29,18 @@ Only one artifact exists at a time:
 
 ---
 
+## 🧠 Mental Model
+
+- **ADR** = decision history and governance
+- **Project Stack Summary** = current state and onboarding clarity
+
+ADRs answer: _“Why did we decide this?”_  
+The Stack Summary answers: _“What are we using right now?”_
+
+Both are required. Neither replaces the other.
+
+---
+
 ## 🧭 Required Context Before Starting
 
 Before proposing a tool change, the following must already exist:
@@ -119,15 +131,39 @@ Never edit an accepted ADR to “update” it.
 
 ---
 
-## 🧠 Mental Model
+## 🛠 Setup Steps
 
-- **ADR** = decision history and governance
-- **Project Stack Summary** = current state and onboarding clarity
+These steps are **not required during initial project setup**.  
+They are followed later, whenever a foundational tool change is needed.
 
-ADRs answer: _“Why did we decide this?”_  
-The Stack Summary answers: _“What are we using right now?”_
+1. Confirm the change requires an ADR
+   - The change affects architecture, tooling, runtime, build, state, testing, CI/CD, or security
+   - If it’s not architectural or foundational, stop here
 
-Both are required. Neither replaces the other.
+2. Create a new ADR
+   - Location: `/docs/adr/`
+   - Use the ADR template from `/docs/process/adr-template.md`
+   - Set status to `Proposed`
+
+3. Document the decision
+   - Clearly state what tool is being added, changed, or removed
+   - Explicitly state what is _not_ being chosen
+   - Link to the current `/docs/_project/stack-summary.md` in Context
+
+4. Review and accept
+   - Reach agreement via PR, issue, or discussion
+   - Update status to `Accepted`
+   - Record Accepted Date, Approver(s), and approval context
+
+5. Update the Project Stack Summary
+   - Modify `/docs/_project/stack-summary.md` to reflect the new current state
+   - Describe the tool as if it has always been part of the system
+   - Do not include ADR metadata or decision history
+
+6. Supersede if necessary
+   - If replacing a prior decision, mark the old ADR as `Superseded`
+   - Reference the new ADR explicitly
+   - Never edit an accepted ADR to change the decision
 
 ---
 
