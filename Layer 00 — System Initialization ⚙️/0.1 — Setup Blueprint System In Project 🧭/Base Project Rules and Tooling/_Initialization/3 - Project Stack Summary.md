@@ -13,7 +13,7 @@ This step answers:
 This is not an Architecture Decision Record and is not immutable.  
 It’s onboarding-grade, current-state documentation.
 
-Formal decisions and change control come later (Steps 3–5).
+Formal decisions and change control come later (Steps 4–6).
 
 ## 📦 What This Step Produces
 

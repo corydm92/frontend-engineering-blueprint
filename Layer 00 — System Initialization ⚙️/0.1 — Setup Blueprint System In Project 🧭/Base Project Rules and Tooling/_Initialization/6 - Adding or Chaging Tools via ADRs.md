@@ -1,4 +1,4 @@
-# 6 - Adding or Changing Tools via ADRs
+# 6 — Adding or Changing Tools via ADRs
 
 ## 🎯 Goal
 
@@ -20,18 +20,19 @@ This process produces **two artifacts over time**:
 1. A new **Architecture Decision Record (ADR)** proposing the tool change
 2. An **updated Project Stack Summary** reflecting the accepted decision
 
-Only one artifact exists at a time:
+Rules:
 
-- **Before acceptance** → ADR only
-- **After acceptance** → ADR (immutable) + updated Project Stack Summary
+- The Project Stack Summary **always exists** and reflects current reality
+- A proposed ADR may exist temporarily while a decision is under review
+- Once accepted, the ADR becomes immutable and the Stack Summary is updated to match
 
 ## 🧠 Mental Model
 
 - **ADR** = decision history and governance
 - **Project Stack Summary** = current state and onboarding clarity
 
-ADRs answer: _“Why did we decide this?”_  
-The Stack Summary answers: _“What are we using right now?”_
+ADRs answer: “Why did we decide this?”  
+The Stack Summary answers: “What are we using right now?”
 
 Both are required. Neither replaces the other.
 
@@ -40,29 +41,43 @@ Both are required. Neither replaces the other.
 Before proposing a tool change, the following must already exist:
 
 - `/docs/process/adr-template.md`  
-  The enforced structure for all decisions
+  The enforced structure for all architectural decisions
 
-- `/docs/__project/stack-summary.md`  
+- `/docs/project/stack-summary.md`  
   The current, human-readable description of the project’s tools
 
-- An understanding of:
+- A clear understanding of:
   - what problem the new tool solves
   - what it replaces or changes (if anything)
   - why this change matters now
 
 If the change is not architectural or foundational, **do not write an ADR**.
 
+## 🧱 What Counts as a Foundational Tool Change
+
+A change **requires an ADR** if it affects any of the following baselines:
+
+- runtime or package manager (Node, pnpm, etc.)
+- framework or rendering model (Next, React, SSR/CSR strategy)
+- state or data layer (Redux, TanStack Query, server data model)
+- testing strategy or primary runners (Vitest, Jest, Playwright, Cypress)
+- build tooling or bundling strategy
+- CI/CD gates or deployment platform
+- observability or security enforcement (logging, CSP, scanning, RUM)
+
+If it does **not** change one of these, it’s a normal PR — not an ADR.
+
 ## 🔁 Standard Flow for Adding or Changing Tools
 
-### 1 - Propose a New ADR
+### 1 — Propose a New ADR
 
 Create a new ADR in `/docs/adr/` using the ADR template.
 
 - Status: `Proposed`
 - Clearly state:
-  - what tool is being added / changed / removed
-  - what is explicitly _not_ being chosen
-- Link to the current Project Stack Summary in Context
+  - what tool is being added, changed, or removed
+  - what is explicitly **not** being chosen
+- Link to the current Project Stack Summary in the Context section
 
 At this stage:
 
@@ -71,11 +86,11 @@ At this stage:
 
 The proposal is under discussion, not law.
 
-### 2 - Review and Accept the ADR
+### 2 — Review and Accept the ADR
 
 Once the decision is agreed upon:
 
-- Update the ADR status to `Accepted`
+- Update ADR status to `Accepted`
 - Record:
   - Accepted Date
   - Approver(s)
@@ -86,26 +101,32 @@ From this point forward:
 - the ADR is **immutable**
 - any future change requires a **new ADR**
 
-### 3 - Update the Project Stack Summary
+Enforcement:
+
+- The PR that implements the change **must link the ADR**
+- The Stack Summary update must be included in the same PR or immediately after
+- If the Stack Summary is not updated, the change is considered incomplete
+
+### 3 — Update the Project Stack Summary
 
 After the ADR is accepted:
 
-- Update `/docs/__project/stack-summary.md` to reflect the new reality
+- Update `/docs/project/stack-summary.md` to reflect the new reality
 - Describe:
   - the new tool
   - what problem it solves
   - how it fits into the system
 
-Important:
+Rules:
 
-- **Do not copy ADR language** (status, alternatives, approvals)
-- Write as current truth, not historical narrative
+- Do **not** copy ADR language (status, alternatives, approvals)
+- Write as present truth, not historical narrative
 
-The Project Stack Summary should read as:
+The Stack Summary should read as:
 
-> “This is how the project is built today.”
+“This is how the project is built today.”
 
-### 4 - (Optional) Supersede an Existing ADR
+### 4 — Supersede an Existing ADR (If Needed)
 
 If the new decision replaces a prior one:
 
@@ -115,49 +136,19 @@ If the new decision replaces a prior one:
 
 Never edit an accepted ADR to “update” it.
 
-## 🛠 Setup Steps
+## 🛠 When These Steps Are Used
 
-These steps are **not required during initial project setup**.  
-They are followed later, whenever a foundational tool change is needed.
+This process is **not required during initial project setup**.
 
-1. Confirm the change requires an ADR
-   - The change affects architecture, tooling, runtime, build, state, testing, CI/CD, or security
-   - If it’s not architectural or foundational, stop here
-
-2. Create a new ADR
-   - Location: `/docs/adr/`
-   - Use the ADR template from `/docs/process/adr-template.md`
-   - Set status to `Proposed`
-
-3. Document the decision
-   - Clearly state what tool is being added, changed, or removed
-   - Explicitly state what is _not_ being chosen
-   - Link to the current `/docs/__project/stack-summary.md` in Context
-
-4. Review and accept
-   - Reach agreement via PR, issue, or discussion
-   - Update status to `Accepted`
-   - Record Accepted Date, Approver(s), and approval context
-
-5. Update the Project Stack Summary
-   - Modify `/docs/__project/stack-summary.md` to reflect the new current state
-   - Describe the tool as if it has always been part of the system
-   - Do not include ADR metadata or decision history
-
-6. Supersede if necessary
-   - If replacing a prior decision, mark the old ADR as `Superseded`
-   - Reference the new ADR explicitly
-   - Never edit an accepted ADR to change the decision
+It is followed later, whenever a foundational tool or baseline needs to change.
 
 ## ✅ Verification Checklist
 
 When a tool change is complete:
 
-- A new ADR exists in `/docs/adr`
+- A new ADR exists in `/docs/adr/`
 - ADR status is `Accepted`
 - Owner and Approver(s) are recorded
-- `/docs/__project/stack-summary.md` reflects the new tool
-- The stack summary contains no ADR-specific language
-- A new engineer can understand the change without reading the ADR
-
-If all of the above are true, the process worked.
+- `/docs/project/stack-summary.md` reflects the new tool
+- The Stack Summary contains no ADR-specific language
+- A new engineer can understand the current stack without reading the ADR
