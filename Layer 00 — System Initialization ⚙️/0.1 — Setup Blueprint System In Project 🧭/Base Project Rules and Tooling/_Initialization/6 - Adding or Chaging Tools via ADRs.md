@@ -1,4 +1,4 @@
-# 5 - Adding or Changing Tools via ADRs
+# 6 - Adding or Changing Tools via ADRs
 
 ## 🎯 Goal
 
@@ -42,7 +42,7 @@ Before proposing a tool change, the following must already exist:
 - `/docs/process/adr-template.md`  
   The enforced structure for all decisions
 
-- `/docs/_project/stack-summary.md`  
+- `/docs/__project/stack-summary.md`  
   The current, human-readable description of the project’s tools
 
 - An understanding of:
@@ -90,7 +90,7 @@ From this point forward:
 
 After the ADR is accepted:
 
-- Update `/docs/_project/stack-summary.md` to reflect the new reality
+- Update `/docs/__project/stack-summary.md` to reflect the new reality
 - Describe:
   - the new tool
   - what problem it solves
@@ -132,7 +132,7 @@ They are followed later, whenever a foundational tool change is needed.
 3. Document the decision
    - Clearly state what tool is being added, changed, or removed
    - Explicitly state what is _not_ being chosen
-   - Link to the current `/docs/_project/stack-summary.md` in Context
+   - Link to the current `/docs/__project/stack-summary.md` in Context
 
 4. Review and accept
    - Reach agreement via PR, issue, or discussion
@@ -140,7 +140,7 @@ They are followed later, whenever a foundational tool change is needed.
    - Record Accepted Date, Approver(s), and approval context
 
 5. Update the Project Stack Summary
-   - Modify `/docs/_project/stack-summary.md` to reflect the new current state
+   - Modify `/docs/__project/stack-summary.md` to reflect the new current state
    - Describe the tool as if it has always been part of the system
    - Do not include ADR metadata or decision history
 
@@ -156,7 +156,7 @@ When a tool change is complete:
 - A new ADR exists in `/docs/adr`
 - ADR status is `Accepted`
 - Owner and Approver(s) are recorded
-- `/docs/_project/stack-summary.md` reflects the new tool
+- `/docs/__project/stack-summary.md` reflects the new tool
 - The stack summary contains no ADR-specific language
 - A new engineer can understand the change without reading the ADR
 

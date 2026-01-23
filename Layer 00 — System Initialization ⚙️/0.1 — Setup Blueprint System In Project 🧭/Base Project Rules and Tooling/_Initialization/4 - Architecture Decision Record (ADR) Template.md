@@ -1,4 +1,4 @@
-# 3 — Architecture Decision Record (ADR) Template
+# 4 — Architecture Decision Record (ADR) Template
 
 ## 🎯 Goal
 
@@ -283,7 +283,7 @@ Approval context:
 
 Follow-ups:
 
-- Update `/docs/_project/stack-summary.md` to reflect TanStack Query under “Data Fetching”
+- Update `/docs/__project/stack-summary.md` to reflect TanStack Query under “Data Fetching”
 - Add query key conventions + invalidation rules under `02 State & Framework/2.2 State Management/` (Base Project Rules and Tooling)
 ```
 

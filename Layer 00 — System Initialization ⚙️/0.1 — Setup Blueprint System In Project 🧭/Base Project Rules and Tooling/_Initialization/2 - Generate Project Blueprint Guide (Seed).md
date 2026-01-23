@@ -1,4 +1,4 @@
-# 2 — Create Blueprint Project Guide (Seed)
+# 2 — Generate Blueprint Project Guide (Seed)
 
 ## 🎯 Goal
 

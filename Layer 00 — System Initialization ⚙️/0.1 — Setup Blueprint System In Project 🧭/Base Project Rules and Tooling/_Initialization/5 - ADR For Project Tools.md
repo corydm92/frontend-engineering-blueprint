@@ -1,4 +1,4 @@
-# 4 — ADR-0001: Initial Project Tools (Project Setup Contract)
+# 5 — ADR For Project Tools
 
 ## 🎯 Goal
 
@@ -43,7 +43,7 @@ Result: the project has a clear, enforceable baseline that future changes must c
 
 This ADR should be derived directly from:
 
-- Step 2: `/docs/_project/stack-summary.md` (the current stack truth)
+- Step 2: `/docs/__project/stack-summary.md` (the current stack truth)
 - Step 3: `/docs/process/adr-template.md` (the enforced structure)
 
 The ADR should **link to the Stack Summary** as supporting context, but the ADR remains the authoritative decision record.
@@ -88,7 +88,7 @@ Adopt the following baseline for Synct v0.2:
 - E2E Testing: Playwright Test
 - Linting/Formatting: ESLint + Prettier
 - CI/CD: GitHub Actions + Vercel
-- Documentation: `/docs` structure with `/docs/_project`, `/docs/adr`, `/docs/blueprint`, `/docs/process`, `/docs/references`
+- Documentation: `/docs` structure with `/docs/__project`, `/docs/adr`, `/docs/blueprint`, `/docs/process`, `/docs/references`
 
 Explicitly not chosen:
 
@@ -165,7 +165,7 @@ Review cadence:
    Copy the structure from `/docs/process/adr-template.md`.
 
 3. Derive content from the Stack Summary  
-   Use `/docs/_project/stack-summary.md` as the source of truth for tools and versions.
+   Use `/docs/__project/stack-summary.md` as the source of truth for tools and versions.
 
 4. Review and approve  
    Confirm Owner and Approver(s), then move status to `Accepted`.
@@ -180,5 +180,5 @@ Review cadence:
 - Status is `Accepted` once approved
 - Proposed/Accepted dates are present
 - Owner + Approver(s) are present
-- ADR-0001 aligns with `/docs/_project/stack-summary.md`
+- ADR-0001 aligns with `/docs/__project/stack-summary.md`
 - Future baseline changes require a new ADR
