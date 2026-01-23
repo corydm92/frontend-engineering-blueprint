@@ -32,9 +32,7 @@ Projects copy one template into their repo as `Blueprint Project Guide.md` and e
 
 ## 📚 Blueprint Project Guide Templates
 
-The **Blueprint Project Guide** is the starting point — the project’s top-level blueprint document (intent + standards).
-
-It defines:
+The **Blueprint Project Guide** is the starting point — the project’s top-level blueprint document (intent + standards). It defines:
 
 - project goals
 - core engineering principles
@@ -43,24 +41,19 @@ It defines:
 
 This repo includes three guide templates, each serving a different audience:
 
-- 🧠 **Master Guide**  
-   The complete, opinionated reference — dense, detailed, and system-level.
-
-  This is my personal go-to copy. Each project gets its own Master copy (built using the Layer 0 setup flow) because every project has different needs.  
-   When conventions overlap, I pull from this Master into the project copy. When a project offers something new (new language, new constraint, new pattern), I define it in the project first, then upstream it back into this Master once it proves out.
+- 🧠 **Master Guide** — The complete, opinionated reference — dense, detailed, and system-level.  
+  My personal go-to copy: projects create their own Master via the Layer 0 setup flow, then pull shared conventions from this upstream.
+  New constraints/patterns get proven in the project first, then upstreamed back into this Master.
   <br>
-
-- 🧰 **Team Guide**  
-   A shorter, practical guide designed for team adoption and governance.  
+- 🧰 **Team Guide** — A shorter, practical guide designed for team adoption and governance.  
    This is the recommended starting point for most real projects.
   <br>
-- 🌐 **Public Guide**  
-  A readable overview intended for sharing concepts without internal depth.  
+- 🌐 **Public Guide** — A readable overview intended for sharing concepts without internal depth.  
   This is for a general audience and explains the Blueprint without going deep into implementation details.
 
-## 🗂 What’s in this repo
+## 🗂 Blueprint System
 
-The Guides are the starting templates; the Blueprint System is the expanded project knowledge base that lives under `/docs/blueprint`.
+The Guides are the starting templates; the **Blueprint System** is the expanded project knowledge base that lives under `/docs/blueprint`.
 
 The Blueprint System is organized into seven layers, each representing a stage in the frontend lifecycle:
 
@@ -103,7 +96,7 @@ In short:
 - **Blueprint Project Guide** = intent + standards (source document)
 - **Blueprint System** = the implementation of that intent (expanded structure + artifacts)
 
-## Blueprint System Example
+## 🧱 Blueprint System Example
 
 This is what the system looks like after install, with the Blueprint Project Guide at the top.
 
@@ -111,31 +104,31 @@ This is what the system looks like after install, with the Blueprint Project Gui
 <summary><strong>Example Installed Structure (click to expand)</strong></summary>
 
 ```
-    /docs
-    ├─ __project/                                           # Current project truth (stack summary, ownership, review cadence)
-    ├─ adr/                                                 # Immutable decisions (governance + decision history)
-    ├─ blueprint/                                           # The system (standards + knowledge), derived from the Project Guide
-    │  ├─ Blueprint Project Guide.md                        # Project-owned intent + standards
-    │  ├─ Layer 00 - System Initialization/
-    │  │  └─ 0.1 Setup Blueprint System In Project/
-    │  ├─ Layer 01 - Language & Architecture/
-    │  │  └─ 1.1 TypeScript and JavaScript/
-    │  │     ├─ Base Project Rules and Tooling/
-    │  │     │  ├─ __Initialization/
-    │  │     │  ├─ TypeScript Strictness Rules.md
-    │  │     │  └─ TSConfig Inheritance and Module System.md
-    │  │     ├─ Core Sequential Subsections/
-    │  │     │  ├─ 1 Mental Model/
-    │  │     │  ├─ 2 Types and Inference/
-    │  │     │  └─ 3 Narrowing and Type Guards/
-    │  │     └─ Supporting Atomic Notes/
-    │  │        ├─ Unknown vs Any.md
-    │  │        ├─ As Const and Literal Inference.md
-    │  │        └─ Common Compiler Errors.md
-    │  └─ Layer 02 - State & Framework/
-    │     └─ ...
-    ├─ process/                                             # Templates + workflows used to run the project
-    └─ references/                                          # Supporting material (not canonical)
+/docs
+├─ __project/                                           # Current project truth (stack summary, ownership, review cadence)
+├─ adr/                                                 # Immutable decisions (governance + decision history)
+├─ blueprint/                                           # The system (standards + knowledge), derived from the Project Guide
+│  ├─ Blueprint Project Guide.md                        # Project-owned intent + standards
+│  ├─ Layer 00 - System Initialization/
+│  │  └─ 0.1 Setup Blueprint System In Project/
+│  ├─ Layer 01 - Language & Architecture/
+│  │  └─ 1.1 TypeScript and JavaScript/
+│  │     ├─ Base Project Rules and Tooling/
+│  │     │  ├─ __Initialization/
+│  │     │  ├─ TypeScript Strictness Rules.md
+│  │     │  └─ TSConfig Inheritance and Module System.md
+│  │     ├─ Core Sequential Subsections/
+│  │     │  ├─ 1 Mental Model/
+│  │     │  ├─ 2 Types and Inference/
+│  │     │  └─ 3 Narrowing and Type Guards/
+│  │     └─ Supporting Atomic Notes/
+│  │        ├─ Unknown vs Any.md
+│  │        ├─ As Const and Literal Inference.md
+│  │        └─ Common Compiler Errors.md
+│  └─ Layer 02 - State & Framework/
+│     └─ ...
+├─ process/                                             # Templates + workflows used to run the project
+└─ references/                                          # Supporting material (not canonical)
 ```
 
 </details>
