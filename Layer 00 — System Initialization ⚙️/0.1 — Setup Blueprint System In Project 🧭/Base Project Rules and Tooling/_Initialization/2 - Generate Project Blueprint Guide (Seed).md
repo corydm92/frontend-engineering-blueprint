@@ -1,52 +1,44 @@
-# 2 — Generate Project Master Blueprint (Seed)
+# 2 — Create Blueprint Project Guide (Seed)
 
 ## 🎯 Goal
 
-Create the **Project Master Blueprint** — the first authoritative, project-owned document that defines how this project will apply the Blueprint System.
+Create the **Blueprint Project Guide** — an editable, project-owned baseline that defines the conventions and standards this project will apply through the Blueprint System.
 
-This step converts guidance into intent.
-
-Until this document exists, the Blueprint System is installed but **not yet authoritative**.
+This step converts guidance into project intent.  
+Until this exists, the Blueprint System is installed but **not yet ready to fill in**.
 
 ## 📦 What This Step Produces
 
 This step produces **one artifact**:
 
-- `docs/blueprint/PROJECT_MASTER.md` — the Project Master Blueprint
+- `docs/blueprint/Blueprint Project Guide.md`
 
 This document:
 
 - Is owned by the project
-- Is derived from a Blueprint System Guide
-- Becomes the canonical reference for project standards and constraints
-- Serves as the source of truth for all future Blueprint System artifacts
+- Starts from one upstream Guide (Public, Team, or Master)
+- Defines baseline conventions (principles + layer intent + standards outline)
+- Becomes the starting point for all deeper Blueprint System artifacts
 
-No layer rules are encoded yet  
+No layer docs are expanded yet  
 No tooling is configured yet  
 No ADRs are created yet
 
-This step establishes **authority**, not implementation.
+This step establishes the **baseline**, not the full system.
 
 ## 🧠 Mental Model
 
-Think of the Project Master Blueprint as the project’s **constitutional document**.
+The Blueprint Project Guide is the project’s **seed contract**:
 
-- **Blueprint System Guides** explain what the system is and how it works
-- The **Project Master Blueprint** defines how this specific project applies it
-- All Blueprint System artifacts must trace back to this document
+- Broad on purpose (it’s the outline)
+- Edited to match project reality (constraints, scope, deviations)
+- Used as the source of truth to build deeper documents inside `/docs/blueprint/`
 
-The flow is intentional:
-
-- Guides → inform thinking
-- Project Master Blueprint → commits intent
-- Blueprint System artifacts → encode and enforce decisions
-
-If someone asks, “Why does this project do it this way?”,  
-the answer should point here first.
+After this guide is edited, the team begins expanding the system by filling out layer artifacts that enforce and detail what the guide establishes.
 
 ## 📚 How This Document Is Created
 
-Choose **one** Blueprint System Guide as your starting point:
+Choose **one** upstream starting point:
 
 - **Public Edition** — lightweight, exploratory adoption
 - **Team Edition** — balanced default for most teams
@@ -54,56 +46,37 @@ Choose **one** Blueprint System Guide as your starting point:
 
 Then:
 
-- Copy the chosen Guide into the project
-- Rename it to `PROJECT_MASTER.md`
-- Edit it to reflect:
-  - the project’s context
-  - constraints
-  - scope
-  - deviations
-  - governance expectations
+- Copy the chosen Guide into `docs/blueprint/`
+- Rename it to `Blueprint Project Guide.md`
+- Edit it to match the project:
+  - remove irrelevant sections
+  - tighten/expand standards as needed
+  - add constraints, scope, and deviations
 
-The Guide becomes **project-specific** at this point.
-
-The original Guide remains an upstream reference and does not change.
+The upstream Guide stays unchanged. The copied file becomes project-owned.
 
 ## 🚫 Explicit Non-Goals
 
 This step does **not**:
 
 - Install the Blueprint System (already done in Step 1)
-- Populate layer directories with rules or setup steps
+- Populate layer directories with detailed rules or setup artifacts
 - Configure tooling or infrastructure
 - Create ADRs or stack summaries
-- Encode enforcement mechanisms
 
-Those happen **after** project intent is defined.
+Those happen after the baseline is defined.
 
 ## 🛠 Setup Steps
 
-1. Select a Blueprint System Guide and version  
-   Decide which Guide best matches the project’s maturity and goals.
-
-2. Copy the Guide into the project  
-   Place it under `docs/blueprint/` and rename it to `PROJECT_MASTER.md`.
-
-3. Edit the document to reflect project reality  
-   Remove irrelevant sections, add constraints, and clarify scope.
-
-4. Review for authority  
-   Confirm this document clearly answers:
-   - What are we building?
-   - How are we applying the Blueprint?
-   - What constraints shape all downstream decisions?
-
-Once complete, the Blueprint System becomes authoritative for this project.
+1. Select an upstream Guide + version
+2. Copy it into the project as `docs/blueprint/Blueprint Project Guide.md`
+3. Edit it to reflect project reality and desired rigor
+4. Begin expanding deeper layer artifacts using the guide as the baseline
 
 ## ✅ Verification
 
-- `docs/blueprint/PROJECT_MASTER.md` exists
-- It is derived from a single Blueprint System Guide
-- Project-specific context and constraints are explicit
-- The document is treated as the primary standards reference
-- No system artifacts are created without aligning to it
-
-If all checks pass, proceed with the remaining Layer 0 setup steps.
+- `docs/blueprint/Blueprint Project Guide.md` exists
+- It references which upstream Guide + version it was derived from
+- It has been edited for the project (not a verbatim copy)
+- It includes baseline conventions (principles + layer intent + standards outline)
+- Deeper layer artifacts are created only to expand and enforce what this guide establishes

@@ -1,4 +1,4 @@
-# 2 — Project Stack Summary (`/docs/__project`)
+# 3 — Project Stack Summary (`/docs/__project`)
 
 ## 🎯 Goal
 
