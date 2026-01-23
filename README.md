@@ -18,11 +18,13 @@ This is the framework I use when I’m responsible for long-lived systems — no
 
 ## 🚀 Where to start
 
-Start with this README, then pick a Blueprint Guide (template) based on what you want:
+Start with this README, then pick a **Blueprint Project Guide template** based on what you want:
 
-- **Public Edition** — high-level overview
-- **Team Edition** — practical default for team adoption
-- **Master Edition** — full reference: contracts, patterns, edge cases
+- **Public Guide** — high-level overview
+- **Team Guide** — practical default for team adoption
+- **Master Guide** — full reference: contracts, patterns, edge cases
+
+Projects copy one template into their repo as `Blueprint Project Guide.md` and edit it.
 
 > 🏗️ Ready to adopt this in a real repo?
 >
@@ -30,30 +32,31 @@ Start with this README, then pick a Blueprint Guide (template) based on what you
 
 ## 📚 Blueprint Project Guide Templates
 
-Projects copy one template into their repo as `Blueprint Project Guide.md` and edit it.
+The **Blueprint Project Guide** is the starting point — the project’s top-level blueprint document (intent + standards).
+
+It defines:
+
+- project goals
+- core engineering principles
+- what “good” looks like in this repo
+- what standards matter and why
 
 This repo includes three guide templates, each serving a different audience:
 
-🧠 **Master Edition**
+- 🧠 **Master Guide**  
+   The complete, opinionated reference — dense, detailed, and system-level.
 
-The complete, opinionated reference — dense, detailed, and system-level.
+  This is my personal go-to copy. Each project gets its own Master copy (built using the Layer 0 setup flow) because every project has different needs.  
+   When conventions overlap, I pull from this Master into the project copy. When a project offers something new (new language, new constraint, new pattern), I define it in the project first, then upstream it back into this Master once it proves out.
+  <br>
 
-This is my personal go-to copy. Each project gets its own Master copy (built using the Layer 0 setup flow) because every project has different needs.
-
-When conventions overlap, I pull from this Master into the project copy. When a project offers something new (new language, new constraint, new pattern), I define it in the project first, then upstream it back into this Master once it proves out.
-
-🧰 **Team Edition**
-
-A shorter, practical guide designed for team adoption and governance.
-
-This is the recommended starting point for most real projects.  
-Teams copy this into their repo as the **Blueprint Project Guide** and edit it to fit their context.
-
-🌐 **Public Edition**
-
-A readable overview intended for sharing concepts without internal depth.
-
-This is for a general audience and explains the Blueprint without going deep into implementation details.
+- 🧰 **Team Guide**  
+   A shorter, practical guide designed for team adoption and governance.  
+   This is the recommended starting point for most real projects.
+  <br>
+- 🌐 **Public Guide**  
+  A readable overview intended for sharing concepts without internal depth.  
+  This is for a general audience and explains the Blueprint without going deep into implementation details.
 
 ## 🗂 What’s in this repo
 
@@ -87,13 +90,6 @@ It prevents documentation drift, enforces clarity, and keeps knowledge scalable 
 
 The **Blueprint Project Guide** is the starting point — the project’s top-level blueprint document (intent + standards).
 
-It defines:
-
-- project goals
-- core engineering principles
-- what “good” looks like in this repo
-- what standards matter and why
-
 Then the **Blueprint System** is built from that guide.
 
 It’s the structured documentation implementation where those goals and standards get expanded into:
@@ -116,10 +112,12 @@ This is what the system looks like after install, with the Blueprint Project Gui
 
 ```
     /docs
+    ├─ __project/                                           # Current project truth (stack summary, ownership, review cadence)
+    ├─ adr/                                                 # Immutable decisions (governance + decision history)
     ├─ blueprint/                                           # The system (standards + knowledge), derived from the Project Guide
-    │  ├─ Blueprint Project Guide.md                        # Project-owned intent + standards (created in Step 2)
+    │  ├─ Blueprint Project Guide.md                        # Project-owned intent + standards
     │  ├─ Layer 00 - System Initialization/
-    │  │  └─ 0.1 Setup Blueprint In Project/
+    │  │  └─ 0.1 Setup Blueprint System In Project/
     │  ├─ Layer 01 - Language & Architecture/
     │  │  └─ 1.1 TypeScript and JavaScript/
     │  │     ├─ Base Project Rules and Tooling/
@@ -136,8 +134,6 @@ This is what the system looks like after install, with the Blueprint Project Gui
     │  │        └─ Common Compiler Errors.md
     │  └─ Layer 02 - State & Framework/
     │     └─ ...
-    ├─ adr/                                                 # Immutable decisions (governance + decision history)
-    ├─ __project/                                           # Current project truth (stack summary, ownership, review cadence)
     ├─ process/                                             # Templates + workflows used to run the project
     └─ references/                                          # Supporting material (not canonical)
 ```
