@@ -1,4 +1,4 @@
-The Frontend Engineering Blueprint (Master Edition v1.19)
+# The Frontend Engineering Blueprint (Master Edition v1.19)
 
 _Internal Edition — Author: Cory Morrissey_  
 Last Updated: 1/15/2026
