@@ -22,7 +22,6 @@ normal() { tput sgr0 2>/dev/null || true; }
 reverse_on() { tput rev 2>/dev/null || true; }
 reverse_off() { tput sgr0 2>/dev/null || true; }
 
-
 draw_menu() {
   tput clear
 
@@ -31,20 +30,19 @@ draw_menu() {
   tput cup "$TOP_PAD" 0
 
   echo "Docs init: choose a layer folder structure"
- echo "↑/↓ to move • Enter to select"
+  echo "↑/↓ to move • Enter to select"
   echo
 
   for i in "${!OPTIONS[@]}"; do
-  if [[ "$i" -eq "$SELECTED" ]]; then
-    reverse_on
-    printf "  > %s\n" "${OPTIONS[$i]}"
-    reverse_off
-  else
-    printf "    %s\n" "${OPTIONS[$i]}"
-  fi
-done
+    if [[ "$i" -eq "$SELECTED" ]]; then
+      reverse_on
+      printf "  > %s\n" "${OPTIONS[$i]}"
+      reverse_off
+    else
+      printf "    %s\n" "${OPTIONS[$i]}"
+    fi
+  done
 }
-
 
 read_key() {
   local key
@@ -87,14 +85,15 @@ echo
 
 mkdir -p docs/{__project,adr,blueprint,process,references}
 
+# ✅ Layer directories are two-digit (00–06) and prefixed with "Layer"
 LAYER_DIRS=(
-  "00 System Initialization"
-  "01 Language & Architecture"
-  "02 State & Framework"
-  "03 Quality & Stability"
-  "04 UI & Experience"
-  "05 Build & Delivery"
-  "06 Security & Observability"
+  "Layer 00 - System Initialization"
+  "Layer 01 - Language & Architecture"
+  "Layer 02 - State & Framework"
+  "Layer 03 - Quality & Stability"
+  "Layer 04 - UI & Experience"
+  "Layer 05 - Build & Delivery"
+  "Layer 06 - Security & Observability"
 )
 
 for layer in "${LAYER_DIRS[@]}"; do
@@ -167,9 +166,16 @@ Rules:
 - Don’t duplicate canonical documentation here
 EOF
 
+# ✅ Extract the two-digit layer index (00–06) from "Layer 00 - ..."
 layer_number_from_name() {
   local layer_name="$1"
-  local prefix="${layer_name:0:2}"
+  local prefix=""
+  if [[ "$layer_name" =~ ([0-9]{2}) ]]; then
+    prefix="${BASH_REMATCH[1]}"
+  else
+    echo "Error: could not parse layer number from: $layer_name" >&2
+    exit 1
+  fi
   echo "$((10#$prefix))"
 }
 
@@ -177,6 +183,8 @@ for dir in docs/blueprint/*; do
   [[ -d "$dir" ]] || continue
   layer="$(basename "$dir")"
   layer_num="$(layer_number_from_name "$layer")"
+
+  # ✅ Sections are decimals of the base layer number (0.1, 1.1, 2.1, ...)
   section_prefix="${layer_num}.1"
   section_name="${section_prefix} Section Example"
   SECTION_EXAMPLE_DIR="$dir/${section_name}"
