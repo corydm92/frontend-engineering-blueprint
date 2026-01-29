@@ -18,7 +18,11 @@ chmod +x "$tmp_dir/init-docs.sh"
 
 run_init() {
   if command -v script >/dev/null 2>&1; then
-    TERM=xterm script -q /dev/null bash -c "cd \"$tmp_dir\" && printf '\n' | \"$tmp_dir/init-docs.sh\""
+    if script -q -c "true" /dev/null >/dev/null 2>&1; then
+      TERM=xterm script -q -c "cd \"$tmp_dir\" && printf '\n' | \"$tmp_dir/init-docs.sh\"" /dev/null
+    else
+      TERM=xterm script -q /dev/null bash -c "cd \"$tmp_dir\" && printf '\n' | \"$tmp_dir/init-docs.sh\""
+    fi
   else
     (cd "$tmp_dir" && TERM=xterm "$tmp_dir/init-docs.sh" <<< $'\n')
   fi

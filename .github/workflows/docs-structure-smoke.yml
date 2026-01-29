@@ -2,9 +2,6 @@ name: Docs Structure Smoke
 
 on:
   pull_request:
-  push:
-    branches:
-      - main
 
 jobs:
   docs-structure-smoke:
