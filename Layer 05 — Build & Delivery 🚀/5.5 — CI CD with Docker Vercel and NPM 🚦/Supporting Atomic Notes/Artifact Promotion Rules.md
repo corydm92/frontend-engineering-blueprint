@@ -1,11 +1,11 @@
 # Artifact Promotion Rules
 
 ## Good
-- Build once in dev, promote the same artifact to staging and prod
-- Stamp artifacts with a short SHA or tag for traceability
-- Keep build steps in CI, not in CD
+- Rebuild per environment using the same inputs and rules
+- Pin Node/pnpm versions and enforce lockfile integrity
+- Keep build inputs deterministic (env vars, flags, dependencies)
 
 ## Bad
-- Rebuilding in staging or prod
+- Letting build inputs drift between environments
 - Deploying from unreviewed branches
-- Promoting artifacts that skipped CI
+- Skipping CI before deploy
