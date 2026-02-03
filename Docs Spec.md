@@ -24,6 +24,8 @@ All docs must follow these rules:
 - Use **very light, tasteful emojis** in headers.
 - **Do not use divider lines** (`---`, `----`, or long character bars).
 - Keep headings consistent and readable.
+- Technical topics must be **fully encompassing** and grounded in authoritative sources.
+- If official documentation exists for a technical topic, **use it as the primary reference** and align terminology and definitions to it.
 
 Formatting references:
 - `Layer 00 — System Initialization ⚙️/0.1 — Setup Blueprint System In Project 🧭/Base Project Rules and Tooling/_Initialization/1 - Blueprint System Setup.md`
@@ -60,6 +62,8 @@ Expectations:
 - Each step builds on the last (no jumps).
 - Clarity and depth matter more than length.
 - Use the same level of rigor across all layers.
+- Technical subsections should be **complete enough to guide implementation** without gaps.
+- Prefer verified, authoritative references when describing technical behavior.
 
 ### Supporting Atomic Notes (quality)
 
