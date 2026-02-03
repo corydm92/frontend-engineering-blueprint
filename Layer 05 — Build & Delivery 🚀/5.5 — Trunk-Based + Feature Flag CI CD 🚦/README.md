@@ -1,4 +1,4 @@
-# 5.2 — Trunk-Based + Feature Flag CI/CD with Docker, Vercel, and npm
+# 5.5 — Trunk-Based + Feature Flag CI/CD with Docker, Vercel, and npm
 
 Updated by Cory Morrissey: 1/29/2026
 

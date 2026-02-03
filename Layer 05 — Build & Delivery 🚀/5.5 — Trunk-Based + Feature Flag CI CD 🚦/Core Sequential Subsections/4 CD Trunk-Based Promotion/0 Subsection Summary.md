@@ -1,4 +1,4 @@
-# 0. Section Summary
+# 0 Subsection Summary
 
 CD rebuilds per environment using trunk-based triggers and deterministic inputs.
 

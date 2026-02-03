@@ -1,4 +1,4 @@
-# 0. Section Summary
+# 0 Subsection Summary
 
 Release tags are the production gate.
 

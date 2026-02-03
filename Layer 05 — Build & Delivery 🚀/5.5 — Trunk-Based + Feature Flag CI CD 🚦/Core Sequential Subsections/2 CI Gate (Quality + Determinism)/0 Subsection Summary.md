@@ -1,4 +1,4 @@
-# 0. Section Summary
+# 0 Subsection Summary
 
 The CI gate is the non-negotiable quality checkpoint.
 

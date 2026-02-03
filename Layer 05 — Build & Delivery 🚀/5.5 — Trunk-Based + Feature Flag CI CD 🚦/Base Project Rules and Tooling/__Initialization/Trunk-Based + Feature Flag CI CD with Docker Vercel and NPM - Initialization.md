@@ -27,8 +27,6 @@ Ship a project with:
 - `package.json` includes `packageManager` for deterministic pnpm.
 - Conventional commits + release tooling are available for tag-based prod releases.
 
----
-
 # Step 1 — Keep CI Only (Baseline Gate)
 
 CI is mandatory for all projects:
@@ -46,14 +44,12 @@ Verify:
 
 - Open a PR and confirm CI runs all gates.
 
----
-
 # Step 2 — Choose Exactly One CD Path
 
 Pick **one** CD workflow and copy it into `.github/workflows`:
 
 - Templates live here:
-  - `docs/blueprint/Layer 05 - Build & Delivery/5.2 — Trunk-Based + Feature Flag CI CD 🚦/Base Project Rules and Tooling/__Initialization/workflows/`
+  - `docs/blueprint/Layer 05 - Build & Delivery/5.5 — Trunk-Based + Feature Flag CI CD 🚦/Base Project Rules and Tooling/__Initialization/workflows/`
 - Choose one:
   - Web apps: `cd-vercel-trunk-based.yml`
   - Services: `cd-docker-trunk-based.yml`
@@ -61,8 +57,6 @@ Pick **one** CD workflow and copy it into `.github/workflows`:
 - Copy the chosen file into `.github/workflows/`.
 
 Rule: **Only one CD path should be active** in a given project to avoid multiple deployments.
-
----
 
 # Step 3 — Release Automation
 
@@ -72,8 +66,6 @@ We leverage standard-version to pull from commit history to generate our semver 
 
 - Add `release-automation.yml` to `.github/workflows/`.
 - It runs `standard-version` on `main` to create the release commit + `v*` tag.
-
----
 
 # Step 4 — Configure Secrets
 
@@ -92,22 +84,16 @@ npm:
 
 - `NPM_TOKEN`
 
----
-
 # Step 5 — Verify Trunk Triggers
 
 1. Merge to `main` -> dev deploy/publish triggers.
 2. Push tag `v*` -> prod deploy/publish triggers.
-
----
 
 # Step 6 — Release Tagging (Prod Gate)
 
 Use conventional commits + `standard-version` to create the release commit + `v*` tags.
 
 This tag is the prod trigger and must point to the release commit.
-
----
 
 # Step 7 — Document the Chosen Path
 
@@ -116,8 +102,6 @@ Add a short note in project docs:
 - Which CD path is active.
 - Where secrets live.
 - Who approves prod tags.
-
----
 
 # Common Issues
 

@@ -14,7 +14,13 @@ Use this file as the starting point when adding new docs so structure stays cons
 
 ## Style Rules
 
-I use .md to add headers, dividers, and emojis to include visual interupts. A core rule for this blueprint: we follow this convention, look at
+- Use markdown headers with tasteful but no overuse of emojis for visual breaks.
+- Avoid divider lines (no `----` or horizontal rules).
+- Follow the formatting used in:
+  - `Layer 00 — System Initialization ⚙️/0.1 — Setup Blueprint System In Project 🧭/Base Project Rules and Tooling/_Initialization/1 - Blueprint System Setup.md`
+  - `Layer 05 — Build & Delivery 🚀/5.5 — Trunk-Based + Feature Flag CI CD 🚦/Base Project Rules and Tooling/__Initialization/Trunk-Based + Feature Flag CI CD with Docker Vercel and NPM - Initialization.md`
+- **Quality bar:** `Layer 02 — State & Framework 🔄/2.3 — Framework (Next.js)` sets the standard for structure and depth. All notes should build on prior layers and meet this level of clarity.
+- **Structure rule:** folders and files must match the tree in `Blueprint Project Guide (Master Edition).md` → **Example of Full Blueprint Structure**.
 
 ## System Initialization
 
@@ -27,6 +33,7 @@ Structure reference:
 Content reference:
 
 - `Layer 00 — System Initialization ⚙️/0.1 — Setup Blueprint System In Project 🧭/Base Project Rules and Tooling/_Initialization/1 - Blueprint System Setup.md`
+- `Layer 05 — Build & Delivery 🚀/5.5 — Trunk-Based + Feature Flag CI CD 🚦/Base Project Rules and Tooling/__Initialization/Trunk-Based + Feature Flag CI CD with Docker Vercel and NPM - Initialization.md`
 
 ## Base Project Rules and Tooling
 
@@ -34,11 +41,11 @@ Use when writing foundational setup, tooling rules, or enforcement docs.
 
 Structure reference:
 
-- `Layer 05 — Build & Delivery 🚀/5.2 — Version Control & Collaboration 🧩/Base Project Rules and Tooling`
+- `Layer 05 — Build & Delivery 🚀/5.5 — Trunk-Based + Feature Flag CI CD 🚦/Base Project Rules and Tooling`
 
 Content reference:
 
-- `Layer 05 — Build & Delivery 🚀/5.2 — Version Control & Collaboration 🧩/Base Project Rules and Tooling/Conventional Commit Setup.md`
+- `Layer 05 — Build & Delivery 🚀/5.5 — Trunk-Based + Feature Flag CI CD 🚦/Base Project Rules and Tooling/README.md`
 
 ## Core Sequential Subsections
 
@@ -58,8 +65,8 @@ Use for focused, single-topic notes with clear rules, examples, and quick guidan
 
 Structure reference:
 
-- `Layer 01 — Language & Architecture 🧩/1.1 — TypeScript & JavaScript ⚙️/Supporting Atomic Notes`
+- `Layer 02 — State & Framework 🔄/2.3 — Framework (Next.js)/Supporting Atomic Notes`
 
 Content references:
 
-- `Layer 01 — Language & Architecture 🧩/1.1 — TypeScript & JavaScript ⚙️/Supporting Atomic Notes/Advanced Promises — Event Loop, Microtasks, and Real-World Behavior.md`
+- `Layer 02 — State & Framework 🔄/2.3 — Framework (Next.js)/Supporting Atomic Notes/NEXT.JS HOOKS REFERENCE (App Router).md`

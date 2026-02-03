@@ -1,4 +1,4 @@
-# 0. Section Summary
+# 0 Subsection Summary
 
 Feature flags are required in trunk-based delivery.
 
