@@ -12,6 +12,10 @@ Use this file as the starting point when adding new docs so structure stays cons
 - Reuse formatting patterns before adding content.
 - If you create a stronger example, replace the content reference here.
 
+## Style Rules
+
+I use .md to add headers, dividers, and emojis to include visual interupts. A core rule for this blueprint: we follow this convention, look at
+
 ## System Initialization
 
 Use when explaining how the Blueprint System is installed and shaped in a project.
