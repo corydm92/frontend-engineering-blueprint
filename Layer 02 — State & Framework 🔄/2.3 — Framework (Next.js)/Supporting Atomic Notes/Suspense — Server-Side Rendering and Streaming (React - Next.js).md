@@ -1,4 +1,4 @@
-Suspense — Server-Side Rendering and Streaming (React / Next.js)
+# Suspense — Server-Side Rendering and Streaming (React - Next.js) 📝
 
 Go
 al

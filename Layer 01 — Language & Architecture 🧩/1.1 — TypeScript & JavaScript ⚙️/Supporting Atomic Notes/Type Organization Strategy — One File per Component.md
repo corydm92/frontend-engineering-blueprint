@@ -1,4 +1,4 @@
-Type Organization Strategy — One File per Component
+# Type Organization Strategy — One File per Component 📝
 
 All types live under `/types`, mirroring the structure of `/src`.
 Each component, feature, and utility owns a single `*.types.ts` file defining only what’s relevant to that module.

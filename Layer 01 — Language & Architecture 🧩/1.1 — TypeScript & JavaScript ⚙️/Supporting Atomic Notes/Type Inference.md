@@ -1,4 +1,4 @@
-Type Inference
+# Type Inference 📝
 
 // 🟢 GOOD — clear inference
 const count = 5;

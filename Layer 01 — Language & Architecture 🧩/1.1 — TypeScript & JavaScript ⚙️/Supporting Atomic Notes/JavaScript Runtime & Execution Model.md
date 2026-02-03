@@ -1,10 +1,9 @@
-JavaScript Runtime & Execution Model
+# JavaScript Runtime & Execution Model 📝
 
 Purpose:
 Define what the JavaScript runtime actually does — from parsing and execution to how asynchronous code interacts with the event loop.
 This section separates what happens at runtime from what happens at build time, so behavior is predictable across environments.
 
----
 
 JavaScript is interpreted and single-threaded, executing inside a runtime environment (browser or Node.js) powered by an engine (V8, SpiderMonkey, etc.).
 
@@ -15,11 +14,10 @@ At runtime, three phases occur:
 
 All behaviors here occur at runtime, not during bundling or transpilation.
 
----
 
 Runtime Gotchas (Ranked by Impact)
 
-1. Event Loop
+## 1 Event Loop
 DO:
 - Remember JavaScript is single-threaded. Async behavior comes from the runtime environment (browser APIs or Node’s libuv).
 - Understand the event loop: queued tasks only run once the call stack is empty.
@@ -34,9 +32,8 @@ console.log('sync');
 DON’T:
 - Expect parallelism — concurrency is simulated through scheduling.
 
----
 
-2. Execution Context & Scope Chain
+## 2 Execution Context & Scope Chain
 DO:
 - Each function call creates a new execution context (scope, variable environment, this binding).
 - Variable resolution is dynamic: JS walks the scope chain at runtime, not compile time.
@@ -55,9 +52,8 @@ DON’T:
 - Confuse lexical scoping with runtime binding of this.
 - Assume variables are resolved at import time — they’re resolved at runtime during execution.
 
----
 
-3. Hoisting & TDZ (Temporal Dead Zone)
+## 3 Hoisting & TDZ (Temporal Dead Zone)
 DO:
 - Recognize hoisting is a runtime parsing phase behavior, not build-time.
 - var declarations initialize as undefined, function declarations hoist fully.
@@ -73,9 +69,8 @@ let b = 2;
 DON’T:
 - Access let/const before declaration — it’s a ReferenceError at runtime.
 
----
 
-4. Microtasks vs Macrotasks
+## 4 Microtasks vs Macrotasks
 DO:
 - Microtasks always flush before the next macrotask.
 - Promise callbacks (.then, .catch, .finally) run as microtasks.
@@ -89,9 +84,8 @@ console.log('sync');
 DON’T:
 - Expect setTimeout(fn, 0) to run immediately — the microtask queue always wins.
 
----
 
-5. this Binding
+## 5 this Binding
 DO:
 - Understand this is determined at call time, not at declaration.
 - Arrow functions capture this lexically (from their enclosing scope).
@@ -109,9 +103,8 @@ obj.fn();
 DON’T:
 - Assume this refers to the same object inside nested callbacks or event handlers.
 
----
 
-6. Closures & Memory Retention
+## 6 Closures & Memory Retention
 DO:
 - Use closures for encapsulation but release references when no longer needed.
 - Remember closures hold variables by reference, not value — preventing GC if objects remain referenced.
@@ -125,9 +118,8 @@ return () => console.log(big.length);
 DON’T:
 - Keep persistent closures to large data — they survive beyond function lifetime, leaking memory.
 
----
 
-7. Blocking the Main Thread
+## 7 Blocking the Main Thread
 DO:
 - Split long-running loops into chunks (setTimeout, queueMicrotask, requestIdleCallback) to yield back to the event loop.
 
@@ -141,9 +133,8 @@ if (items.length) setTimeout(() => process(items), 0);
 DON’T:
 - Run heavy synchronous computation in the browser — it freezes UI until completion.
 
----
 
-8. Implicit Globals
+## 8 Implicit Globals
 DO:
 - Always declare variables (let, const, var).
 - Use "use strict" globally to prevent implicit global creation.
@@ -155,9 +146,8 @@ foo = 5; // ❌ ReferenceError
 DON’T:
 - Assign undeclared variables — in non-strict mode they auto-attach to window or globalThis.
 
----
 
-9. Shadowing & Scope Confusion
+## 9 Shadowing & Scope Confusion
 DO:
 - Avoid redeclaring the same variable name in nested scopes.
 - Understand that inner var declarations hoist and shadow outer scope variables.
@@ -172,9 +162,8 @@ var x = 2;
 DON’T:
 - Mix var with let in the same scope — it creates runtime confusion.
 
----
 
-10. Garbage Collection (GC)
+## 10 Garbage Collection (GC)
 DO:
 - Remember GC is non-deterministic — the runtime decides when to reclaim memory.
 - Release DOM references and event listeners when elements are removed.
@@ -182,9 +171,8 @@ DO:
 DON’T:
 - Assume nulling an object triggers instant collection — GC runs opportunistically.
 
----
 
-11. Prototypal Inheritance
+## 11 Prototypal Inheritance
 DO:
 - Understand that JavaScript uses prototype chains, not classical inheritance.
 - All objects link to a prototype object via [[Prototype]].
@@ -198,9 +186,8 @@ console.log(dog.eats); // true (inherited via prototype)
 DON’T:
 - Confuse class syntax for classical inheritance — it’s syntactic sugar over prototypes.
 
----
 
-12. Event Loop Phases (Node-specific)
+## 12 Event Loop Phases (Node-specific)
 DO:
 - Know Node’s loop has additional phases: timers → pending → idle → poll → check → close.
 - Microtasks (Promises, process.nextTick) still take priority after each phase.
@@ -208,7 +195,6 @@ DO:
 DON’T:
 - Use process.nextTick carelessly — it can starve the event loop if queued recursively.
 
----
 
 Diagnostic & Debugging Tools
 - performance.now() — micro-timing for event loop intervals
@@ -217,7 +203,6 @@ Diagnostic & Debugging Tools
 - Node --inspect or --trace-events → visualize async operations
 - Lighthouse → measure blocking time on main thread
 
----
 
 Key Takeaways
 - Hoisting, scope, and async timing all happen at runtime, not during bundling.

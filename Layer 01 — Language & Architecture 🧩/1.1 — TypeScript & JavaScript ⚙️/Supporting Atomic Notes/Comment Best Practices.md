@@ -1,4 +1,4 @@
-Comment Best Practices
+# Comment Best Practices 📝
 
 Purpose
 Comments communicate intent, constraints, and reasoning. Code already expresses *what* happens — comments explain *why*.
@@ -10,9 +10,8 @@ Avoids
 - Fear-based warnings without explanation.
 - TODOs with no scope, trigger, or resolution path.
 
----
 
-1) Comment the “why,” not the “what.”
+## 1 Comment the “why,” not the “what.”
 Do:
 /**
 * We collapse middle pages to keep pagination compact on large page sets.
@@ -25,9 +24,8 @@ Don’t (almost good):
 Avoid:
 Narrating code that already explains itself.
 
----
 
-2) Document invariants and assumptions.
+## 2 Document invariants and assumptions.
 Do:
 /**
 * Assumes `currentPage` is within [1, totalPages].
@@ -40,9 +38,8 @@ Don’t (almost good):
 Avoid:
 Letting critical assumptions live only in your head.
 
----
 
-3) Clarify input → output contract.
+## 3 Clarify input → output contract.
 Do:
 /**
 * Returns an array of page numbers and 'ellipsis' sentinel values.
@@ -55,9 +52,8 @@ Don’t (almost good):
 Avoid:
 Returning multiple value shapes without documenting how they must be interpreted.
 
----
 
-4) Record reasoning when tradeoffs exist.
+## 4 Record reasoning when tradeoffs exist.
 Do:
 /**
 * Mutation is used here to prevent repeated allocations in a hot path.
@@ -70,9 +66,8 @@ Don’t (almost good):
 Avoid:
 Omitting the reasoning — future contributors will remove or break the optimization.
 
----
 
-5) Only comment non-obvious logic.
+## 5 Only comment non-obvious logic.
 Do:
 /**
 * Avoid early-return so both cleanup steps always execute, even on errors.
@@ -84,9 +79,8 @@ Don’t (almost good):
 Avoid:
 Explaining trivial control flow the reader can infer instantly.
 
----
 
-6) Use TODOs intentionally — only when the work is out of scope.
+## 6 Use TODOs intentionally — only when the work is out of scope.
 Do:
 /**
 * TODO: Normalize SKU sorting — current logic breaks on alphanumeric IDs.
@@ -102,7 +96,6 @@ Avoid:
 // TODO: fix later
 (No scope, no reason for deferral, no owner, no resolution condition.)
 
----
 
 When to Comment (with examples)
 - Domain rules
@@ -125,7 +118,6 @@ When to Comment (with examples)
 * Retry only on timeouts; surface all other errors immediately.
 */
 
----
 
 When Not to Comment (with examples)
 - Narrating obvious behavior
@@ -145,7 +137,6 @@ const x = users.length
 // Don't touch this, it breaks things
 (If true, document *why*, not fear.)
 
----
 
 Key Principle
 Comments preserve **intent, reasoning, and constraints** — not code narration.
