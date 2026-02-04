@@ -55,7 +55,7 @@ File: `@app/package.json`
   "scripts": {
     "docs:pull": "git fetch blueprint && git subtree pull --prefix=docs/blueprint blueprint main --squash",
     "docs:split": "git subtree split --prefix=docs/blueprint -b blueprint-<topic>",
-    "docs:upstream": "bash -lc 'read -p \"Branch name: \" BRANCH; read -p \"Commit message: \" MSG; test -n \"$BRANCH\" && test -n \"$MSG\" || (echo \"Branch name and commit message are required\"; exit 1); git add docs/blueprint && git commit -m \"$MSG\" && git subtree split --prefix=docs/blueprint -b \"$BRANCH\" && git push blueprint \"$BRANCH\":refs/heads/\"$BRANCH\"'"
+    "docs:upstream": "bash -lc 'read -p \"Branch name: \" BRANCH; read -p \"Commit message: \" MSG; read -p \"PR title: \" PR_TITLE; read -p \"PR description: \" PR_BODY; test -n \"$BRANCH\" && test -n \"$MSG\" && test -n \"$PR_TITLE\" || (echo \"Branch, commit message, and PR title are required\"; exit 1); test -n \"$BLUEPRINT_PR_REPO\" || (echo \"Set BLUEPRINT_PR_REPO (owner/repo)\"; exit 1); git fetch blueprint && git subtree pull --prefix=docs/blueprint blueprint main --squash; git add docs/blueprint && git commit -m \"$MSG\" && git subtree split --prefix=docs/blueprint -b \"$BRANCH\" && git push blueprint \"$BRANCH\":refs/heads/\"$BRANCH\" && gh pr create --repo \"$BLUEPRINT_PR_REPO\" --head \"$BRANCH\" --base main --title \"$PR_TITLE\" --body \"$PR_BODY\"'"
   }
 }
 ```
@@ -75,6 +75,11 @@ git push blueprint blueprint-<topic>:refs/heads/blueprint-<topic>
 # one-shot upstream with prompts
 npm run docs:upstream
 ```
+
+Notes:
+
+- Requires GitHub CLI (`gh`) installed and authenticated.
+- Set `BLUEPRINT_PR_REPO` once (e.g. `owner/engineering-blueprint`).
 
 ## Enforcement rules
 
