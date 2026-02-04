@@ -1,0 +1,51 @@
+# Notes:
+# - Set repository variables:
+#   - BLUEPRINT_REPO (e.g. git@github.com:<you>/engineering-blueprint.git)
+#   - BLUEPRINT_BRANCH (default: main)
+# - Ensure the repo has access to the blueprint remote (SSH deploy key or org access).
+# - Fill the values above with your repo’s actual URLs and branch names.
+name: Update Blueprint Docs
+
+on:
+  schedule:
+    - cron: "0 9 * * *" # daily
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-blueprint-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure git
+        run: |
+          git config user.name "blueprint-bot"
+          git config user.email "blueprint-bot@users.noreply.github.com"
+
+      - name: Pull latest blueprint docs
+        env:
+          BLUEPRINT_REPO: ${{ vars.BLUEPRINT_REPO }}
+          BLUEPRINT_BRANCH: ${{ vars.BLUEPRINT_BRANCH }}
+        run: |
+          BLUEPRINT_REPO="${BLUEPRINT_REPO:-git@github.com:<you>/engineering-blueprint.git}"
+          BLUEPRINT_BRANCH="${BLUEPRINT_BRANCH:-main}"
+
+          git remote add blueprint "$BLUEPRINT_REPO" || git remote set-url blueprint "$BLUEPRINT_REPO"
+          git fetch blueprint "$BLUEPRINT_BRANCH"
+          git subtree pull --prefix=docs/blueprint blueprint "$BLUEPRINT_BRANCH" --squash
+
+      - name: Create PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: chore/blueprint-sync
+          title: "chore: sync blueprint docs"
+          body: "Daily sync from master blueprint docs."
+          commit-message: "chore: sync blueprint docs"
+          delete-branch: true
