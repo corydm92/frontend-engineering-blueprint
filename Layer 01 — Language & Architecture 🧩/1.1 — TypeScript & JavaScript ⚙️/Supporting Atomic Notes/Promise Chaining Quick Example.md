@@ -1,4 +1,4 @@
-Promise Chaining Quick Example
+# Promise Chaining Quick Example 📝
 
 Example:
 new Promise(resolve => resolve())
@@ -6,9 +6,7 @@ new Promise(resolve => resolve())
 .then(() => console.log("second"))
 .then(() => console.log("third"))
 
-──────────
 INITIAL PROMISE CREATION
-──────────
 Promise A = new Promise(resolve => resolve())
 Promise B = A.then(() => console.log("first"))
 Promise C = B.then(() => console.log("second"))
@@ -26,9 +24,7 @@ C → [console.log("third")]
 [Microtask Queue] → (empty)
 [Promise States] → A: fulfilled, B: pending, C: pending, D: pending
 
-──────────
 STEP 1 — EXECUTOR RUNS
-──────────
 - The Promise constructor executes synchronously.
 - resolve() is called immediately → Promise A transitions to fulfilled.
 - No microtasks yet since no .then() handlers existed at that moment.
@@ -38,9 +34,7 @@ STEP 1 — EXECUTOR RUNS
 [Microtask Queue] → (empty)
 [Promise States] → A: fulfilled, B: undefined, C: undefined, D: undefined
 
-──────────
 STEP 2 — .then() REGISTRATION
-──────────
 - Each .then() attaches its handler and returns a new pending promise.
 - All promises (A–D) now exist in memory; only A is fulfilled.
 - Handlers are stored in the Reaction List.
@@ -54,9 +48,7 @@ C → [console.log("third")]
 [Microtask Queue] → (empty)
 [Promise States] → A: fulfilled, B: pending, C: pending, D: pending
 
-──────────
 STEP 3 — MICROTASK QUEUE STARTS
-──────────
 - The runtime moves A’s reaction (console.log("first")) from the Reaction List to the Microtask Queue.
 
 [Call Stack] → (empty)
@@ -67,9 +59,7 @@ C → [console.log("third")]
 [Microtask Queue] → console.log("first")
 [Promise States] → A: fulfilled, B: pending, C: pending, D: pending
 
-──────────
 STEP 4 — FIRST MICROTASK RUNS
-──────────
 - console.log("first") executes on the call stack.
 - Promise B transitions from pending → fulfilled.
 - Its reaction (console.log("second")) is promoted to the Microtask Queue.
@@ -82,9 +72,7 @@ C → [console.log("third")]
 [Microtask Queue] → console.log("second")
 [Promise States] → A: fulfilled, B: fulfilled, C: pending, D: pending
 
-──────────
 STEP 5 — SECOND MICROTASK RUNS
-──────────
 - console.log("second") executes.
 - Promise C transitions from pending → fulfilled.
 - Its reaction (console.log("third")) moves from the Reaction List → Microtask Queue.
@@ -97,9 +85,7 @@ C: (empty)
 [Microtask Queue] → console.log("third")
 [Promise States] → A: fulfilled, B: fulfilled, C: fulfilled, D: pending
 
-──────────
 STEP 6 — THIRD MICROTASK RUNS
-──────────
 - console.log("third") executes.
 - Promise D transitions from pending → fulfilled.
 - The chain is now complete.
@@ -113,9 +99,7 @@ D: (empty)
 [Microtask Queue] → (empty)
 [Promise States] → A: fulfilled, B: fulfilled, C: fulfilled, D: fulfilled
 
-──────────
 STEP 7 — EVENT LOOP RETURNS
-──────────
 - No pending reactions or microtasks remain.
 - Control returns to the macrotask queue (timers, I/O, etc.).
 

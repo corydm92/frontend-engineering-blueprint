@@ -79,6 +79,12 @@ Each layer contains multiple sections, and every section follows the same intern
 This structure is deliberate.  
 It prevents documentation drift, enforces clarity, and keeps knowledge scalable as systems and teams grow.
 
+## 🧾 Docs Spec
+
+The **Docs Spec** defines the single source of truth for formatting, structure, and quality across all layers, sections, subsections, and notes.
+
+- `Docs Spec.md`
+
 ## 🧩 Blueprint Project Guide vs Blueprint System
 
 The **Blueprint Project Guide** is the starting point — the project’s top-level blueprint document (intent + standards).

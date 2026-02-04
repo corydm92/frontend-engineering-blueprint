@@ -1,0 +1,50 @@
+name: Release Automation (trunk-based)
+
+# Purpose:
+# - Generate release commit + tag on main using standard-version.
+# - Push commit + tag to main.
+#
+# Required secrets:
+# - GITHUB_TOKEN (auto-provided) with permissions: contents: write
+# Notes:
+# - Uses conventional commits + standard-version to create the release commit + tag.
+# - Does not publish or deploy; it only creates the release commit + tag.
+
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Use pnpm from packageManager
+        run: corepack prepare "$(node -p "require('./package.json').packageManager")" --activate
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Checkout main
+        run: |
+          git checkout main
+          git pull origin main
+
+      - name: Create release commit + tag
+        run: pnpm exec standard-version
+
+      - name: Push commit + tags
+        run: git push origin main --follow-tags

@@ -1,6 +1,6 @@
-Fetch — Browser Integration, Promise Lifecycle, and Streaming Behavior
+# Fetch — Browser Integration, Promise Lifecycle, and Streaming Behavior 📝
 
-1. Purpose and Relationship to the JS Engine
+## 1 Purpose and Relationship to the JS Engine
 
 fetch() is not a JavaScript-native function — it’s a browser API that bridges JavaScript with the network stack.
 It returns a Promise to integrate smoothly with JS’s microtask-based event loop,
@@ -10,9 +10,8 @@ Key design goal:
 Expose asynchronous HTTP behavior as a single composable Promise chain,
 while allowing the browser to handle connection management, streaming, and error states underneath.
 
-------------------------------------------------------------
 
-2. How fetch() Works Internally
+## 2 How fetch() Works Internally
 
 fetch(url) → steps executed by browser and JS engine:
 
@@ -24,7 +23,7 @@ fetch(url) → steps executed by browser and JS engine:
 [[PromiseResult]]: undefined
 [[PromiseFulfillReactions]] / [[PromiseRejectReactions]]: empty arrays
 
-2. The browser monitors the network connection outside the JS runtime.
+## 2 The browser monitors the network connection outside the JS runtime.
 
 3. When response headers arrive:
 - The browser enqueues a microtask that executes fetchPromise’s resolve() callback.
@@ -40,9 +39,8 @@ fetch(url) → steps executed by browser and JS engine:
 
 The JS engine never calls resolve() or reject() directly — those are handled entirely by the browser’s internal fetch subsystem.
 
-------------------------------------------------------------
 
-3. The Response Object
+## 3 The Response Object
 
 When fetchPromise fulfills, the [[PromiseResult]] holds a Response instance built by the browser.
 
@@ -60,9 +58,8 @@ bodyUsed: false
 - body is a ReadableStream that may still be downloading.
 - Response methods like .json(), .text(), and .blob() each return a new Promise that resolves once the body is fully read and parsed.
 
-------------------------------------------------------------
 
-4. Streaming Behavior
+## 4 Streaming Behavior
 
 The fetch promise resolves when headers are available — not when the full body has finished downloading.
 
@@ -81,9 +78,8 @@ Key distinction:
 - Response.body stream resolves incrementally (data ready)
 This separation allows progressive rendering, streaming APIs, and React Server Components (RSC) payloads.
 
-------------------------------------------------------------
 
-5. Relationship to the Event Loop
+## 5 Relationship to the Event Loop
 
 fetch integrates with the event loop via microtasks:
 - When headers arrive → browser queues a microtask to resolve(fetchPromise)
@@ -100,9 +96,8 @@ Browser → queueMicrotask(resolve)
 Event Loop → flushes microtasks → run .then()
 Optional → body stream produces more microtasks as chunks arrive
 
-------------------------------------------------------------
 
-6. Promise Chaining with fetch
+## 6 Promise Chaining with fetch
 
 fetch("/api") // Promise A
 .then(res => res.json()) // Promise B (attached to A)
@@ -138,9 +133,8 @@ B, C, D are created but pending, waiting on A’s chain.
 So yes — only the callbacks attached to the currently settling promise are ever moved into the microtask queue.
 Each link triggers the next one *after* it resolves. The later .then() handlers aren’t scheduled until their promise’s turn in the chain.
 
-------------------------------------------------------------
 
-7. Error Propagation
+## 7 Error Propagation
 
 Any network or parsing failure triggers reject() inside the fetch or body parser Promise.
 That rejection travels through the chain until a .catch() handles it.
@@ -156,9 +150,8 @@ Error steps:
 3. The event loop executes the .catch() callback on the call stack.
 4. If .catch() returns normally, its value becomes the new resolved Promise for chaining.
 
-------------------------------------------------------------
 
-8. Summary Mental Model
+## 8 Summary Mental Model
 
 fetch() delegates networking to the browser while exposing a Promise interface to JavaScript.
 

@@ -1,6 +1,6 @@
-Advanced Promises — Event Loop, Microtasks, and Real-World Behavior
+# Advanced Promises — Event Loop, Microtasks, and Real-World Behavior 📝
 
-1. Mental Model
+## 1 Mental Model
 
 A Promise is a tiny state machine inside the JavaScript engine.
 
@@ -13,9 +13,8 @@ It has:
 .then() doesn’t make the promise run — it registers a reaction for when it finishes.
 resolve() or reject() settles the promise and queues those reactions as microtasks.
 
-------------------------------------------------------------
 
-2. The Call Stack and Event Loop
+## 2 The Call Stack and Event Loop
 
 The JavaScript runtime is single-threaded — it can only do one thing at a time.
 The call stack is where synchronous code runs. Each function call is pushed onto the stack,
@@ -33,9 +32,8 @@ When the call stack is empty, the event loop:
 
 This cycle is what makes asynchronous JavaScript appear concurrent even though it’s single-threaded.
 
-------------------------------------------------------------
 
-3. Example: Promise Inside a Timeout
+## 3 Example: Promise Inside a Timeout
 
 console.log("A");
 
@@ -78,9 +76,8 @@ C
 A: done
 B: done
 
-------------------------------------------------------------
 
-4. Real-World Example: Asynchronous API Call (Browser)
+## 4 Real-World Example: Asynchronous API Call (Browser)
 
 console.log("1 — Script start");
 
@@ -93,7 +90,7 @@ console.log("2 — Script end");
 
 Step-by-Step Timeline (Call Stack Focused)
 
-1. The call stack begins executing the script.
+## 1 The call stack begins executing the script.
 2. console.log("1 — Script start") executes on the call stack.
 
 3. fetch(...) is called:
@@ -143,7 +140,6 @@ Final Output (simplified sequence):
 
 (fetch network and JSON parsing happen asynchronously between the synchronous logs)
 
-------------------------------------------------------------
 
 5. Browser-Level Orchestration of Fetch
 
@@ -166,9 +162,8 @@ body: ReadableStream,
 bodyUsed: false
 }
 
-------------------------------------------------------------
 
-6. Promise Chaining and Microtask Behavior
+## 6 Promise Chaining and Microtask Behavior
 
 Example:
 
@@ -210,7 +205,6 @@ At each step:
 - Each new promise adds its own microtask to the queue in order.
 - The event loop continues flushing microtasks sequentially until the chain finishes.
 
-------------------------------------------------------------
 
 7. Key Takeaways
 

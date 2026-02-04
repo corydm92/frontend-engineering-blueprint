@@ -1,12 +1,10 @@
 
-NEXT.JS HOOKS REFERENCE (App Router)
+# NEXT.JS HOOKS REFERENCE (App Router) 📝
 
 All examples are production-style and compatible with Next.js 13+ App Router, and some need React 19+.
 
-────────────────────────────
 
-1) useRouter
-────────────────────────────
+## 1 useRouter
 
 Definition: Programmatic navigation and route utilities (push, replace, back, refresh).
 
@@ -31,10 +29,8 @@ Go to Dashboard
 
 Use: Navigate after user actions; replace URL after form submission; refresh data after a Server Action.
 
-────────────────────────────
 
-2) usePathname
-────────────────────────────
+## 2 usePathname
 
 Definition: Returns the current URL path (string), e.g., "/settings/billing".
 
@@ -55,10 +51,8 @@ Path: {pathname}
 
 Use: Breadcrumbs, active nav highlighting, analytics.
 
-────────────────────────────
 
-3) useSearchParams
-────────────────────────────
+## 3 useSearchParams
 
 Definition: Readonly interface to query string parameters.
 
@@ -93,10 +87,8 @@ return (
 
 Use: Drive list filtering/sorting via URL state.
 
-────────────────────────────
 
-4) useParams
-────────────────────────────
+## 4 useParams
 
 Definition: Dynamic route params for the current segment.
 
@@ -117,10 +109,8 @@ return (
 
 Use: Read dynamic segments without prop-drilling.
 
-────────────────────────────
 
-5) useSelectedLayoutSegments
-────────────────────────────
+## 5 useSelectedLayoutSegments
 
 Definition: Array of active layout segments for the current layout level.
 
@@ -158,10 +148,8 @@ className={active ? 'active' : ''}
 
 Use: Layout-aware navigation where multiple nested segments may be active.
 
-────────────────────────────
 
-6) useSelectedLayoutSegment
-────────────────────────────
+## 6 useSelectedLayoutSegment
 
 Definition: Active segment string for the current layout level (single value).
 
@@ -198,10 +186,8 @@ className={active === t.key ? 'tab active' : 'tab'}
 
 Use: Single-level tab UIs keyed to nested routes.
 
-────────────────────────────
 
-7) useServerInsertedHTML (Server Component only)
-────────────────────────────
+## 7 useServerInsertedHTML (Server Component only)
 
 Definition: Inject HTML into the server-rendered stream before it’s sent to the client.
 
@@ -225,10 +211,8 @@ return children
 
 Use: Integrate SSR styling (styled-components/emotion/vanilla-extract), critical CSS, or per-request meta.
 
-────────────────────────────
 
-8) useFormStatus (Server Actions)
-────────────────────────────
+## 8 useFormStatus (Server Actions)
 
 Definition: Read submission state of the nearest <form> that uses a Server Action.
 
@@ -248,10 +232,8 @@ return (
 
 Use: Pending spinners, disable UI during server-side mutations.
 
-────────────────────────────
 
-9) useFormState (Server Actions)
-────────────────────────────
+## 9 useFormState (Server Actions)
 
 Definition: Keep form state (messages, validation) across submissions driven by a Server Action.
 
@@ -297,10 +279,8 @@ Name
 
 Use: Server-validated forms without client libs; display per-submit feedback.
 
-────────────────────────────
 
-10) useOptimistic (React 19+)
-────────────────────────────
+## 10 useOptimistic (React 19+)
 
 Definition: Apply optimistic UI updates immediately; reconcile when the server result arrives.
 
@@ -345,10 +325,8 @@ return (
 
 Use: Feels-instant interactions (likes, comments, toggles) while waiting for server confirmation.
 
-────────────────────────────
 
-11) Combining route hooks
-────────────────────────────
+## 11 Combining route hooks
 
 Definition: Compose pathname + params + search for full route awareness.
 
@@ -379,10 +357,8 @@ search: ${search.toString()}`}
 
 Use: Analytics, feature flags, conditional rendering, and deep-linking logic.
 
-────────────────────────────
 
 Notes
-────────────────────────────
 
 - App Router imports are from 'next/navigation'. Avoid 'next/router' (Pages Router).
 - useServerInsertedHTML is server-only (no 'use client').
