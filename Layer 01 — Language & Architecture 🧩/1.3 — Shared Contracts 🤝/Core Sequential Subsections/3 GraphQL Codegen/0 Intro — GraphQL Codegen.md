@@ -18,3 +18,9 @@ duplication:
 
 **How it solves it**: codegen reads the schema and your operations, then emits
 TypeScript types (and optionally hooks or SDKs) that match exactly.
+
+## Outcomes
+
+- Establish clear schema ownership and a safe change process.
+- Generate client types from schema + operations with predictable output paths.
+- Catch schema/operation drift at build time instead of runtime.

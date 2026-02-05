@@ -17,3 +17,9 @@ and services import instead of re‑defining the same shapes.
 
 **How it solves it**: you publish a dedicated contracts package inside the
 monorepo with a clear build and versioning flow.
+
+## Outcomes
+
+- Create a shared contracts package with build outputs consumers can import.
+- Publish and version contracts safely without breaking downstream apps.
+- Keep shared types and runtime schemas discoverable and consistent.
