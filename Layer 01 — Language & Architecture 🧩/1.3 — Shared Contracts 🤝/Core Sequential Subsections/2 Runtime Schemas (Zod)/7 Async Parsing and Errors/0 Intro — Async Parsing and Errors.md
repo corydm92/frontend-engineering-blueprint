@@ -1,4 +1,4 @@
-# 7 Async Parsing and Errors — Summary 🧭
+# Async Parsing and Errors — Summary
 
 This directory covers **async validation** and error mapping. Async parsing is
 required when validation depends on I/O (database checks, remote APIs).

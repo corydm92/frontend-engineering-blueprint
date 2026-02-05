@@ -79,12 +79,16 @@ Every section must include:
 
 - Subsection folders use **incremented numbers** with a hyphen and **no dots**:
   - `1 - Foundations/`
-- Files use **incremented numbers** with a hyphen and **no dots**. This can be as few or as many steps needed to fulfil the subsection conecpt requirements:
-  - `0 - Subsection Summary.md`
+- Files use **incremented numbers** with a hyphen and **no dots**. This can be as few or as many steps needed to fulfil the subsection conecpt requirements.
+- The **intro file is the exception** and uses this format:
+  - `0 Intro — <Subsection Name Without Number>.md`
   - `1 - Concept Name.md`
   - `2 - Next Concept.md`
   - `3 - Tutorial - Specific Walkthrough.md`
 - **The tutorial is always the final file** in the sequence.
+- The intro file uses the **0** prefix to mark it as the first item in the step flow.
+- The intro file name should **match the parent directory** (minus any leading number and hyphen).
+- The intro file provides the **human overview**: what the subsection is for, when to use it, and why it matters.
 
 ### Supporting Atomic Notes naming
 

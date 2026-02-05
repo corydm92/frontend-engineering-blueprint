@@ -1,4 +1,4 @@
-# 0 Subsection Summary ⚙️
+# Execution & Deployment Context — Summary
 
 Next.js applications can run across multiple execution environments — Node.js servers, the Edge Runtime (V8 isolates), or fully static hosting.
 

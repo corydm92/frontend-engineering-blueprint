@@ -1,4 +1,4 @@
-# 4 Arrays, Enums, and Unions — Summary 🧭
+# Arrays, Enums, and Unions — Summary
 
 This directory covers collection and variant modeling: arrays, tuples, enums, and
 unions. These patterns are essential for API responses, UI lists, and variant

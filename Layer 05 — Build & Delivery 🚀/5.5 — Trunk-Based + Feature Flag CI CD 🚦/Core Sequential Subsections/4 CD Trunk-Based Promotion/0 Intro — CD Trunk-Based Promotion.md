@@ -1,4 +1,4 @@
-# 0 Subsection Summary
+# CD Trunk-Based Promotion — Summary
 
 CD rebuilds per environment using trunk-based triggers and deterministic inputs.
 

@@ -1,4 +1,4 @@
-# 0 Subsection Summary
+# CI Gate (Quality + Determinism) — Summary
 
 The CI gate is the non-negotiable quality checkpoint.
 

@@ -1,4 +1,4 @@
-# 0 Subsection Summary 🔄
+# Rendering and Data Flow — Summary
 
 Next.js determines how and when your application’s UI is rendered — either at build time, on demand, or incrementally.
 

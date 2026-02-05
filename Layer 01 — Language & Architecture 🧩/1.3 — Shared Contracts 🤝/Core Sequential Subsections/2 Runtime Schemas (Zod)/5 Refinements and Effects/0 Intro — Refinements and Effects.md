@@ -1,4 +1,4 @@
-# 5 Refinements and Effects — Summary 🧭
+# Refinements and Effects — Summary
 
 This directory covers **custom validation** and **transformations**. Refinements
 let you enforce rules that aren’t expressible in the base schema, while transforms

@@ -1,4 +1,4 @@
-# 1 Zod Basics — Summary 🧭
+# Zod Basics — Summary
 
 This directory establishes the **runtime‑first mental model**: a schema is a
 validator at runtime, parsing is the boundary, and errors are structured data you

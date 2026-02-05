@@ -1,4 +1,4 @@
-# 6 Type Inference and Satisfies — Summary 🧭
+# Type Inference and Satisfies — Summary
 
 This directory shows how to keep **runtime schemas** and **TypeScript types**
 aligned. You’ll learn how to infer types from schemas, how to distinguish input vs
