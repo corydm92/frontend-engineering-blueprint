@@ -1,4 +1,4 @@
-4 - Initialization Checklist Template + Example
+# Initialization Checklist Template + Example
 Version: v1.3
 Last Updated: 10/28/25
 

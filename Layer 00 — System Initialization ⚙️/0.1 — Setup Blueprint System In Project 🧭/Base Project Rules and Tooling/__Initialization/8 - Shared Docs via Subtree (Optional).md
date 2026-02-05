@@ -38,7 +38,7 @@ git subtree add --prefix=docs/blueprint blueprint main --squash
 File: `@app/.github/workflows/update-blueprint-docs.yml`
 
 ```bash
-cp "Layer 00 — System Initialization ⚙️/0.1 — Setup Blueprint System In Project 🧭/Base Project Rules and Tooling/_Initialization/workflows/update-blueprint-docs.yml" .github/workflows/update-blueprint-docs.yml
+cp "Layer 00 — System Initialization ⚙️/0.1 — Setup Blueprint System In Project 🧭/Base Project Rules and Tooling/__Initialization/workflows/update-blueprint-docs.yml" .github/workflows/update-blueprint-docs.yml
 ```
 
 Set repository variables:
