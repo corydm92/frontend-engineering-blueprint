@@ -43,14 +43,14 @@ Declarative (good):
 function TodoList() {
 const { data: todos } = useQuery({ queryKey: ['todos'], queryFn: fetchTodos });
 return (
+
 <ul>
 {todos?.map(t => <li key={t.id}>{t.title}</li>)}
 </ul>
 );
 }
 
-Why it matters: Declarative systems scale because they minimize hidden state and make behavior self-evident.
----
+## Why it matters: Declarative systems scale because they minimize hidden state and make behavior self-evident.
 
 2. Separation of Concerns (Contextualized)
 
@@ -87,8 +87,7 @@ const { data } = useProducts();
 return <div>{data.map(p => <p>{p.name}</p>)}</div>
 }
 
-Why it matters: Separation at the system level prevents coupling and clarifies ownership across the stack.
----
+## Why it matters: Separation at the system level prevents coupling and clarifies ownership across the stack.
 
 3. Composition Over Inheritance
 
@@ -112,11 +111,11 @@ DON’T:
 Example:
 Inheritance (bad):
 class BaseModal {
-open() { /* show modal */ }
-close() { /* hide modal */ }
+open() { /_ show modal _/ }
+close() { /_ hide modal _/ }
 }
 class ConfirmModal extends BaseModal {
-confirm() { /* confirm logic */ }
+confirm() { /_ confirm logic _/ }
 }
 
 Composition (good):
@@ -131,6 +130,7 @@ return (
 <>
 <button onClick={openModal}>Confirm</button>
 {open && (
+
 <div className="modal">
 <p>Are you sure?</p>
 <button onClick={onConfirm}>Yes</button>
@@ -141,8 +141,7 @@ return (
 );
 }
 
-Why it matters: Composition in React replaces rigid hierarchies with reusable hooks and declarative assembly. It scales with features, not inheritance trees.
----
+## Why it matters: Composition in React replaces rigid hierarchies with reusable hooks and declarative assembly. It scales with features, not inheritance trees.
 
 4. Explicit Contracts and Types (Design-by-Contract)
 
@@ -175,8 +174,7 @@ function getUser(user: User) {
 return user.name.toUpperCase();
 }
 
-Why it matters: Explicit contracts protect system integrity and reduce downstream regressions.
----
+## Why it matters: Explicit contracts protect system integrity and reduce downstream regressions.
 
 5. Predictability and Determinism
 
@@ -200,13 +198,12 @@ DON’T:
 Example:
 Bad:
 let counter = 0;
-function increment() { counter += Math.random() * 2; }
+function increment() { counter += Math.random() \* 2; }
 
 Good:
 function increment(counter, step = 1) { return counter + step; }
 
-Why it matters: Predictable systems are maintainable, testable, and debuggable — they build confidence across the team.
----
+## Why it matters: Predictable systems are maintainable, testable, and debuggable — they build confidence across the team.
 
 Paradigms & Principles Summary
 

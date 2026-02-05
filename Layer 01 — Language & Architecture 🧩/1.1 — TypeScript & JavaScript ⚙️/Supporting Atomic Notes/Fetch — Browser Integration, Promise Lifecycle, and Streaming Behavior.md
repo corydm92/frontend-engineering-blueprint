@@ -10,35 +10,36 @@ Key design goal:
 Expose asynchronous HTTP behavior as a single composable Promise chain,
 while allowing the browser to handle connection management, streaming, and error states underneath.
 
-
 ## 2 How fetch() Works Internally
 
 fetch(url) → steps executed by browser and JS engine:
 
 1. JS calls fetch(url) on the call stack.
+
 - The browser’s networking layer is instructed to start an HTTP request asynchronously.
 - JS immediately receives a pending Promise (fetchPromise).
 - fetchPromise has:
-[[PromiseState]]: "pending"
-[[PromiseResult]]: undefined
-[[PromiseFulfillReactions]] / [[PromiseRejectReactions]]: empty arrays
+  [[PromiseState]]: "pending"
+  [[PromiseResult]]: undefined
+  [[PromiseFulfillReactions]] / [[PromiseRejectReactions]]: empty arrays
 
 ## 2 The browser monitors the network connection outside the JS runtime.
 
 3. When response headers arrive:
+
 - The browser enqueues a microtask that executes fetchPromise’s resolve() callback.
 - This resolve passes a Response object as the [[PromiseResult]].
 - The Promise becomes "fulfilled".
 - All registered .then() callbacks are queued as microtasks for execution.
 
 4. If an error occurs (network failure, DNS, CORS, abort):
+
 - The browser enqueues a microtask to run reject().
 - [[PromiseState]] becomes "rejected".
 - [[PromiseResult]] is a TypeError('NetworkError').
 - Registered .catch() callbacks are queued as microtasks.
 
 The JS engine never calls resolve() or reject() directly — those are handled entirely by the browser’s internal fetch subsystem.
-
 
 ## 3 The Response Object
 
@@ -58,7 +59,6 @@ bodyUsed: false
 - body is a ReadableStream that may still be downloading.
 - Response methods like .json(), .text(), and .blob() each return a new Promise that resolves once the body is fully read and parsed.
 
-
 ## 4 Streaming Behavior
 
 The fetch promise resolves when headers are available — not when the full body has finished downloading.
@@ -74,14 +74,15 @@ console.log('Received chunk:', new TextDecoder().decode(value));
 }
 
 Key distinction:
+
 - fetchPromise resolves on header arrival (metadata ready)
 - Response.body stream resolves incrementally (data ready)
-This separation allows progressive rendering, streaming APIs, and React Server Components (RSC) payloads.
-
+  This separation allows progressive rendering, streaming APIs, and React Server Components (RSC) payloads.
 
 ## 5 Relationship to the Event Loop
 
 fetch integrates with the event loop via microtasks:
+
 - When headers arrive → browser queues a microtask to resolve(fetchPromise)
 - When body chunks arrive → stream reader queues new microtasks for each chunk read
 - When parsing (e.g., res.json()) finishes → another microtask resolves the new Promise returned by that parser
@@ -96,7 +97,6 @@ Browser → queueMicrotask(resolve)
 Event Loop → flushes microtasks → run .then()
 Optional → body stream produces more microtasks as chunks arrive
 
-
 ## 6 Promise Chaining with fetch
 
 fetch("/api") // Promise A
@@ -107,32 +107,37 @@ fetch("/api") // Promise A
 Timeline:
 
 1. Promise A (fetch) is pending.
+
 - Callbacks registered:
-A.[[PromiseFulfillReactions]] = [res => res.json()]
-B, C, D are created but pending, waiting on A’s chain.
+  A.[[PromiseFulfillReactions]] = [res => res.json()]
+  B, C, D are created but pending, waiting on A’s chain.
 
 2. When Promise A fulfills (headers received):
+
 - Only its registered reactions (the first .then) are queued as microtasks.
 - Microtask Queue: [res => res.json()]
 
 3. When that microtask runs:
+
 - res.json() executes and returns a new Promise → Promise B.
 - The callback finishes, so Promise B fulfills or stays pending depending on when body parsing finishes.
 
 4. When Promise B fulfills:
+
 - All of Promise B’s registered callbacks (the second .then) are now queued as microtasks.
 - Microtask Queue: [data => data.user]
 
 5. When that microtask runs:
+
 - data.user executes synchronously, returns a value, fulfilling Promise C immediately.
 
 6. Promise C’s callback (user => console.log(user)) is now queued in the next microtask cycle.
+
 - Microtask Queue: [user => console.log(user)]
 - When that runs, the chain completes.
 
 So yes — only the callbacks attached to the currently settling promise are ever moved into the microtask queue.
-Each link triggers the next one *after* it resolves. The later .then() handlers aren’t scheduled until their promise’s turn in the chain.
-
+Each link triggers the next one _after_ it resolves. The later .then() handlers aren’t scheduled until their promise’s turn in the chain.
 
 ## 7 Error Propagation
 
@@ -145,11 +150,11 @@ fetch("/bad-url")
 .catch(err => console.error("Network or JSON error:", err));
 
 Error steps:
+
 1. Browser encounters failure → queues reject() as a microtask.
 2. Microtask runs → fetchPromise [[PromiseState]] = "rejected".
 3. The event loop executes the .catch() callback on the call stack.
 4. If .catch() returns normally, its value becomes the new resolved Promise for chaining.
-
 
 ## 8 Summary Mental Model
 

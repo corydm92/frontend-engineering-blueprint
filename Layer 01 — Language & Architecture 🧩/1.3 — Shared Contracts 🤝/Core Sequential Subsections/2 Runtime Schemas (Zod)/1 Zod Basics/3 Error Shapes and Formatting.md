@@ -25,7 +25,7 @@ API consumers get predictable failure formats.
 Frontend example — File: `@app/src/lib/zodErrors.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 const PostSchema = z.object({
   meta: z.object({
@@ -47,7 +47,7 @@ export function toNestedErrors(input: unknown) {
 Frontend example — File: `@app/src/lib/zodErrors.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 const PostSchema = z.object({
   title: z.string().min(1),

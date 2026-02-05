@@ -25,6 +25,7 @@ dashboard/
 invoices/page.tsx → /dashboard/invoices
 
 Each folder under /dashboard is its own segment:
+
 - Navigating to /dashboard/customers triggers a new fetch for that segment’s RSC payload.
 - Each route becomes a separate JS chunk.
 - This isolates failures but causes extra round trips.
@@ -55,6 +56,7 @@ export default function DashboardPage() {
 const pathname = usePathname();
 
 return (
+
 <div>
 <Header />
 <Nav />
@@ -66,6 +68,7 @@ return (
 }
 
 How it works:
+
 - All child pages (home, customers, invoices) are statically imported into one bundle.
 - The route still changes normally with router.push() or <Link>.
 - No new RSC fetches occur — React simply swaps rendered components.
@@ -97,6 +100,7 @@ Loss of per-segment isolation (errors or revalidation affect the whole route).
 Summary
 
 To disable code splitting for specific routes while keeping navigation:
+
 - Statically import sub-pages into a parent page (same layout boundary).
 - Conditionally render them based on pathname.
 - Optionally mark the route as dynamic to force full SSR rendering.

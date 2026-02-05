@@ -20,7 +20,7 @@ You already have a TypeScript type and want your schema to guarantee alignment.
 Frontend example — File: `@app/src/schemas/user.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 type User = {
   id: string;

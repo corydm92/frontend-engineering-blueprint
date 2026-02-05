@@ -21,7 +21,7 @@ specific path.
 Backend example — File: `@api/src/schemas/password.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 export const PasswordSchema = z
   .object({
@@ -32,8 +32,8 @@ export const PasswordSchema = z
     if (val.password !== val.confirm) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        path: ['confirm'],
-        message: 'Passwords must match',
+        path: ["confirm"],
+        message: "Passwords must match",
       });
     }
   });

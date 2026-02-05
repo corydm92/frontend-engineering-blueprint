@@ -11,6 +11,7 @@ ssr: false,
 });
 
 Behavior:
+
 - `Chart` is compiled into its own chunk.
 - It’s fetched only when rendered on the client.
 - While loading, the fallback component appears.

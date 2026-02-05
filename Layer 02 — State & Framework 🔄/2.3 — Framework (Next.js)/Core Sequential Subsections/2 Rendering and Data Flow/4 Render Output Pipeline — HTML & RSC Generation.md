@@ -9,6 +9,7 @@ When you run `next build`, Next.js walks the /app directory and executes all sta
 Each route is evaluated just like it would be at request time — but the output is captured and stored as build artifacts.
 
 During this process:
+
 - Server Components are rendered into HTML fragments and serialized RSC payloads.
 - Client Components are skipped during render and replaced with hydration markers.
 - Async data (e.g., await fetchBlogPosts()) resolves once and becomes part of the prerendered output.
@@ -18,6 +19,7 @@ app/blog/page.tsx
 export default async function Page() {
 const posts = await fetchBlogPosts();
 return (
+
 <main>
 {posts.map(post => <article key={post.id}>{post.title}</article>)}
 </main>
@@ -48,7 +50,7 @@ app/
 page.rsc
 
 └──
-_not-found.html
+\_not-found.html
 
 - .html → The prerendered markup (static shell of the route).
 - .rsc → The serialized React Server Component payload containing component boundaries, props, and hydration metadata.
@@ -67,6 +69,7 @@ The stream is not pure HTML — it’s a structured set of instructions.
 React on the client reads the RSC payload, reconstructs the component tree, and hydrates the appropriate boundaries once the JS chunks load.
 
 Example (conceptual):
+
 <html>
 <body>
 <main>
@@ -90,6 +93,7 @@ Example client bundle output:
 /next/static/chunks/app_ui_InteractiveWidget.js
 
 At runtime:
+
 - The browser paints the prerendered HTML.
 - React parses the streamed RSC payload.
 - Hydration begins for each Client Component as its JS chunk loads.
@@ -99,10 +103,12 @@ At runtime:
 How the prerendered files are used depends on the environment:
 
 Static Hosting (CDN or Export)
+
 - All .html and .rsc files are uploaded as static assets.
 - Visiting /about serves /about.html directly — no Node process required.
 
 Serverless or Edge Hosting
+
 - .html and .rsc are cached in memory or at the edge.
 - The CDN serves them instantly for static routes.
 - Dynamic routes are rendered by small runtime modules instead of prebuilt files.
@@ -115,31 +121,34 @@ When requested, the server executes this function, generates the RSC payload, an
 
 ## 7 Execution Timeline
 
-| Phase | Action | Output |
-|-------|---------|--------|
-| Build Time | Execute static server components once | .html + .rsc files |
-| Build Time | Compile all client components | JS chunks |
-| Deploy | Upload prebuilt HTML and JS assets to CDN | Cached static files |
-| Runtime (Static) | Serve prerendered HTML + RSC payload | Instant paint |
+| Phase             | Action                                      | Output                |
+| ----------------- | ------------------------------------------- | --------------------- |
+| Build Time        | Execute static server components once       | .html + .rsc files    |
+| Build Time        | Compile all client components               | JS chunks             |
+| Deploy            | Upload prebuilt HTML and JS assets to CDN   | Cached static files   |
+| Runtime (Static)  | Serve prerendered HTML + RSC payload        | Instant paint         |
 | Runtime (Dynamic) | Run server render function, stream RSC data | Progressive hydration |
 
 ## 8 Why It’s Still “Static” with Client Components
 
 Static routes may contain client components, but the route remains static because:
+
 - The server never re-renders the HTML after build.
 - The client receives only hydration markers and static bundle references.
 - No runtime SSR occurs — only hydration in the browser.
 
 Build-time HTML:
+
 <main>
 <h1>About</h1>
 <div data-rsc-id="InteractiveWidget"></div>
 </main>
 
 At runtime:
+
 - The static HTML paints instantly.
 - The RSC payload describes where InteractiveWidget belongs.
-- React loads /_next/static/chunks/app_ui_InteractiveWidget.js and hydrates it.
+- React loads /\_next/static/chunks/app_ui_InteractiveWidget.js and hydrates it.
 
 ## 9 Summary
 

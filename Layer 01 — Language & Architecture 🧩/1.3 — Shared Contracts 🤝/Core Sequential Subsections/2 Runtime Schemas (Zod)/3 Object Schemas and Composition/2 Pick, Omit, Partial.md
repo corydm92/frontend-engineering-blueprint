@@ -22,7 +22,7 @@ duplication.
 Frontend example — File: `@app/src/schemas/user.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 const UserSchema = z.object({
   id: z.string(),

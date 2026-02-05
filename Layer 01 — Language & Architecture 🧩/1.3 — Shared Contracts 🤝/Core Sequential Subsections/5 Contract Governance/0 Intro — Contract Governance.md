@@ -8,6 +8,7 @@ Contract governance is the “change safety net.” It defines how contracts evo
 without breaking teams downstream.
 
 **Use this when contracts change over time**, such as:
+
 - Deprecating fields or endpoints
 - Introducing breaking changes with migration windows
 - Enforcing contract checks in CI

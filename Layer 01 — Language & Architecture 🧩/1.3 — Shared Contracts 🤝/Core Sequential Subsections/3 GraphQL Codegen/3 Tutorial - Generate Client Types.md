@@ -33,7 +33,7 @@ generates:
 Frontend example — File: `@app/src/graphql/queries/getUser.ts`
 
 ```ts
-import type { GetUserQuery } from '../generated/graphql';
+import type { GetUserQuery } from "../generated/graphql";
 ```
 
 Frontend example — File: `@app/src/generated/graphql.ts`

@@ -10,11 +10,11 @@
 Backend example — File: `@app/src/tests/contracts/user.test.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 const UserSchema = z.object({ id: z.string() });
 
-expect(UserSchema.safeParse({ id: '1' }).success).toBe(true);
+expect(UserSchema.safeParse({ id: "1" }).success).toBe(true);
 ```
 
 ## Gotchas

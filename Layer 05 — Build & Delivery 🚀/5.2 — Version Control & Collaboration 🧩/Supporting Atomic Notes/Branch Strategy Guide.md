@@ -10,7 +10,7 @@ This guide provides four proven strategies with clear use cases, rules, and best
 ---
 
 1. Trunk-Based Development
-Best for: Small to mid-size teams, CI/CD-first environments, high release velocity.
+   Best for: Small to mid-size teams, CI/CD-first environments, high release velocity.
 
 Summary:
 • One long-lived branch: main (or trunk).
@@ -42,7 +42,7 @@ Why It Works:
 ---
 
 2. GitHub Flow
-Best for: SaaS products, web apps, or teams practicing continuous deployment.
+   Best for: SaaS products, web apps, or teams practicing continuous deployment.
 
 Summary:
 • One main branch.
@@ -76,7 +76,7 @@ Why It Works:
 ---
 
 3. GitFlow
-Best for: Enterprise applications or SDKs requiring strict release management.
+   Best for: Enterprise applications or SDKs requiring strict release management.
 
 Summary:
 • Two long-lived branches: main (stable) and develop (integration).
@@ -111,7 +111,7 @@ Why It Works:
 ---
 
 4. Hybrid Strategy (Trunk + Release Branches)
-Best for: Larger teams managing multiple environments or frequent patch releases.
+   Best for: Larger teams managing multiple environments or frequent patch releases.
 
 Summary:
 • main remains the single source of truth.
@@ -145,7 +145,7 @@ Why It Works:
 ---
 
 5. Library / SDK Release Flow
-Best for: Open-source or internal packages requiring versioned distributions.
+   Best for: Open-source or internal packages requiring versioned distributions.
 
 Summary:
 • main branch is always stable and published.
@@ -179,8 +179,8 @@ Why It Works:
 
 Branch Strategy Selection Matrix
 
-Team Size / Type | Recommended Strategy
-------------------------------------------------------------
+## Team Size / Type | Recommended Strategy
+
 1–5 engineers (startup) | GitHub Flow
 6–20 engineers (growth stage) | Trunk-Based Development
 20+ engineers (enterprise) | Hybrid (Trunk + Release Branches)
@@ -229,6 +229,7 @@ Trunk-Based Example:
 feature/123-user-auth → PR → CI → Review → Merge → main → Auto Deploy
 
 Steps:
+
 1. Developer creates a new branch named feature/123-user-auth from main.
 2. Commits and pushes small, frequent changes (1–3 day lifespan).
 3. Opens a Pull Request for review and automated CI checks (lint, test, type-check).
@@ -243,6 +244,7 @@ GitHub Flow Example:
 feature/456-integrate-analytics-sdk → PR → CI → Review → Merge → main → Auto Deploy
 
 Steps:
+
 1. Engineer branches off main with feature/456-integrate-analytics-sdk.
 2. Develops and commits incremental changes related to the analytics feature.
 3. Opens a Pull Request once work is complete and CI pipeline runs.
@@ -257,6 +259,7 @@ Hybrid Example:
 feature/312-user-settings-panel → PR → CI → Review → Merge → main → release/2.3.0 → QA → Tag → Deploy → Merge Back → main
 
 Steps:
+
 1. Developer branches off main: feature/312-user-settings-panel.
 2. After completing the feature, a Pull Request is created for review.
 3. CI validates the branch — lint, type, test all pass.
@@ -274,6 +277,7 @@ GitFlow Example:
 feature/789-add-billing-api → PR → CI → Review → Merge → develop → release/2.2.0 → QA → Merge → main → Tag → Deploy → Merge Back → develop
 
 Steps:
+
 1. Developer branches from develop: feature/789-add-billing-api.
 2. Commits changes locally, runs tests, and pushes updates.
 3. Opens a Pull Request targeting develop.
@@ -291,6 +295,7 @@ Library Flow Example:
 feature/987-new-api-method → PR → Review → Merge → main → Tag (v1.2.3) → npm publish → Notify
 
 Steps:
+
 1. Developer branches from main: feature/987-new-api-method.
 2. Implements and tests the new API addition or SDK enhancement.
 3. Opens a Pull Request for review; CI validates build and type integrity.

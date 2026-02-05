@@ -9,6 +9,7 @@ What Client-Side Suspense Is Used For
 On the client, Suspense coordinates rendering when JavaScript needed to render a component is not yet available.
 
 This commonly occurs with:
+
 - React.lazy
 - dynamic import()
 - lazily loaded feature boundaries
@@ -41,6 +42,7 @@ Why Code Splitting Suspends
 From React’s perspective, code is a render dependency.
 
 If a component cannot be executed because its module is missing:
+
 - render cannot complete
 - suspension occurs
 
@@ -62,6 +64,7 @@ return <PostsList posts={posts} />
 </Suspense>
 
 Possible suspension reasons:
+
 - JS chunk not loaded
 - data promise pending
 - both
@@ -71,11 +74,13 @@ React retries render until all required dependencies are available.
 Client-Side Fallback Rules
 
 Fallback UI is shown when:
+
 - render suspends
 - the render is urgent
 - React must commit immediately
 
 Fallback UI may be skipped when:
+
 - render is part of a transition
 - previous UI is still valid
 - React can delay committing
@@ -83,6 +88,7 @@ Fallback UI may be skipped when:
 What Client-Side Suspense Is Not
 
 Suspense is not:
+
 - a loading spinner API
 - an async control-flow tool
 - a data-fetching solution

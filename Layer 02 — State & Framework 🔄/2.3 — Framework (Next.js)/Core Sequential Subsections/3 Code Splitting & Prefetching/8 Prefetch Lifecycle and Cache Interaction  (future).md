@@ -1,1 +1,1 @@
-# 8 Prefetch Lifecycle and Cache Interaction  (future) 🧩
+# 8 Prefetch Lifecycle and Cache Interaction (future) 🧩

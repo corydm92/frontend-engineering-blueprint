@@ -22,7 +22,7 @@ You have a post creation form and need to validate user input before submit.
 Frontend example — File: `@app/src/forms/usePostForm.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 const PostSchema = z.object({
   id: z.number(),
@@ -42,7 +42,7 @@ export function validateForm(values: unknown) {
 Frontend example — File: `@app/src/forms/usePostForm.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 const PostSchema = z.object({
   id: z.number(),

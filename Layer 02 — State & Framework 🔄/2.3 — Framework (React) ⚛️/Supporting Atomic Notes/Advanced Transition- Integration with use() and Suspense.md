@@ -9,6 +9,7 @@ Core Concepts
 1. startTransition marks state updates, not execution
 
 startTransition does not:
+
 - create an async scope
 - await anything
 - track promises
@@ -19,6 +20,7 @@ It marks state updates as non-urgent (transition priority).
 2. use() does not run async work
 
 use():
+
 - inspects a value during render
 - if given a pending promise, it throws to suspend
 - does not initiate fetching
@@ -58,9 +60,9 @@ startTransition(() => {
 setTab('posts');
 });
 }}
->
-Posts
-</button>
+
+> Posts
+> </button>
 
 setTab is marked as transition work and React may delay committing the result.
 
@@ -81,6 +83,7 @@ return <Posts posts={posts} />
 }
 
 Execution:
+
 1. fetchData('/posts') returns a cached promise
 2. the promise is pending on first render
 3. use(promise) throws

@@ -11,6 +11,7 @@ Backend doc example — File: `@app/src/contracts/CHANGELOG.md`
 
 ```md
 ## 2.0.0
+
 - Make `role` required
 ```
 

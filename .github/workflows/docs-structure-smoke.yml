@@ -9,5 +9,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install deps
+        run: npm ci
+      - name: Format check
+        run: npm run format:check
       - name: Verify init-docs structure
         run: bash "Layer 00 — System Initialization ⚙️/0.1 — Setup Blueprint System In Project 🧭/Base Project Rules and Tooling/__Initialization/scripts/test-init-docs.sh"

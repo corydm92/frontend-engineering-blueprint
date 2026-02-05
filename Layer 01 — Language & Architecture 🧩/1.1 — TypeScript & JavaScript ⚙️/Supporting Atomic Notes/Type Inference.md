@@ -5,7 +5,7 @@ const count = 5;
 
 // 🟢 GOOD — contextual inference (TS knows x is a number)
 const arr = [1, 2, 3];
-arr.map(x => x * 2);
+arr.map(x => x \* 2);
 
 // 🟢 GOOD — explicit type when needed
 type User = { id: number; name: string };
@@ -28,7 +28,7 @@ arr2.map(x => x.toUpperCase()); // no TS error, crashes at runtime
 
 // 🟢 FIX — type it explicitly
 const arr3: number[] = [1, 2, 3];
-arr3.map(x => x * 2);
+arr3.map(x => x \* 2);
 
 // 🔴 BAD — overly broad inference
 const data2 = []; // any[]

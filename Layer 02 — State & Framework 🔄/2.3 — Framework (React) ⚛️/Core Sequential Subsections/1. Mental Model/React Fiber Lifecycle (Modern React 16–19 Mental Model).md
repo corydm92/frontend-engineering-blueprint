@@ -4,8 +4,9 @@ This is the full, accurate React Fiber lifecycle for your React mental model sec
 It covers scheduling → render (beginWork/completeWork) → commit (mutations/layout) → passive effects.
 
 ────────────────────────────────────────────────────────────────────────
+
 1. Update Scheduling (Fiber Scheduler)
-────────────────────────────────────────────────────────────────────────
+   ────────────────────────────────────────────────────────────────────────
 
 • A state/prop/context change creates an update object.
 • React assigns the update a lane (priority level).
@@ -15,8 +16,7 @@ It covers scheduling → render (beginWork/completeWork) → commit (mutations/l
 
 This stage only decides THAT work must occur, not what the work is.
 
-────────────────────────────────────────────────────────────────────────
-2. Render Phase (Reconciliation) – Pure, No DOM Mutations
+──────────────────────────────────────────────────────────────────────── 2. Render Phase (Reconciliation) – Pure, No DOM Mutations
 ────────────────────────────────────────────────────────────────────────
 
 React walks the tree top-down using beginWork, then bottom-up using completeWork.
@@ -27,18 +27,18 @@ This entire phase is pure and happens in memory against the “alternate” fibe
 For each fiber React visits:
 
 1. Determine if the fiber needs an update
-• pending state updates
-• changed props
-• changed context value
-• priority lane requires new work
+   • pending state updates
+   • changed props
+   • changed context value
+   • priority lane requires new work
 
 2. If no update → bail out and reuse existing child fibers.
 
 3. If update needed → call the component function immediately
-• The component returns new React elements.
-• React compares these elements to the previous child fibers (incremental diffing).
-• React creates/reuses/deletes child fibers on the spot.
-• React builds the next version of that subtree immediately.
+   • The component returns new React elements.
+   • React compares these elements to the previous child fibers (incremental diffing).
+   • React creates/reuses/deletes child fibers on the spot.
+   • React builds the next version of that subtree immediately.
 
 4. React moves down into the child fibers and repeats.
 
@@ -64,8 +64,7 @@ At the end of the render phase:
 
 Render phase = build the entire WIP tree + build effect list.
 
-────────────────────────────────────────────────────────────────────────
-3. Pre-Commit Phase (Before DOM Mutations)
+──────────────────────────────────────────────────────────────────────── 3. Pre-Commit Phase (Before DOM Mutations)
 ────────────────────────────────────────────────────────────────────────
 
 React prepares everything required for a safe DOM update:
@@ -77,8 +76,7 @@ React prepares everything required for a safe DOM update:
 No DOM writes occur here.
 This stage ensures commit can execute without surprises.
 
-────────────────────────────────────────────────────────────────────────
-4. Commit Phase – DOM Mutations (Synchronous, Atomic)
+──────────────────────────────────────────────────────────────────────── 4. Commit Phase – DOM Mutations (Synchronous, Atomic)
 ────────────────────────────────────────────────────────────────────────
 
 React walks the effect list (NOT the full fiber tree).
@@ -99,8 +97,7 @@ Browser won’t paint until commit is finished.
 
 After this step, the real DOM now matches the WIP tree.
 
-────────────────────────────────────────────────────────────────────────
-5. Commit Phase – Layout Effects (useLayoutEffect)
+──────────────────────────────────────────────────────────────────────── 5. Commit Phase – Layout Effects (useLayoutEffect)
 ────────────────────────────────────────────────────────────────────────
 
 After DOM mutations but BEFORE paint:
@@ -110,8 +107,7 @@ After DOM mutations but BEFORE paint:
 • These block paint until complete.
 • Refs are now finalized for this render.
 
-────────────────────────────────────────────────────────────────────────
-6. Fiber Tree Swap
+──────────────────────────────────────────────────────────────────────── 6. Fiber Tree Swap
 ────────────────────────────────────────────────────────────────────────
 
 React performs the swap:
@@ -123,8 +119,7 @@ current ← workInProgress
 
 Now the render+commit cycle is complete on React’s side.
 
-────────────────────────────────────────────────────────────────────────
-7. Passive Effects (useEffect)
+──────────────────────────────────────────────────────────────────────── 7. Passive Effects (useEffect)
 ────────────────────────────────────────────────────────────────────────
 
 After the browser paints the updated frame:

@@ -25,7 +25,7 @@ keep the application running.
 Backend example — File: `@api/src/lib/validation.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 const PostSchema = z.object({
   id: z.number(),
@@ -43,7 +43,7 @@ export function parsePostOrThrow(input: unknown) {
 Frontend example — File: `@app/src/lib/validation.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 const PostSchema = z.object({
   id: z.number(),

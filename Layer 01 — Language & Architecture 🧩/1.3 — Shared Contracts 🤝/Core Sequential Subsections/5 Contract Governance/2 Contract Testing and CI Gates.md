@@ -14,9 +14,9 @@ Verify contracts in CI to prevent drift.
 Backend example — File: `@app/src/tests/contracts/user.test.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 const UserSchema = z.object({ id: z.string(), email: z.string().email() });
 
-expect(UserSchema.safeParse({ id: '1', email: 'a@b.com' }).success).toBe(true);
+expect(UserSchema.safeParse({ id: "1", email: "a@b.com" }).success).toBe(true);
 ```

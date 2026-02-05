@@ -20,15 +20,15 @@ Choose the source of truth and create the minimal contract location.
 Backend example — File: `@app/src/contracts/index.ts`
 
 ```ts
-export * from './user';
-export * from './project';
+export * from "./user";
+export * from "./project";
 ```
 
 Monorepo example — File: `@app/packages/contracts/src/index.ts`
 
 ```ts
-export * from './user';
-export * from './project';
+export * from "./user";
+export * from "./project";
 ```
 
 ## Validation

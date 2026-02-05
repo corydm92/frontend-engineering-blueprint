@@ -24,7 +24,7 @@ These choices are architecture decisions — make them explicit in your contract
 Backend example — File: `@api/src/schemas/profile.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 export const ProfileSchema = z
   .object({

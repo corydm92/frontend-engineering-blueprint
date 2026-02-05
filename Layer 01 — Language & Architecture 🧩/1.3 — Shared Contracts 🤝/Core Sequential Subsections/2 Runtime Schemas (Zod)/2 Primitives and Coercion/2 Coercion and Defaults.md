@@ -25,12 +25,12 @@ clearly in shared contracts.
 Frontend example — File: `@app/src/schemas/query.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 export const QuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().max(100).default(20),
-  sort: z.enum(['new', 'top']).default('new'),
+  sort: z.enum(["new", "top"]).default("new"),
 });
 ```
 

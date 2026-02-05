@@ -23,19 +23,19 @@ variant payloads.
 Backend example — File: `@api/src/schemas/response.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 const Success = z.object({
-  type: z.literal('success'),
+  type: z.literal("success"),
   data: z.object({ id: z.string() }),
 });
 
 const Failure = z.object({
-  type: z.literal('error'),
+  type: z.literal("error"),
   message: z.string(),
 });
 
-export const ResponseSchema = z.discriminatedUnion('type', [Success, Failure]);
+export const ResponseSchema = z.discriminatedUnion("type", [Success, Failure]);
 ```
 
 ## Pitfalls

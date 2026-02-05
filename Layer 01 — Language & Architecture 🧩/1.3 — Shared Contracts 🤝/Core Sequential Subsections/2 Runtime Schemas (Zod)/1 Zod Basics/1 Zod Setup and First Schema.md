@@ -31,7 +31,7 @@ re‑usable.
 Frontend example — File: `@app/src/schemas/post.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 export const PostSchema = z.object({
   id: z.number(),

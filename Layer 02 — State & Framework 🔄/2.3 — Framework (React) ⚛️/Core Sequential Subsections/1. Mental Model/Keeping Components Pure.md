@@ -8,28 +8,31 @@ When a component’s output depends only on its props, state, and context—and 
 
 An impure component, on the other hand, reads or writes external data during render or mutates input objects, making behavior unpredictable across renders.
 
-------------------------------------------------------------
+---
 
 2. Purity in Rendering
 
 React’s rendering phase must be free of side effects.
 During render:
+
 - React may call a component multiple times.
 - It may interrupt or discard renders for performance or concurrent updates.
 
 If a component modifies external variables or performs side effects during render, React’s reconciliation can break.
 
 Pure render:
+
 - Reads inputs (props/state/context) only.
 - Returns JSX deterministically.
 - Has no observable side effects.
 
 Impure render:
+
 - Writes to global variables.
 - Mutates props/state.
 - Triggers effects like network requests or logging.
 
-------------------------------------------------------------
+---
 
 3. Example: Impure Component Mutating Props
 
@@ -39,6 +42,7 @@ return <h1>Hello, {user.name}</h1>
 }
 
 Step-by-Step Timeline:
+
 1. Parent passes user = { name: "Cory" }.
 2. Greeting mutates it to { name: "CORY" }.
 3. Parent re-renders later, expecting user.name === "Cory".
@@ -50,7 +54,7 @@ const upperName = user.name.toUpperCase(); // ✅ No mutation
 return <h1>Hello, {upperName}</h1>
 }
 
-------------------------------------------------------------
+---
 
 4. Side Effects Belong in Effects or Handlers
 
@@ -75,7 +79,7 @@ return <div>Loading...</div>
 Reason:
 React may render components multiple times before committing. Running effects in render leads to duplicate requests or inconsistent state.
 
-------------------------------------------------------------
+---
 
 5. Event Handlers Are Safe for Mutations
 
@@ -92,7 +96,7 @@ setCount(count + 1); // ✅ Safe, runs after commit
 return <button onClick={handleClick}>{count}</button>
 }
 
-------------------------------------------------------------
+---
 
 6. Common Sources of Impurity
 
@@ -102,7 +106,7 @@ return <button onClick={handleClick}>{count}</button>
 - Logging or reading external data inside render.
 - Manually updating the DOM (bypassing React).
 
-------------------------------------------------------------
+---
 
 7. Ensuring Purity
 
@@ -112,7 +116,7 @@ return <button onClick={handleClick}>{count}</button>
 - Avoid touching globals or browser APIs in render.
 - Keep render functions deterministic.
 
-------------------------------------------------------------
+---
 
 8. Example: State Mutation Causing UI Bugs
 
@@ -126,6 +130,7 @@ setTodos(todos); // Same reference → React skips render
 
 return (
 <>
+
 <ul>{todos.map((t) => <li key={t.id}>{t.text}</li>)}</ul>
 <button onClick={addTodo}>Add</button>
 </>
@@ -142,17 +147,19 @@ setTodos([...todos, { id: 2, text: "Stay pure" }]); // ✅ Creates new reference
 
 return (
 <>
+
 <ul>{todos.map((t) => <li key={t.id}>{t.text}</li>)}</ul>
 <button onClick={addTodo}>Add</button>
 </>
 );
 }
 
-------------------------------------------------------------
+---
 
 9. Mental Trick — Think Like a Math Function
 
 A React component is like f(x):
+
 - Input: props, state, context.
 - Output: JSX.
 - No side effects during execution.
@@ -160,7 +167,7 @@ A React component is like f(x):
 When React re-renders, it just calls f(x) again with possibly new inputs.
 If the component is pure, re-rendering is safe, predictable, and free of surprises.
 
-------------------------------------------------------------
+---
 
 10. Key Takeaways
 
@@ -170,7 +177,7 @@ If the component is pure, re-rendering is safe, predictable, and free of surpris
 - Impure components can cause inconsistent state, double fetches, or skipped re-renders.
 - Keeping components pure ensures React can safely optimize and schedule rendering.
 
-------------------------------------------------------------
+---
 
 11. One-liner summary
 

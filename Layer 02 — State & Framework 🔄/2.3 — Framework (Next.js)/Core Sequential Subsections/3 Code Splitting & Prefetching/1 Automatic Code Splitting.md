@@ -10,6 +10,7 @@ Example Directory:
 ├── contact/page.tsx
 
 At build time:
+
 - Each route compiles to a separate JS chunk.
 - Visiting `/` loads only the root layout and page chunk.
 - Navigating to `/about` or `/contact` triggers loading of those route-specific chunks.

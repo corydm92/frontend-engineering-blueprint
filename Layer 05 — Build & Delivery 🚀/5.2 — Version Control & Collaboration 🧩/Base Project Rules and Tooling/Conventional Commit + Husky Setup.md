@@ -31,11 +31,11 @@ pnpm add -D husky @commitlint/cli @commitlint/config-conventional @commitlint/fo
 
 ```json
 {
-	"scripts": {
-		"prepare": "husky",
-		"test": "echo \"No test specified\" && exit 0",
-		"release": "standard-version"
-	}
+  "scripts": {
+    "prepare": "husky",
+    "test": "echo \"No test specified\" && exit 0",
+    "release": "standard-version"
+  }
 }
 ```
 
@@ -178,15 +178,15 @@ Add/extend scripts:
 
 ```json
 {
-	"scripts": {
-		"prepare": "husky",
-		"format": "prettier . --write",
-		"format:check": "prettier . --check",
-		"lint": "eslint .",
-		"type-check": "tsc -p tsconfig.json --noEmit",
-		"test": "echo \"No test specified\" && exit 0",
-		"release": "standard-version"
-	}
+  "scripts": {
+    "prepare": "husky",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "lint": "eslint .",
+    "type-check": "tsc -p tsconfig.json --noEmit",
+    "test": "echo \"No test specified\" && exit 0",
+    "release": "standard-version"
+  }
 }
 ```
 

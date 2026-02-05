@@ -9,6 +9,7 @@ types, hooks, and operation artifacts directly from your GraphQL schema.
 
 **Use it when you have a GraphQL API** and want type safety without manual
 duplication:
+
 - Frontend operations stay in sync with the backend schema
 - Queries and mutations get strongly typed inputs and outputs
 - API changes surface at build time instead of runtime

@@ -13,6 +13,7 @@ This note builds from basic mechanics to advanced usage, without skipping steps 
 use() is a low-level React API that lets a component read the value of a resource during render.
 
 That resource can be:
+
 - a Promise (or thenable)
 - a Context value
 - a special framework-provided resource
@@ -20,6 +21,7 @@ That resource can be:
 use() is about reading, not performing work.
 
 use() does not:
+
 - start async work
 - manage lifecycles
 - cache values
@@ -31,12 +33,14 @@ use() does not:
 React rendering is synchronous from the component’s point of view.
 
 During render, a component must either:
+
 - produce a value synchronously, or
 - abort rendering entirely
 
 use() integrates with this rule.
 
 Instead of waiting, polling, or yielding:
+
 - use() either returns a value
 - or throws (to suspend or error)
 
@@ -57,12 +61,14 @@ From the component’s perspective, use() is purely synchronous.
 5. use() and Suspense (Foundational Requirement)
 
 When use() throws a promise:
+
 - React stops rendering the current tree
 - React looks for the nearest Suspense boundary
 - React shows the fallback
 - React retries rendering when the promise resolves
 
 Without a Suspense boundary:
+
 - the thrown promise becomes a runtime error
 
 This makes Suspense a non-optional part of using use() with promises.
@@ -86,6 +92,7 @@ return <div>{data}</div>
 }
 
 Key mechanics:
+
 - fetchData always returns the same promise for the same key
 - use() observes the promise during render
 - React retries rendering when the promise resolves
@@ -102,6 +109,7 @@ const data = use(new Promise(res => res("Hi")));
 }
 
 Why this fails:
+
 - a new promise is created every render
 - React never sees the previously thrown promise resolve
 - render suspends forever
@@ -112,10 +120,12 @@ It is required for correctness.
 8. Error Handling with use()
 
 If the promise passed to use() rejects:
+
 - use() throws the error
 - React propagates it to the nearest error boundary
 
 This means:
+
 - error handling is declarative
 - try/catch inside render does not apply
 - errors must be handled with Error Boundaries
@@ -138,6 +148,7 @@ return <button className={theme}>Click</button>
 }
 
 Behavior:
+
 - identical to useContext
 - works during render
 - follows the same propagation rules
@@ -149,10 +160,12 @@ This exists to unify resource reading under one primitive.
 use() does not cache anything.
 
 If a value is cached:
+
 - that caching must happen outside React
 - typically in a module, framework layer, or data library
 
 React’s responsibility:
+
 - observe the resource
 - retry render when it resolves
 - keep rendering deterministic
@@ -168,10 +181,12 @@ It does not work like await.
 Mental model difference:
 
 await:
+
 - pauses a function
 - resumes later
 
 use():
+
 - either returns now
 - or aborts render entirely
 
@@ -180,16 +195,19 @@ Render either completes synchronously or does not complete at all.
 12. Client vs Server Usage (Important Constraint)
 
 use() can be used:
+
 - in Server Components
 - in Client Components
 
 But with different expectations.
 
 On the server:
+
 - frameworks often provide cached resources
 - use() commonly reads server-fetched data
 
 On the client:
+
 - promises must already exist and be stable
 - use() does not initiate fetches
 - Suspense boundaries are required
@@ -200,6 +218,7 @@ The same rules apply.
 13. What use() Is Not
 
 use() is not:
+
 - a replacement for useEffect
 - a data-fetching library
 - a state management solution
@@ -207,6 +226,7 @@ use() is not:
 - a way to “pause” part of a render
 
 It does not:
+
 - trigger side effects
 - coordinate retries
 - manage request lifetimes
@@ -214,6 +234,7 @@ It does not:
 14. When to Use use()
 
 use() is appropriate when:
+
 - data is required to render
 - the resource can be cached externally
 - suspension is acceptable
@@ -221,6 +242,7 @@ use() is appropriate when:
 - rendering should retry automatically on resolution
 
 use() is inappropriate when:
+
 - data is optional
 - side effects are involved
 - progressive updates are required
@@ -230,15 +252,19 @@ use() is inappropriate when:
 15. How use() Fits with Other Primitives
 
 use():
+
 - reads required data during render
 
 useEffect:
+
 - performs side effects after commit
 
 useTransition:
+
 - controls priority of state updates
 
 Suspense:
+
 - defines loading behavior
 
 Each primitive handles one axis.

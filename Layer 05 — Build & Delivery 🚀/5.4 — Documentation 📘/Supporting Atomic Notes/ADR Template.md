@@ -50,6 +50,7 @@ If this ADR replaces a prior one, state the superseded ADR number.
 References:
 Link to related documents, layers, or implementation guides.
 Example:
+
 - /docs/layers/0/full-initialization-order.md
 - /docs/blueprint/blueprint-v1.13.md
 - /docs/adr/0001-project-setup-contract.md

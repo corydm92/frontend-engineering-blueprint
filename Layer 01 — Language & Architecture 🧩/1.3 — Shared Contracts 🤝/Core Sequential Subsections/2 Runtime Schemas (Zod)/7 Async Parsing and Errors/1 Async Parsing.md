@@ -21,17 +21,17 @@ are awaited.
 Backend example — File: `@api/src/schemas/username.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 async function isUsernameAvailable(value: string) {
-  return value !== 'admin';
+  return value !== "admin";
 }
 
 const UsernameSchema = z
   .string()
   .min(3)
   .refine(async (val) => isUsernameAvailable(val), {
-    message: 'Username is taken',
+    message: "Username is taken",
   });
 
 export async function validateUsername(input: unknown) {

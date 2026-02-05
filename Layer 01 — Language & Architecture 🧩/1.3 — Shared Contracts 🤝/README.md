@@ -16,7 +16,7 @@ validation rules, and change policies stay consistent across teams and apps.
 ## Section structure
 
 - Base Project Rules and Tooling
-  - __Initialization
+  - \_\_Initialization
 - Core Sequential Subsections
 - Supporting Atomic Notes
 

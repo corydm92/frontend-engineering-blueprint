@@ -6,6 +6,7 @@ The router watches all `<Link>` components using the Intersection Observer API a
 How Prefetching Works
 
 When a `<Link>` becomes visible:
+
 - The associated route’s JS chunk and RSC payload are fetched in the background.
 - By the time the user clicks, the data and code are already in memory.
 - Navigation happens instantly without a blocking network request.
@@ -15,10 +16,12 @@ Prefetching runs only in production builds — it’s disabled during developmen
 Static vs Dynamic Routes
 
 Static Route:
+
 - The entire route (code + data) is prefetched.
 - On click, no server call is needed — the route hydrates immediately.
 
 Dynamic Route:
+
 - Prefetching is skipped by default to avoid unnecessary work on the server.
 - If a `loading.tsx` file exists, Next.js performs **partial prefetching**:
 - The shared layout and loading skeleton are prefetched first.
@@ -34,6 +37,7 @@ import Link from 'next/link';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
 return (
+
 <html>
 <body>
 <nav>
@@ -57,6 +61,7 @@ Blog
 </Link>
 
 When disabled:
+
 - Static routes will only be fetched when clicked.
 - Dynamic routes will fully SSR on navigation.
 
@@ -70,6 +75,7 @@ function HoverPrefetchLink({ href, children }: { href: string; children: React.R
 const [active, setActive] = useState(false);
 
 return (
+
 <Link
 href={href}
 prefetch={active ? null : false}

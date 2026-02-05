@@ -21,12 +21,12 @@ Your list page reads query params from the URL and needs consistent types.
 Frontend example — File: `@app/src/lib/normalizeQuery.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 const QuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().max(100).default(20),
-  sort: z.enum(['new', 'top']).default('new'),
+  sort: z.enum(["new", "top"]).default("new"),
 });
 
 export function normalizeQuery(input: unknown) {
@@ -41,12 +41,12 @@ export function normalizeQuery(input: unknown) {
 Frontend example — File: `@app/src/lib/normalizeQuery.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 const QuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().max(100).default(20),
-  sort: z.enum(['new', 'top']).default('new'),
+  sort: z.enum(["new", "top"]).default("new"),
 });
 
 export function normalizeQuery(input: unknown) {

@@ -43,6 +43,7 @@ src/
 └── index.ts
 
 ✅ DO:
+
 - Mirror the `/src` structure inside `/types` for 1:1 clarity. – (typescript mirrored types directory pattern)
 - Create one `*.types.ts` file per component, feature, or utility. – (typescript colocated types pattern)
 - Keep each type file scoped to its module — no cross-domain definitions. – (modular type organization best practices)
@@ -50,6 +51,7 @@ src/
 - Define only **truly global primitives** (e.g., `ID`, `AppEnv`, `Nullable<T>`) inside `types/common/index.ts`. – (typescript global type definitions best practices)
 
 ❌ DON’T / FIX FIRST:
+
 - Store type definitions inside `/src`. – (separation of code and contracts pattern)
 - Combine unrelated modules into one giant type file. – (anti pattern monolithic type definitions)
 - Use barrel exports (`index.ts`) to merge multiple type files. – (typescript barrel file drawbacks)

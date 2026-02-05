@@ -23,12 +23,12 @@ you branch safely by value.
 Frontend example — File: `@app/src/schemas/filters.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 export const SortSchema = z.object({
-  order: z.enum(['asc', 'desc']),
+  order: z.enum(["asc", "desc"]),
   includeArchived: z.boolean(),
-  mode: z.literal('compact'),
+  mode: z.literal("compact"),
 });
 ```
 

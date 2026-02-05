@@ -1,1 +1,1 @@
-# 1 Runtime Environments — Node vs Edge  (future) ⚙️
+# 1 Runtime Environments — Node vs Edge (future) ⚙️

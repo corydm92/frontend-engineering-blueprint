@@ -14,7 +14,7 @@ Define how breaking changes are introduced safely.
 Backend example — File: `@app/src/contracts/user.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 export const UserSchema = z.object({
   id: z.string(),

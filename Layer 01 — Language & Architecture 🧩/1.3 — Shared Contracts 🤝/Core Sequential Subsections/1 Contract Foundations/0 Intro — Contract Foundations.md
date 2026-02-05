@@ -8,6 +8,7 @@ Contract foundations answer three practical questions: Who owns the contract,
 where is the source of truth, and how do consumers stay compatible over time.
 
 **Use this when multiple systems share data** and you need a common language:
+
 - Frontend + backend defining the same payload shape
 - Multiple clients consuming a shared API
 - Teams that need a clear “contract owner” for changes

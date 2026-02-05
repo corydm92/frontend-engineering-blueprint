@@ -8,6 +8,7 @@ Shared types in a monorepo act like a “single contract package” that multipl
 and services import instead of re‑defining the same shapes.
 
 **Use this when multiple packages need the same contracts**, such as:
+
 - A web app and backend sharing request/response types
 - Multiple frontend apps consuming the same API
 - Tools and scripts that rely on a common data model

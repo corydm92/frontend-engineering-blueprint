@@ -21,7 +21,7 @@ You want one base profile schema and two smaller variants for UI use.
 Frontend example — File: `@app/src/schemas/profile.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 const Base = z.object({
   id: z.string(),
@@ -38,7 +38,7 @@ const Base = z.object({
 Frontend example — File: `@app/src/schemas/profile.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 const Base = z.object({
   id: z.string(),

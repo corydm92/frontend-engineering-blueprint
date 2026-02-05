@@ -8,18 +8,20 @@ It does not change how your app behaves in production.
 Instead, it adds extra checks and intentional re-renders in development to expose potential problems early.
 
 Think of it as React’s stress test for:
+
 - render purity
 - effect correctness
 - cleanup discipline
 - legacy or unsafe patterns
 
-------------------------------------------------------------
+---
 
 2. What Strict Mode Does
 
 When enabled, React intentionally double-invokes certain operations to reveal side effects and impure logic.
 
 In development:
+
 - Components are rendered twice (mount → unmount → mount) to test purity
 - Effects (`useEffect`, `useLayoutEffect`) are set up, cleaned up, and set up again
 - Warnings appear for deprecated APIs and unsafe lifecycles
@@ -28,7 +30,7 @@ In development:
 Strict Mode only runs these checks in development.
 Production builds render normally and once.
 
-------------------------------------------------------------
+---
 
 3. Enabling Strict Mode
 
@@ -46,11 +48,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
 Strict Mode can also be scoped to a subtree if you’re incrementally migrating legacy code.
 
-------------------------------------------------------------
+---
 
 4. The Core Rule to Remember
 
 In Strict Mode (development only):
+
 - React may render, discard, and re-render
 - Effects may mount, clean up, and re-mount
 - Work may be started, abandoned, and restarted
@@ -59,7 +62,7 @@ Any code that assumes “this runs once” is unsafe.
 
 Fetches and setState are the most common failure points.
 
-------------------------------------------------------------
+---
 
 5. Broken Pattern: Fetch in useEffect Without Cleanup
 
@@ -76,6 +79,7 @@ return <div>{user?.name}</div>
 }
 
 Why this fails in Strict Mode:
+
 - effect runs
 - fetch starts
 - cleanup runs (but does nothing)
@@ -84,11 +88,12 @@ Why this fails in Strict Mode:
 - both responses may call setState
 
 Problems:
+
 - duplicate requests
 - race conditions
 - stale updates
 
-------------------------------------------------------------
+---
 
 Correct Pattern A: Abort the Fetch
 
@@ -114,11 +119,12 @@ return <div>{user?.name}</div>
 }
 
 Why this works:
+
 - cleanup cancels in-flight work
 - duplicate runs are safe
 - abandoned renders don’t leak effects
 
-------------------------------------------------------------
+---
 
 Correct Pattern B: Guard Against Stale Effects
 
@@ -145,11 +151,12 @@ return <div>{user?.name}</div>
 }
 
 Why this works:
+
 - cleanup invalidates the previous effect run
 - stale responses are ignored
 - repeated mounts are safe under Strict Mode
 
-------------------------------------------------------------
+---
 
 6. Broken Pattern: setState During Render
 
@@ -164,12 +171,13 @@ return <div>{count}</div>
 }
 
 Why this fails:
+
 - render must be pure
 - Strict Mode retries render
 - setState fires repeatedly
 - infinite render loop
 
-------------------------------------------------------------
+---
 
 Correct Pattern: Move State Updates to Effects or Events
 
@@ -186,11 +194,12 @@ return <div>{count}</div>
 }
 
 Why this works:
+
 - render stays pure
 - state updates happen after commit
 - repeated mounts are safe
 
-------------------------------------------------------------
+---
 
 7. Broken Pattern: Fetch During Render
 
@@ -205,12 +214,13 @@ return <div>{user?.name}</div>
 }
 
 Why this fails:
+
 - render runs multiple times
 - fetch runs on every render
 - setState retriggers render
 - infinite loop
 
-------------------------------------------------------------
+---
 
 Correct Pattern: Fetch in Effect (or Suspense + use())
 
@@ -252,7 +262,7 @@ const user = use(fetchUser());
 return <div>{user.name}</div>
 }
 
-------------------------------------------------------------
+---
 
 8. Broken Pattern: Subscriptions Without Cleanup
 
@@ -266,12 +276,13 @@ return null;
 }
 
 Why this fails:
+
 - effect runs twice in Strict Mode
 - subscriptions stack
 - handlers fire multiple times
 - memory leaks
 
-------------------------------------------------------------
+---
 
 Correct Pattern: Full Cleanup
 
@@ -290,11 +301,12 @@ return null;
 }
 
 Why this works:
+
 - every setup has a teardown
 - remounting is safe
 - no duplicated side effects
 
-------------------------------------------------------------
+---
 
 9. Broken Pattern: Fetch + setState Without Identity Control
 
@@ -311,12 +323,13 @@ return <Results data={results} />
 }
 
 Why this fails:
+
 - rapid query changes
 - older responses may resolve later
 - stale data overwrites fresh data
 - Strict Mode makes this visible sooner
 
-------------------------------------------------------------
+---
 
 Correct Pattern: Abort or Track Request Identity
 
@@ -344,11 +357,12 @@ return <Results data={results} />
 }
 
 Alternative fixes:
+
 - request IDs
 - external cache
 - Suspense + use()
 
-------------------------------------------------------------
+---
 
 10. Broken Pattern: Assuming Effects Run Once
 
@@ -357,10 +371,11 @@ analytics.trackPageView();
 }, []);
 
 Why this fails:
+
 - Strict Mode mounts, cleans up, and remounts
 - analytics fires twice in development
 
-------------------------------------------------------------
+---
 
 Correct Pattern: Make Effects Idempotent or Guarded
 
@@ -370,25 +385,28 @@ analytics.trackPageView();
 }, []);
 
 Or move analytics to:
+
 - router-level events
 - server-side tracking
 - external instrumentation
 
-------------------------------------------------------------
+---
 
 11. The Unifying Rule
 
 Every effect must tolerate:
+
 - being set up
 - being torn down
 - being set up again
 
 Every render must tolerate:
+
 - restarting
 - being discarded
 - never committing
 
-------------------------------------------------------------
+---
 
 12. One-Sentence Summary
 
