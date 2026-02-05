@@ -261,7 +261,7 @@ docs/
       ├─ README.md
       ├─ 1.1 TypeScript and JavaScript/
       ├─ 1.2 Frontend Architecture/
-      ├─ 1.3 Shared API Contracts/
+      ├─ 1.3 Shared Contracts/
       ├─ 1.4 Shared Registry/
       └─ 1.5 Programming Principles/
 ```
@@ -428,7 +428,7 @@ docs/
    │  ├─ README.md
    │  ├─ 1.1 TypeScript and JavaScript/
    │  ├─ 1.2 Frontend Architecture/
-   │  ├─ 1.3 Shared API Contracts/
+   │  ├─ 1.3 Shared Contracts/
    │  ├─ 1.4 Shared Registry/
    │  └─ 1.5 Programming Principles/
    │
@@ -693,7 +693,7 @@ Layer 1 Summary: Establishes the coding and architectural foundation that ensure
 
 ---
 
-1.3 Shared API Contracts 🤝
+1.3 Shared Contracts 🤝
 
 Establish a single, versioned source of truth for request and response types between frontend and backend.
 
