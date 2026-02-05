@@ -152,25 +152,175 @@ Each subsection must:
 - If the tool is simple, a single sequence with one final tutorial is sufficient.
 - Use a **handbook‑style progression** (like the TypeScript Handbook) as the model:
   - Basics → Everyday Types → Narrowing → Functions → Object Types → Type Manipulation → Generics → Keyof/typeof → Indexed Access → Conditional Types → Mapped Types → Template Literal Types → Classes → Modules → Advanced.
-- If you split into directories, **each directory must include its own tutorial** as the final file in that directory.
+- If you split into directories, **each directory that contains step docs** must include its own tutorial as the final file in that directory.
 - If the topic is narrow or not deep, keep a **single sequence** under the subsection and place one tutorial at the end.
 - Tutorials should be **hands-on exercises** and must include the **answer/solution** in the same doc.
 - Tutorials must include a **starter scaffold** (partial code) so readers fill in the solution instead of starting from scratch.
 - Tutorial examples must be **self-contained** (do not reference undefined imports or external snippets).
 
-### Core Doc Anatomy (recommended)
+### Core Doc Anatomy (required)
 
-These are **recommended blocks** to make docs consistently high quality. Not every doc
-needs every block, but core docs should include **at least**: Goal + Explanation +
-Example.
+The goal is **handbook-quality docs**: short, scannable, and complete enough that a
+reader can apply the concept immediately without guessing.
 
-- **Goal**: one‑line intent for the doc.
-- **What you learn**: 2–4 bullets for concrete outcomes.
-- **Outcomes** (optional): the end‑state readers should reach after this doc.
-- **Explanation**: short teaching narrative that connects “why” to “how.”
-- **Architecture Notes** (optional): folder structure, utilities, module layout, boundaries.
-- **Example**: scoped code + mock file path, no undefined imports.
-- **Pitfalls** (optional): 2–4 bullets of common mistakes or edge cases.
+#### A) Directory Intro Docs (0 Intro — ...)
+
+Every Core Sequential Subsection directory (and any nested directories inside it)
+must start with a `0 Intro — <Name>.md` file.
+
+**Required blocks**:
+
+- A 2–4 paragraph summary that explains:
+  - the mental model for the directory
+  - what the directory covers, in order
+  - where this knowledge sits in the system (boundary vs core logic)
+- `## Outcomes` with 3–6 bullets.
+
+**When introducing a tool/framework for the first time in the curriculum**, add an
+extra block:
+
+- `## Intro Note — What This Tool Is For` that includes:
+  - a plain-language definition (1 short paragraph)
+  - a concrete “use it when…” list (3–6 bullets)
+  - a mini example (one short code block)
+
+Template:
+
+```md
+# <Directory Name> — Summary
+
+<2–4 short paragraphs>
+
+## Outcomes
+
+- ...
+- ...
+- ...
+```
+
+#### B) Core Concept Step Docs (1…, 2…, 3…)
+
+Concept docs teach **one idea** and end with the common failure modes. These files
+must be understandable in isolation, but should still fit the sequence.
+
+**Required blocks (in this order)**:
+
+- `## Goal` (1–2 sentences): what the reader can do after this doc.
+- `## What you learn` (2–4 bullets): concrete outcomes, not vague topics.
+- `## Explanation` (2–5 short paragraphs): describe the mechanism, tradeoffs, and
+  when to choose this approach. If there are two common options, explicitly state:
+  “Use A when…, Use B when…”.
+- `## Example` (or multiple `## Example — <variant>` sections): each example must:
+  - start with `Frontend example — File: ...` or `Backend example — File: ...`
+  - include a mock file path in backticks
+  - include a code fence with all required imports defined
+- `## Pitfalls` (2–4 bullets): mistakes + impact (what breaks or gets worse).
+
+**Optional blocks (use when relevant)**:
+
+- `## Architecture Notes`: module boundaries, folder layout, ownership, and
+  “where this code lives.” Use bullets.
+- `## Validation`: how to verify behavior (commands, tests, or expected outcomes).
+
+Template:
+
+```md
+# <Concept Name>
+
+## Goal
+
+<1–2 sentences>
+
+## What you learn
+
+- ...
+- ...
+
+## Explanation
+
+<2–5 short paragraphs>
+
+## Example
+
+Frontend example — File: `@app/src/...`
+
+```ts
+// ...
+```
+
+## Pitfalls
+
+- ...
+- ...
+```
+
+#### C) Tutorials (final file in a directory)
+
+Tutorials close the loop. They must be runnable in principle and include the
+solution in the same file.
+
+**Required blocks (in this order)**:
+
+- `## Scenario`: 2–4 sentences describing the real situation.
+- `## Task`: 3–6 bullets of what to implement.
+- `## Hints`: 2–5 bullets that point to the key API/idea.
+- `## Starter`: a partial scaffold with TODOs + mock file path.
+- `## Answer`: the complete solution + mock file path.
+
+Template:
+
+```md
+# Tutorial — <Title> 🧪
+
+## Scenario
+
+<2–4 sentences>
+
+## Task
+
+- ...
+- ...
+
+## Hints
+
+- ...
+
+## Starter
+
+Frontend example — File: `@app/src/...`
+
+```ts
+// TODO
+```
+
+## Answer
+
+Frontend example — File: `@app/src/...`
+
+```ts
+// full solution
+```
+```
+
+#### D) Initialization Step Docs (__Initialization)
+
+Setup docs are pragmatic checklists with validation.
+
+**Required blocks (in this order)**:
+
+- `## Goal`
+- `## Architecture decisions` (2–5 bullets)
+- `## Steps` (numbered list)
+- `## Example` (file path + code)
+- `## Validation` (2–4 bullets)
+
+**Global writing rules**
+
+- No placeholders like `<your framework>` in core docs unless the file is explicitly
+  a template. Prefer concrete examples.
+- No undefined imports in examples.
+- Keep docs “tight”: short paragraphs, no filler, no motivational language.
+- If a default behavior matters, state it explicitly (and show how to override it).
 
 ### Tutorial Requirements (checklist)
 
@@ -179,6 +329,40 @@ Example.
 - All referenced symbols are defined in the example (or inlined)
 
 Tutorials must be **example‑driven walkthroughs** (mini guides) for a specific feature set.
+
+### Subsection Curriculum Template (required)
+
+Each subsection directory must follow one of these two patterns.
+
+**Pattern 1: Flat Subsection (no nested directories)**
+
+1. `0 Intro — <Subsection Name>.md` (summary + outcomes)
+2. `1 ...` through `N ...` concept docs (typically 2–6)
+3. `N+1 Tutorial - ...` as the final file
+
+**Pattern 2: Nested Subsection (directory of directories)**
+
+- Parent directory contains:
+  - `0 Intro — <Parent Name>.md` (summary + outcomes; optional tool intro note)
+  - child directories (`1 ...`, `2 ...`, etc) that each represent a mini-subsection
+- Each child directory follows Pattern 1 and ends with a tutorial.
+
+**Rules**:
+
+- Every directory starts with a `0 Intro — ...` summary doc.
+- A tutorial is required for any directory that contains a learning sequence
+  (`1 ...` step docs). Container directories that only contain `0 Intro` + child
+  directories do not require a tutorial.
+- Every concept doc must use the Core Doc Anatomy.
+- Every concept doc must include at least one file‑path‑anchored example.
+
+### Quality Gates (required)
+
+- Concept docs include the required blocks (Goal, What you learn, Explanation, Example, Pitfalls).
+- Every tutorial includes Starter + Answer with runnable context.
+- Every concept doc includes a mock file path in examples.
+- Every directory begins with `0 Intro — ...` and (when it contains step docs) ends with a tutorial.
+- “Not Applicable” sections must be explicitly labeled when optional blocks are present but unused.
 
 ### 5) Supporting Atomic Notes
 
