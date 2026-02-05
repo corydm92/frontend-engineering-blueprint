@@ -79,7 +79,8 @@ Every section must include:
 
 - Subsection folders use **incremented numbers** with a hyphen and **no dots**:
   - `1 - Foundations/`
-- Files use **incremented numbers** with a hyphen and **no dots**. This can be as few or as many steps needed to fulfil the subsection conecpt requirements:
+- Files use **incremented numbers** with a hyphen and **no dots**. This can be as few or as many steps needed to fulfil the subsection conecpt requirements.
+- The **intro file is the exception** and uses this format:
   - `0 Intro — <Subsection Name Without Number>.md`
   - `1 - Concept Name.md`
   - `2 - Next Concept.md`

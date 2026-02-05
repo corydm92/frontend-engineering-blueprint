@@ -515,7 +515,7 @@ This structure ensures:
 
 - Base Project Rules and Tooling captures implementation reality, including `__Initialization/` as the setup path for adopting the module.
 
-- Core Sequential Subsections stays purely educational. It starts at 0 (Subsection Summary) and builds incrementally with no jumps.
+- Core Sequential Subsections stays purely educational. It starts with a 0 Intro file and builds incrementally with no jumps.
 
 - Supporting Atomic Notes captures supplemental depth without bloating the learning path.
 
