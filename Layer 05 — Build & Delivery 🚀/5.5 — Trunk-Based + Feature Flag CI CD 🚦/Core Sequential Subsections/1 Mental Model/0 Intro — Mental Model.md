@@ -1,4 +1,4 @@
-# 0 Subsection Summary
+# Mental Model — Summary
 
 Mental Model → CI Gate → CD Promotion → Release Tagging
 

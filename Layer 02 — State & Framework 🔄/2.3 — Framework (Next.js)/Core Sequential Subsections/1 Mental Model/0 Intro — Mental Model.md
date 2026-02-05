@@ -1,4 +1,4 @@
-# 0 Subsection Summary 🧠
+# Mental Model — Summary
 
 Mental Model → Render Flow → Delivery → Execution
 

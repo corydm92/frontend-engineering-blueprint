@@ -450,7 +450,7 @@ docs/
    │
    │     ├─ Core Sequential Subsections/
    │     │  ├─ 1 Mental Model/
-   │     │  │  ├─ 0 Subsection Summary.md
+   │     │  │  ├─ 0 Intro — Mental Model.md
    │     │  │  ├─ 1 Application Composition Model.md
    │     │  │  ├─ 2 Routing Model.md
    │     │  │  ├─ 3 Rendering Boundaries.md
@@ -458,7 +458,7 @@ docs/
    │     │  │  └─ 5 Shared Context Propagation.md
    │     │  │
    │     │  ├─ 2 Rendering and Data Flow/
-   │     │  │  ├─ 0 Subsection Summary.md
+   │     │  │  ├─ 0 Intro — Rendering and Data Flow.md
    │     │  │  ├─ 1 Static vs Dynamic Routes.md
    │     │  │  ├─ 2 Route Classification and Data Fetching.md
    │     │  │  ├─ 3 Static Route Build Process.md
@@ -466,7 +466,7 @@ docs/
    │     │  │  └─ 5 Runtime Request Flow.md
    │     │  │
    │     │  ├─ 3 Code Splitting and Prefetching/
-   │     │  │  ├─ 0 Subsection Summary.md
+   │     │  │  ├─ 0 Intro — Code Splitting and Prefetching.md
    │     │  │  ├─ 1 Automatic Code Splitting.md
    │     │  │  ├─ 2 Build Graph and Chunk Mapping.md
    │     │  │  ├─ 3 Controlling Code Splitting with Layout Boundaries.md
@@ -474,7 +474,7 @@ docs/
    │     │  │  └─ 5 React Suspense Integration.md
    │     │  │
    │     │  └─ 4 Execution and Deployment Context/
-   │     │     ├─ 0 Subsection Summary.md
+   │     │     ├─ 0 Intro — Execution and Deployment Context.md
    │     │     ├─ 1 Runtime Environments.md
    │     │     ├─ 2 Execution Model and Request Lifecycle.md
    │     │     ├─ 3 Middleware and Edge Functions.md

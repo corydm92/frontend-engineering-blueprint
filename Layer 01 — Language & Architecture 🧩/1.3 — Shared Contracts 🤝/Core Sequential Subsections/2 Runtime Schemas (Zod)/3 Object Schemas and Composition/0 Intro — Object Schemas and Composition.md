@@ -1,4 +1,4 @@
-# 3 Object Schemas and Composition — Summary 🧭
+# Object Schemas and Composition — Summary
 
 This directory focuses on **object modeling**: how to define shapes, handle unknown
 keys, and compose schemas into variants for different UI or API use cases.

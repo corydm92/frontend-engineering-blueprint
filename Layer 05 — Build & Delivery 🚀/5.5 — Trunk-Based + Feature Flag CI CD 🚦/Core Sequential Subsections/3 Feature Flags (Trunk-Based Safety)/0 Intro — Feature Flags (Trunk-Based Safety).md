@@ -1,4 +1,4 @@
-# 0 Subsection Summary
+# Feature Flags (Trunk-Based Safety) — Summary
 
 Feature flags are required in trunk-based delivery.
 

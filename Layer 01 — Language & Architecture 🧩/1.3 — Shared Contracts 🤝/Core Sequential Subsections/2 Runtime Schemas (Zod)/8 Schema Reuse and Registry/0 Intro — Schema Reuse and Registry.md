@@ -1,4 +1,4 @@
-# 8 Schema Reuse and Registry — Summary 🧭
+# Schema Reuse and Registry — Summary
 
 This directory focuses on **reuse at scale**. As schema counts grow, you need
 consistent patterns for composition and a registry to keep contracts discoverable.

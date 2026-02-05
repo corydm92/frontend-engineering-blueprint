@@ -1,4 +1,4 @@
-# 2 Primitives and Coercion — Summary 🧭
+# Primitives and Coercion — Summary
 
 This directory covers the **building blocks** of Zod schemas: primitives, literals,
 enums, coercion, and defaults. These are essential when turning untrusted string

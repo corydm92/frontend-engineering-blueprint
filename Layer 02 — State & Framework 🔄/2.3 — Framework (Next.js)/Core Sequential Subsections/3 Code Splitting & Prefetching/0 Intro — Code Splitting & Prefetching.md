@@ -1,4 +1,4 @@
-# 0 Subsection Summary 🧩
+# Code Splitting & Prefetching — Summary
 
 Next.js extends React’s component and routing model with a route-aware delivery system.
 
