@@ -40,6 +40,16 @@ All docs must follow these rules:
 - **Always include a mock file path** for code examples.
   - Example: `@app/src/flags/ldClient.ts`
 - Use the **industry-standard library/tool** for the topic by default.
+- **Path scope must match ecosystem**:
+  - **Frontend-only** examples use `@app/src/...` and are labeled “Frontend example”.
+  - **Backend-only** examples use `@app/src/...` and are labeled “Backend example”.
+  - **Monorepo example** paths (e.g. `@app/packages/...`) must be labeled “Monorepo example”.
+- Every example must **signal scope** in text (Frontend example / Backend example / Monorepo example).
+
+### Documentation examples (required)
+
+- Documentation examples must declare **scope and location** to remove ambiguity about where changes live.
+- Use labels like “Frontend doc example”, “Backend doc example”, or “Monorepo doc example”.
 
 ## Structure and Naming Rules
 
@@ -110,6 +120,8 @@ Required:
 - Concrete, project‑agnostic steps with code examples.
 - **Architecture decisions** (utilities, module layout, folder structure).
 - **Mock file paths** for every code example.
+- **Primary focus:** bootstrap the tool into a project and make it usable **as fast as possible** with a minimal, working example.
+- **Depth belongs in Core Sequential Subsections** (Initialization is the “get it running now” guide; Core is the deep dive).
 
 **Separation of concerns rule**:
 
@@ -131,6 +143,36 @@ Each subsection must:
 - Include **architecture decisions** where relevant.
 - Include **tutorials as the final step** in each subsection.
 - Include **real code examples** with mock file paths.
+- For **large tools/frameworks**, provide a **near‑complete ordered curriculum** (basics → advanced) before the tutorial.
+- When a subsection grows long, **split it into directories** and end each directory with a tutorial that **encapsulates that directory’s topics**.
+- If the tool is simple, a single sequence with one final tutorial is sufficient.
+- Use a **handbook‑style progression** (like the TypeScript Handbook) as the model:
+  - Basics → Everyday Types → Narrowing → Functions → Object Types → Type Manipulation → Generics → Keyof/typeof → Indexed Access → Conditional Types → Mapped Types → Template Literal Types → Classes → Modules → Advanced.
+- If you split into directories, **each directory must include its own tutorial** as the final file in that directory.
+- If the topic is narrow or not deep, keep a **single sequence** under the subsection and place one tutorial at the end.
+- Tutorials should be **hands-on exercises** and must include the **answer/solution** in the same doc.
+- Tutorials must include a **starter scaffold** (partial code) so readers fill in the solution instead of starting from scratch.
+- Tutorial examples must be **self-contained** (do not reference undefined imports or external snippets).
+
+### Core Doc Anatomy (recommended)
+
+These are **recommended blocks** to make docs consistently high quality. Not every doc
+needs every block, but core docs should include **at least**: Goal + Explanation +
+Example.
+
+- **Goal**: one‑line intent for the doc.
+- **What you learn**: 2–4 bullets for concrete outcomes.
+- **Outcomes** (optional): the end‑state readers should reach after this doc.
+- **Explanation**: short teaching narrative that connects “why” to “how.”
+- **Architecture Notes** (optional): folder structure, utilities, module layout, boundaries.
+- **Example**: scoped code + mock file path, no undefined imports.
+- **Pitfalls** (optional): 2–4 bullets of common mistakes or edge cases.
+
+### Tutorial Requirements (checklist)
+
+- Scenario + Task + Hints + Starter + Answer
+- Starter scaffold is runnable with the context provided
+- All referenced symbols are defined in the example (or inlined)
 
 Tutorials must be **example‑driven walkthroughs** (mini guides) for a specific feature set.
 
@@ -162,3 +204,4 @@ Each note must:
 - Tutorials exist and are last in each subsection.
 - All examples include **mock file paths** and code fences.
 - Architecture decisions are explicitly documented.
+- Quality matches this spec (doc anatomy, depth, and tutorial requirements).
