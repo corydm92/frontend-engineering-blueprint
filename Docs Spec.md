@@ -64,6 +64,10 @@ All docs must follow these rules:
 - `X.Y — Section Name Emoji`
 - `X` must match the layer number.
 - `Y` is the subsection number within the layer.
+- If a section must be split while preserving ordering, you may append a lowercase
+  letter suffix to `Y`:
+  - `1.1a — ...`
+  - `1.1b — ...`
 
 ### Required section folders
 
@@ -104,6 +108,10 @@ Must include:
 - A plain description of what the section is for.
 - The list of what it covers.
 - A short “How to use” sequence.
+- `## Versions` block:
+  - `As of: <YYYY-MM-DD>` (the day the docs were authored/updated)
+  - 3–8 bullets of the relevant tool/runtime versions (examples: `TypeScript v5.9.3`, `ECMAScript 2024`, `Node v20`, `Chrome baseline (evergreen)`)
+  - If versions are unknown, explicitly say `Unknown (must be pinned before relying on this doc set)`.
 
 ### 2) Base Project Rules and Tooling
 
@@ -224,7 +232,7 @@ must be understandable in isolation, but should still fit the sequence.
 
 Template:
 
-```md
+````md
 # <Concept Name>
 
 ## Goal
@@ -247,12 +255,14 @@ Frontend example — File: `@app/src/...`
 ```ts
 // ...
 ```
+````
 
 ## Pitfalls
 
 - ...
 - ...
-```
+
+````
 
 #### C) Tutorials (final file in a directory)
 
@@ -291,7 +301,7 @@ Frontend example — File: `@app/src/...`
 
 ```ts
 // TODO
-```
+````
 
 ## Answer
 
@@ -300,6 +310,7 @@ Frontend example — File: `@app/src/...`
 ```ts
 // full solution
 ```
+
 ```
 
 #### D) Initialization Step Docs (__Initialization)
@@ -329,6 +340,145 @@ Setup docs are pragmatic checklists with validation.
 - All referenced symbols are defined in the example (or inlined)
 
 Tutorials must be **example‑driven walkthroughs** (mini guides) for a specific feature set.
+
+### Exhaustive Coverage (beginner → advanced)
+
+Core Sequential Subsections must be written to be **exhaustive enough that a reader does not
+need to prompt for “missing fundamentals.”** Enforce this with two required docs at the
+`Core Sequential Subsections/` root:
+
+- `0 Curriculum Map.md`
+  - Ordered beginner → advanced topic list for the section.
+  - Any excluded topic must be explicitly listed with a 1-sentence reason.
+- `0 Coverage Checklist.md`
+  - Checkbox list mirroring the Curriculum Map.
+  - Every topic must be either checked (covered) or explicitly waived (with a reason).
+
+### Domain Coverage Rubrics (required)
+
+For any section, select all applicable domain rubrics below. If a topic spans multiple
+domains, satisfy **all** relevant rubrics. If no rubric fits, add a new rubric to this
+spec **before** writing docs for that section.
+
+**Global rules (apply to every rubric below):**
+
+- The Curriculum Map must include at least one concrete topic per category.
+- The Coverage Checklist must show each category as either covered (with doc links) or explicitly waived (with a reason).
+- When in doubt, prefer “include a small concept doc” over waiving.
+- Use official handbooks/specs/references to drive ordering and terminology when they exist.
+
+#### Programming Language
+
+Language docs must be exhaustive enough that a beginner can progress to advanced usage without
+needing to ask “what about X?” for core semantics.
+
+**Categories (required unless explicitly waived):**
+
+- `Execution model`: evaluation order, call stack, scheduling, runtime phases.
+- `Scope and binding`: names, lifetimes, closures, binding rules, common footguns.
+- `Data and objects`: primitives vs objects, mutation rules, identity, copying, dispatch/inheritance model if applicable.
+- `Modules and boundaries`: import/export model, dependency direction, circular deps, packaging conventions.
+- `Async and concurrency`: promises/tasks/threads/events as applicable, cancellation, race-condition patterns.
+- `Errors`: error propagation, error typing/shape conventions, debugging workflow.
+- `Type system` (if the language has one): assignability, narrowing/refinement, generics/polymorphism, escape hatches.
+- `Platform integration` (if applicable): environment APIs (browser/Node/VM), IO boundaries, security implications.
+
+#### Framework / Tool / Paradigm
+
+**Categories (required unless explicitly waived):**
+
+- `Purpose + boundaries`: what it solves, what it does not, where it belongs.
+- `Mental model`: core abstractions and how they compose.
+- `Integration points`: APIs, adapters, build tooling, runtime environment.
+- `Configuration`: minimal setup, common options, safe defaults.
+- `Core workflow`: create → use → extend → debug.
+- `Composition + extensibility`: plugins, hooks/middleware, layering, escape hatches.
+- `Error modes`: common failures, how they surface, how to diagnose.
+- `Performance`: what affects performance, how to measure, guardrails.
+- `Security + safety`: boundary validation, dangerous defaults, untrusted input handling.
+- `Testing + validation`: how to verify locally + in CI (unit/integration/e2e where relevant).
+- `Migration + versioning`: upgrade strategy, breaking changes, compatibility windows.
+
+Prefer “how it behaves” over “what it is.” Every category should include at least one
+file-path-anchored example somewhere in the curriculum.
+
+#### Runtime / Platform
+
+**Categories (required unless explicitly waived):**
+
+- `Targets + compatibility`: supported versions, feature gaps, polyfills/shims.
+- `Execution model`: scheduling/threads/event loop specifics for the platform.
+- `Capabilities + limits`: IO, memory, permissions, sandboxing, quotas.
+- `Platform APIs`: the primary APIs and how to integrate safely.
+- `Performance characteristics`: common bottlenecks + measurement approach.
+- `Security boundaries`: isolation model, safe defaults, data access constraints.
+
+#### Data / Storage
+
+**Categories (required unless explicitly waived):**
+
+- `Data model + invariants`: core entities, constraints, and integrity rules.
+- `Access patterns`: reads/writes, query shapes, and expected workloads.
+- `Consistency + transactions`: isolation/consistency model and implications.
+- `Schema evolution`: migrations, backfills, rollback strategy.
+- `Performance`: indexing, caching, and hot-path optimization.
+- `Durability + recovery`: backups, restore procedures, failure recovery.
+- `Security + privacy`: access control, encryption, PII handling.
+
+#### Architecture / Patterns
+
+**Categories (required unless explicitly waived):**
+
+- `Problem + forces`: what problem it solves and the constraints that make it hard.
+- `Core idea`: the mechanics and why they work.
+- `When to use / when not`: decision criteria and anti-patterns.
+- `Tradeoffs + alternatives`: what you gain/lose vs other approaches.
+- `Implementation steps`: how to apply it in code, with boundary placement.
+- `Validation`: how to verify the pattern is delivering the intended outcome.
+
+#### Security / Privacy
+
+**Categories (required unless explicitly waived):**
+
+- `Threat model + assets`: what you’re protecting and from whom.
+- `Attack surface`: entry points and trust boundaries.
+- `Controls + mitigations`: concrete safeguards and safe defaults.
+- `Failure modes`: how issues surface and how to detect them.
+- `Monitoring + incident response`: alerts, runbooks, escalation path.
+- `Compliance + data handling`: retention, access, and regulatory constraints.
+
+#### Observability / Reliability
+
+**Categories (required unless explicitly waived):**
+
+- `Signals`: logs, metrics, traces, and what each is used for.
+- `Instrumentation`: where to instrument and how to structure telemetry.
+- `SLOs + SLIs`: targets, error budgets, and alert thresholds.
+- `Dashboards + runbooks`: what to monitor and how to respond.
+- `Failure modes`: known failures and recovery strategies.
+- `Cost + sampling`: managing telemetry volume without losing signal.
+
+#### Product / UX / Design Systems (if applicable)
+
+**Categories (required unless explicitly waived):**
+
+- `Principles + goals`: UX objectives and constraints.
+- `Components + tokens`: core building blocks and theming strategy.
+- `Interaction patterns`: states, feedback, empty/error/loading patterns.
+- `Accessibility`: required standards and testing approach.
+- `Usage guidelines`: do/don’t patterns and integration examples.
+- `Performance impact`: how UI decisions affect performance.
+
+#### Process / Delivery / Governance
+
+**Categories (required unless explicitly waived):**
+
+- `Workflow + roles`: steps, ownership, and responsibilities.
+- `Artifacts`: required docs, templates, and review gates.
+- `Automation`: CI/CD hooks, bots, and enforcement points.
+- `Quality gates`: checks, approvals, and failure handling.
+- `Metrics + SLAs`: what success looks like and how it’s measured.
+- `Rollback + recovery`: how to unwind failures safely.
 
 ### Subsection Curriculum Template (required)
 
@@ -378,7 +528,8 @@ Each note must:
 2. Add `README.md` with purpose + coverage + usage.
 3. Add `Base Project Rules and Tooling/README.md` with non‑negotiables.
 4. Add `Base Project Rules and Tooling/__Initialization/` with domain‑specific setup docs.
-5. Add `Core Sequential Subsections/` with numbered folders and files.
+5. Add `Core Sequential Subsections/0 Curriculum Map.md` and `Core Sequential Subsections/0 Coverage Checklist.md`.
+6. Add `Core Sequential Subsections/` with numbered folders and files.
 6. Ensure the **last file in each subsection is a tutorial** with real code.
 7. Add `Supporting Atomic Notes/` with focused notes and gotchas.
 
@@ -393,3 +544,4 @@ Each note must:
 - All examples include **mock file paths** and code fences.
 - Architecture decisions are explicitly documented.
 - Quality matches this spec (doc anatomy, depth, and tutorial requirements).
+```
