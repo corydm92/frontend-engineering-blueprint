@@ -21,8 +21,8 @@ hotfix/production-env-vars
 Primary Branch Types:
 
 1. Mainline Branches
-main
-develop (only if using GitFlow)
+   main
+   develop (only if using GitFlow)
 
 Description:
 • main — always stable, deployable branch
@@ -31,7 +31,7 @@ Description:
 ---
 
 2. Feature Branches
-feature/<ticket-id>-<short-description>
+   feature/<ticket-id>-<short-description>
 
 Examples:
 feature/123-add-user-profile
@@ -47,7 +47,7 @@ Usage:
 ---
 
 3. Bugfix Branches
-fix/<ticket-id>-<short-description>
+   fix/<ticket-id>-<short-description>
 
 Examples:
 fix/789-resolve-login-timeout
@@ -62,7 +62,7 @@ Usage:
 ---
 
 4. Hotfix Branches
-hotfix/<short-description>
+   hotfix/<short-description>
 
 Examples:
 hotfix/rollback-api-endpoint
@@ -77,7 +77,7 @@ Usage:
 ---
 
 5. Release Branches
-release/<version>
+   release/<version>
 
 Examples:
 release/2.0.0
@@ -92,7 +92,7 @@ Usage:
 ---
 
 6. Chore / Maintenance Branches
-chore/<short-description>
+   chore/<short-description>
 
 Examples:
 chore/update-dependencies
@@ -106,7 +106,7 @@ Usage:
 ---
 
 7. Documentation Branches
-docs/<short-description>
+   docs/<short-description>
 
 Examples:
 docs/add-adr-template
@@ -120,8 +120,8 @@ Usage:
 ---
 
 8. Experiment / Spike Branches
-spike/<short-description>
-experiment/<short-description>
+   spike/<short-description>
+   experiment/<short-description>
 
 Examples:
 spike/react-compiler-evaluation
@@ -135,8 +135,8 @@ Usage:
 ---
 
 9. Test / Sandbox Branches
-test/<short-description>
-sandbox/<short-description>
+   test/<short-description>
+   sandbox/<short-description>
 
 Examples:
 test/deployment-workflow
@@ -150,7 +150,7 @@ Usage:
 ---
 
 10. Environment Branches (Optional)
-env/<environment-name>
+    env/<environment-name>
 
 Examples:
 env/staging
@@ -165,6 +165,7 @@ Usage:
 ---
 
 Branch Naming Rules:
+
 1. Always use lowercase letters.
 2. Separate words with hyphens (-).
 3. Avoid special characters, spaces, or underscores.
@@ -177,8 +178,8 @@ Branch Naming Rules:
 
 Example Branch Naming Matrix:
 
-Type | Example | Merge Target
---------------------------------------------------------------
+## Type | Example | Merge Target
+
 feature | feature/123-user-auth-flow | main or develop
 fix | fix/456-loading-spinner | main or release
 hotfix | hotfix/env-variable-patch | main

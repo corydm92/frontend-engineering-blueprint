@@ -28,8 +28,7 @@ Good:
 type UIState = 'idle' | 'loading' | 'success' | 'error';
 const [uiState, setUiState] = useState<UIState>('idle');
 
-Why it matters: Finite state modeling eliminates ambiguity. The UI never lies about what’s happening.
----
+## Why it matters: Finite state modeling eliminates ambiguity. The UI never lies about what’s happening.
 
 2. Event-Driven UI (Reactive Paradigm)
 
@@ -68,8 +67,7 @@ default: return state;
 }
 }
 
-Why it matters: Event-driven UIs are predictable and traceable. Every change has a cause and an effect.
----
+## Why it matters: Event-driven UIs are predictable and traceable. Every change has a cause and an effect.
 
 3. Unidirectional Data Flow (Flux Paradigm)
 
@@ -97,8 +95,7 @@ Bad:
 Good:
 <Child count={count} onIncrement={() => dispatch({ type: 'increment' })} />
 
-Why it matters: A single data direction simplifies reasoning, debugging, and time-travel inspection.
----
+## Why it matters: A single data direction simplifies reasoning, debugging, and time-travel inspection.
 
 4. Single Source of Truth (State Authority Paradigm)
 
@@ -128,8 +125,7 @@ Good:
 const user = useUser(); // one canonical query/cache
 const profile = user.profile;
 
-Why it matters: One truth prevents conflicting UI states and simplifies persistence logic.
----
+## Why it matters: One truth prevents conflicting UI states and simplifies persistence logic.
 
 5. UI as Reflection of Application State (Mirror Paradigm)
 
@@ -157,8 +153,7 @@ Bad:
 Good:
 <input value={user.name} onChange={e => updateName(e.target.value)} />
 
-Why it matters: When UI is just a mirror, it can always be rebuilt from state—no hidden dependencies.
----
+## Why it matters: When UI is just a mirror, it can always be rebuilt from state—no hidden dependencies.
 
 6. Side-Effects Isolation (Functional Discipline)
 
@@ -188,8 +183,7 @@ fetch('/api/user').then(setUser);
 Good:
 const { data: user } = useQuery({ queryKey: ['user'], queryFn: fetchUser });
 
-Why it matters: Isolation makes state deterministic and effects observable, improving both reliability and testability.
----
+## Why it matters: Isolation makes state deterministic and effects observable, improving both reliability and testability.
 
 Paradigms & Mental Models Summary
 

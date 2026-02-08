@@ -5,6 +5,7 @@ CSS Modules provide locally scoped, predictable styling for components.
 They balance **encapsulation** with **clarity**, ensuring that styles remain traceable and conflict-free at scale.
 
 Avoids
+
 - Relying on global cascade or inheritance.
 - Duplicating colors, spacing, or variables outside tokens.
 - Deep selector nesting for specificity control.
@@ -13,11 +14,11 @@ Avoids
 
 ---
 
-1) Co-locate styles with their component.
-Do:
-Button.tsx
-import styles from "./Button.module.css"
-<button className={styles.primary}>Save</button>
+1. Co-locate styles with their component.
+   Do:
+   Button.tsx
+   import styles from "./Button.module.css"
+   <button className={styles.primary}>Save</button>
 
 Don’t (almost good):
 import "./Button.module.css"
@@ -28,11 +29,11 @@ Losing the mapping between component and style ownership.
 
 ---
 
-2) Follow clear naming conventions.
-Do:
-.card {}
-.cardHeader {}
-.cardFooterActive {}
+2. Follow clear naming conventions.
+   Do:
+   .card {}
+   .cardHeader {}
+   .cardFooterActive {}
 
 Don’t (almost good):
 .card {}
@@ -44,13 +45,13 @@ Names that describe presentation instead of function.
 
 ---
 
-3) Use variables for theme consistency.
-Do:
-:root {
---color-brand: #0044cc;
---space-md: 1rem;
-}
-.button { background-color: var(--color-brand); margin: var(--space-md); }
+3. Use variables for theme consistency.
+   Do:
+   :root {
+   --color-brand: #0044cc;
+   --space-md: 1rem;
+   }
+   .button { background-color: var(--color-brand); margin: var(--space-md); }
 
 Don’t (almost good):
 .button { background-color: #0044cc; margin: 16px; }
@@ -60,10 +61,10 @@ Hardcoding design values; always pull from tokens.
 
 ---
 
-4) Compose shared utilities.
-Do:
-@value buttonBase from "../utils.module.css"
-.buttonPrimary { composes: buttonBase; background: var(--color-brand); }
+4. Compose shared utilities.
+   Do:
+   @value buttonBase from "../utils.module.css"
+   .buttonPrimary { composes: buttonBase; background: var(--color-brand); }
 
 Don’t (almost good):
 .buttonPrimary { padding: 12px 24px; border-radius: 6px; }
@@ -73,9 +74,9 @@ Re-implementing patterns that already exist as utilities.
 
 ---
 
-5) Keep selectors shallow and intent-based.
-Do:
-.input:focus { border-color: var(--color-brand); }
+5. Keep selectors shallow and intent-based.
+   Do:
+   .input:focus { border-color: var(--color-brand); }
 
 Don’t (almost good):
 .form .field .wrapper .input:focus { border-color: var(--color-brand); }
@@ -86,6 +87,7 @@ Using deep selectors to compensate for weak component structure.
 ---
 
 When to Use CSS Modules (with examples)
+
 - Component-specific layouts or overrides that Tailwind can’t express clearly.
 - Styling complex interactive states or custom animations.
 - When style isolation is critical (widgets, embeds, or microfrontends).
@@ -93,6 +95,7 @@ When to Use CSS Modules (with examples)
 - When collaborating with non-Tailwind teams or legacy stylesheets.
 
 When Not to Use CSS Modules (with examples)
+
 - For utility composition or token-based spacing (use Tailwind).
 - For global layout resets or typography baselines.
 - When working inside a shared design system with enforced patterns.

@@ -1,8 +1,6 @@
-
 # NEXT.JS HOOKS REFERENCE (App Router) 📝
 
 All examples are production-style and compatible with Next.js 13+ App Router, and some need React 19+.
-
 
 ## 1 useRouter
 
@@ -21,14 +19,13 @@ onClick={() => {
 // router.push() performs a client-side navigation
 router.push('/dashboard')
 }}
->
-Go to Dashboard
-</button>
-)
-}
+
+> Go to Dashboard
+> </button>
+> )
+> }
 
 Use: Navigate after user actions; replace URL after form submission; refresh data after a Server Action.
-
 
 ## 2 usePathname
 
@@ -43,14 +40,13 @@ const pathname = usePathname() // updates reactively when route changes
 
 return (
 <span data-path={pathname}>
-{/* render current path for debugging or breadcrumbs */}
+{/_ render current path for debugging or breadcrumbs _/}
 Path: {pathname}
 </span>
 )
 }
 
 Use: Breadcrumbs, active nav highlighting, analytics.
-
 
 ## 3 useSearchParams
 
@@ -75,6 +71,7 @@ startTransition(() => router.replace(url.toString()))
 }
 
 return (
+
 <div>
 <p>Sorting: {sort}</p>
 {/* updating sort param re-renders automatically via useSearchParams */}
@@ -86,7 +83,6 @@ return (
 }
 
 Use: Drive list filtering/sorting via URL state.
-
 
 ## 4 useParams
 
@@ -100,6 +96,7 @@ export default function UserHeader() {
 const { userId } = useParams() // for route /users/[userId]
 
 return (
+
 <header>
 {/* useParams gives access to dynamic segments without prop drilling */}
 <h1>User ID: {userId}</h1>
@@ -108,7 +105,6 @@ return (
 }
 
 Use: Read dynamic segments without prop-drilling.
-
 
 ## 5 useSelectedLayoutSegments
 
@@ -128,6 +124,7 @@ export default function SidebarNav() {
 const segments = useSelectedLayoutSegments() // e.g., ['settings', 'billing']
 
 return (
+
 <nav>
 {items.map(item => {
 const active = segments.includes(item.key) // check if current segment is active
@@ -148,7 +145,6 @@ className={active ? 'active' : ''}
 
 Use: Layout-aware navigation where multiple nested segments may be active.
 
-
 ## 6 useSelectedLayoutSegment
 
 Definition: Active segment string for the current layout level (single value).
@@ -167,6 +163,7 @@ export default function SettingsTabs() {
 const active = useSelectedLayoutSegment() // e.g., 'billing'
 
 return (
+
 <div role="tablist" aria-label="Settings">
 {tabs.map(t => (
 <a
@@ -186,7 +183,6 @@ className={active === t.key ? 'tab active' : 'tab'}
 
 Use: Single-level tab UIs keyed to nested routes.
 
-
 ## 7 useServerInsertedHTML (Server Component only)
 
 Definition: Inject HTML into the server-rendered stream before it’s sent to the client.
@@ -200,6 +196,7 @@ export default function StyleRegistry({ children }) {
 // Hook ensures <style> tags are injected as server HTML streams
 useServerInsertedHTML(() => {
 return (
+
 <style
 id="ssr-styles"
 dangerouslySetInnerHTML={{ __html: getCssText() }}
@@ -352,11 +349,11 @@ return (
 params: ${JSON.stringify(params)}
 search: ${search.toString()}`}
 </pre>
+
 )
 }
 
 Use: Analytics, feature flags, conditional rendering, and deep-linking logic.
-
 
 Notes
 

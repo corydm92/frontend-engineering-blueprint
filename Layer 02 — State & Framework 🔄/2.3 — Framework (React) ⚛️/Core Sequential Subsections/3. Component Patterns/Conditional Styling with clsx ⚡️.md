@@ -5,6 +5,7 @@ clsx manages conditional classNames based on state or props.
 It bridges **component state** and **visual expression** — ensuring class logic remains declarative, readable, and maintainable.
 
 Avoids
+
 - Manual string concatenation for conditional styles.
 - Mixing boolean checks inline with long template literals.
 - Duplicating Tailwind utilities across conditional branches.
@@ -13,9 +14,9 @@ Avoids
 
 ---
 
-1) Keep conditionals declarative and flat.
-Do:
-<button className={clsx("btn", isActive && "btn--active")}>Save</button>
+1. Keep conditionals declarative and flat.
+   Do:
+   <button className={clsx("btn", isActive && "btn--active")}>Save</button>
 
 Don’t (almost good):
 <button className={`btn ${isActive ? "btn--active" : ""}`}>Save</button>
@@ -25,13 +26,13 @@ Inline string building that obscures state intent.
 
 ---
 
-2) Group base, variant, and state classes clearly.
-Do:
-const buttonClass = clsx(
-"btn",
-variant === "primary" && "btn--primary",
-isLoading && "opacity-60 cursor-wait"
-);
+2. Group base, variant, and state classes clearly.
+   Do:
+   const buttonClass = clsx(
+   "btn",
+   variant === "primary" && "btn--primary",
+   isLoading && "opacity-60 cursor-wait"
+   );
 
 Don’t (almost good):
 clsx(variant && `btn--${variant}`, isLoading && "opacity-60", "btn");
@@ -41,11 +42,11 @@ Unordered, non-semantic class lists that reduce scanability.
 
 ---
 
-3) Use helper utilities for repeated patterns.
-Do:
-function getButtonClass({ variant, disabled }) {
-return clsx("btn", variant && `btn--${variant}`, disabled && "btn--disabled");
-}
+3. Use helper utilities for repeated patterns.
+   Do:
+   function getButtonClass({ variant, disabled }) {
+   return clsx("btn", variant && `btn--${variant}`, disabled && "btn--disabled");
+   }
 
 Don’t (almost good):
 clsx("btn", variant === "primary" && "text-white bg-blue-600", variant === "secondary" && "bg-gray-100");
@@ -55,7 +56,7 @@ Rewriting class conditionals in every component.
 
 ---
 
-4) Compose clsx with Tailwind safely.
+4. Compose clsx with Tailwind safely.
 Do:
 <div className={clsx(
 "flex items-center justify-between",
@@ -64,6 +65,7 @@ disabled && "opacity-50 pointer-events-none"
 )}>
 
 Don’t (almost good):
+
 <div className={`flex items-center justify-between ${isOpen && "bg-gray-100"} ${disabled && "opacity-50"}`}>
 
 Avoid:
@@ -71,10 +73,10 @@ Mixing clsx and template strings — pick one convention per project.
 
 ---
 
-5) Derive visual state from data state — not vice versa.
-Do:
-const isError = Boolean(errors?.name);
-<label className={clsx("label", isError && "label--error")}>Name</label>
+5. Derive visual state from data state — not vice versa.
+   Do:
+   const isError = Boolean(errors?.name);
+   <label className={clsx("label", isError && "label--error")}>Name</label>
 
 Don’t (almost good):
 const labelClass = clsx("label--error");
@@ -86,6 +88,7 @@ Letting UI state drive data logic; keep direction one-way.
 ---
 
 When to Use clsx (with examples)
+
 - Toggling Tailwind utilities based on props or context.
 - Applying variant classes (`size`, `intent`, `status`) dynamically.
 - Simplifying readability of long conditional style expressions.
@@ -93,6 +96,7 @@ When to Use clsx (with examples)
 - Encapsulating repeated patterns in utility functions.
 
 When Not to Use clsx (with examples)
+
 - Static components with fixed styles.
 - Style systems already handling variants (e.g., cva, tv, or class-variance-authority).
 - Styling logic based on async data loading (derive once, not on every render).

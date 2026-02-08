@@ -20,10 +20,10 @@ Your signup form needs to verify a username is available.
 Frontend example — File: `@app/src/lib/validateSignup.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 async function isUsernameAvailable(value: string) {
-  return value !== 'admin';
+  return value !== "admin";
 }
 
 const SignupSchema = z.object({
@@ -43,10 +43,10 @@ export async function validateSignup(input: unknown) {
 Frontend example — File: `@app/src/lib/validateSignup.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 async function isUsernameAvailable(value: string) {
-  return value !== 'admin';
+  return value !== "admin";
 }
 
 const SignupSchema = z
@@ -59,8 +59,8 @@ const SignupSchema = z
     if (!ok) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        path: ['username'],
-        message: 'Username is taken',
+        path: ["username"],
+        message: "Username is taken",
       });
     }
   });

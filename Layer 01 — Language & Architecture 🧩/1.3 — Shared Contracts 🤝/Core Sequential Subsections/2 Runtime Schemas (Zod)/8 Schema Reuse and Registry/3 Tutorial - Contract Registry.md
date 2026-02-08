@@ -20,7 +20,7 @@ You want a single place to access input/output schemas for endpoints.
 Backend example — File: `@api/src/contracts/registry.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 const PostBase = z.object({
   id: z.string(),
@@ -39,7 +39,7 @@ const PostBase = z.object({
 Backend example — File: `@api/src/contracts/registry.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 const PostBase = z.object({
   id: z.string(),

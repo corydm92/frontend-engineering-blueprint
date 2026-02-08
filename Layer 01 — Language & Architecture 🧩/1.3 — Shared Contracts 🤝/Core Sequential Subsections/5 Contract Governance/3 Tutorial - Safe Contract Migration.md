@@ -20,7 +20,7 @@ You need to add a required field without breaking clients.
 Backend example — File: `@app/src/contracts/user.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 // TODO: add optional role in v1
 export const UserSchema = z.object({
@@ -34,7 +34,7 @@ export const UserSchema = z.object({
 Backend example — File: `@app/src/contracts/user.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 export const UserSchema = z.object({
   id: z.string(),

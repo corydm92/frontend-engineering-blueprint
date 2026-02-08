@@ -5,6 +5,7 @@ TanStack Query
 TanStack Query owns server state, not UI state.
 
 Server state:
+
 - Lives on a remote system
 - Can be stale
 - Can be refetched, invalidated, or retried
@@ -13,7 +14,7 @@ Server state:
 TanStack Query is a cache + lifecycle controller for that data.
 React components consume it; they do not own it.
 
-------------------------------------------------------------
+---
 
 2. Query Keys Define Data Boundaries
 
@@ -32,26 +33,28 @@ queryFn: () => fetchUser(userId),
 })
 
 Rules:
+
 - Include every variable that affects the result in the key
 - User, org, permissions, feature scope all count
 - Avoid generic keys like ['data'] or ['user']
 
-------------------------------------------------------------
+---
 
 3. Basic Query Syntax
 
 const { data, isLoading, error } = useQuery({
 queryKey: ['projects', orgId],
 queryFn: () => fetchProjects(orgId),
-staleTime: 5 * 60 * 1000,
+staleTime: 5 _ 60 _ 1000,
 })
 
 Notes:
+
 - queryFn must be referentially stable
 - Avoid inline object creation inside queryKey
 - Prefer global defaults over per-query overrides
 
-------------------------------------------------------------
+---
 
 4. Mutations Require Explicit Invalidation
 
@@ -71,10 +74,11 @@ queryClient.invalidateQueries({ queryKey: ['projects'] })
 })
 
 Rule:
+
 - Every mutation must either invalidate affected queries
 - Or update the cache explicitly
 
-------------------------------------------------------------
+---
 
 5. Auth Boundaries and Cache Reset
 
@@ -86,10 +90,11 @@ or
 queryClient.resetQueries()
 
 If you don’t do this:
+
 - Data can leak across users
 - Background refetches may hit protected endpoints after logout
 
-------------------------------------------------------------
+---
 
 6. Common Gotchas
 
@@ -99,7 +104,7 @@ If you don’t do this:
 - Letting cached data survive auth changes
 - Surfacing raw server errors directly to UI
 
-------------------------------------------------------------
+---
 
 7. When Not to Use TanStack Query
 
@@ -110,14 +115,14 @@ If you don’t do this:
 
 If the server is not the source of truth, Query is the wrong tool.
 
-------------------------------------------------------------
+---
 
 8. Mental Trick
 
 If the data disappeared when the browser refreshed, it is not server state.
 If the server can change it without the UI knowing, it is server state.
 
-------------------------------------------------------------
+---
 
 9. One-liner Summary
 

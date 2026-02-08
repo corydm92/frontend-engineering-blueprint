@@ -19,12 +19,12 @@ Author contracts on the backend and enforce them at API boundaries.
 Backend example — File: `@app/src/contracts/user.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 export const UserSchema = z.object({
   id: z.string(),
   email: z.string().email(),
-  role: z.enum(['admin', 'member']),
+  role: z.enum(["admin", "member"]),
 });
 
 export type User = z.infer<typeof UserSchema>;
@@ -33,9 +33,9 @@ export type User = z.infer<typeof UserSchema>;
 Backend example — File: `@app/src/routes/users.ts`
 
 ```ts
-import { UserSchema } from '../contracts/user';
+import { UserSchema } from "../contracts/user";
 
-app.post('/users', (req, res) => {
+app.post("/users", (req, res) => {
   const parsed = UserSchema.safeParse(req.body);
   if (!parsed.success) return res.status(400).json(parsed.error);
   return res.json(parsed.data);

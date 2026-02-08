@@ -14,12 +14,14 @@ Examples:
 /pricing
 
 Behavior:
+
 - Fully prerendered to HTML and RSC payloads at build time.
 - Automatically prefetched by <Link> when visible.
 - Navigation requires no server fetch — everything is already cached locally.
 - Suitable for stable or unchanging content.
 
 Rendering Mode:
+
 - Static Rendering (Prerendering): HTML and RSC payload are built ahead of time.
 - Can be revalidated with Incremental Static Regeneration (ISR) for controlled cache updates.
 
@@ -33,6 +35,7 @@ Examples:
 /products/[category]/[id]
 
 Behavior:
+
 - Not prefetched fully by default to avoid unnecessary server work.
 - If loading.tsx exists, partial prefetching occurs:
 - Shared layouts and loading UI are fetched first.
@@ -41,17 +44,20 @@ Behavior:
 - Navigation remains instant visually because the loading fallback renders immediately.
 
 Rendering Mode:
+
 - Dynamic Rendering: The route is generated at request time using live data.
 - Controlled via fetch options (cache: 'no-store' or revalidate) and generateStaticParams().
 
 Detecting Route Type
 
 Next.js determines whether a route is static or dynamic by analyzing:
+
 1. URL parameters ([slug], [id], etc.)
 2. Presence of generateStaticParams() → enables prerendering for dynamic segments.
 3. Usage of fetch() or dynamic data functions with runtime options (cache: 'no-store' forces dynamic).
 
 Good to know:
+
 - Dynamic routes without generateStaticParams() fall back to runtime rendering.
 - You can verify route behavior in development using the Next.js dev overlay (Dev Indicators).
 

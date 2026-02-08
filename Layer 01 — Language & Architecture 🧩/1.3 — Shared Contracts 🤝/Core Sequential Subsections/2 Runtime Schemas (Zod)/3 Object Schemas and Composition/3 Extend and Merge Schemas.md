@@ -23,7 +23,7 @@ shapes.
 Backend example — File: `@api/src/schemas/account.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 const ProfileSchema = z.object({
   id: z.string(),
@@ -31,7 +31,7 @@ const ProfileSchema = z.object({
 });
 
 const SettingsSchema = z.object({
-  theme: z.enum(['light', 'dark']),
+  theme: z.enum(["light", "dark"]),
 });
 
 export const AccountSchema = ProfileSchema.merge(SettingsSchema);

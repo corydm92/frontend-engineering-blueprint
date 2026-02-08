@@ -6,8 +6,9 @@ React scheduling → Fiber render → Fiber commit → Browser event loop → Re
 It is the high-level “big picture” you reference when thinking about how updates really flow through React and the browser.
 
 ────────────────────────────────────────────────────────────────────────
+
 1. React Schedules an Update (Entry Point into the System)
-────────────────────────────────────────────────────────────────────────
+   ────────────────────────────────────────────────────────────────────────
 
 • A state, prop, or context change creates an update object.
 • React’s scheduler assigns a priority lane.
@@ -18,8 +19,7 @@ This is only scheduling. No DOM changes occur yet.
 
 Conceptually: “JS signals that the UI needs to change; React prepares to compute the next UI.”
 
-────────────────────────────────────────────────────────────────────────
-2. React Render Phase (Fiber Reconciliation – Pure, No DOM Writes)
+──────────────────────────────────────────────────────────────────────── 2. React Render Phase (Fiber Reconciliation – Pure, No DOM Writes)
 ────────────────────────────────────────────────────────────────────────
 
 React enters the Fiber tree and constructs the Work-In-Progress tree in memory.
@@ -30,7 +30,7 @@ BEGIN WORK (top-down)
 – If no update → bail out and reuse previous child fibers.
 – If update needed → React calls the component function immediately.
 The component returns new elements.
-React reconciles these against previous child fibers *right now*.
+React reconciles these against previous child fibers _right now_.
 New, reused, or deleted fibers are created on the spot.
 • React descends into the updated children immediately.
 
@@ -48,8 +48,7 @@ By the end of the render phase:
 
 Conceptually: “React computes the next UI tree in memory.”
 
-────────────────────────────────────────────────────────────────────────
-3. Pre-Commit Phase (DOM-Safety Preparation)
+──────────────────────────────────────────────────────────────────────── 3. Pre-Commit Phase (DOM-Safety Preparation)
 ────────────────────────────────────────────────────────────────────────
 
 Before touching the DOM:
@@ -61,8 +60,7 @@ Still no DOM mutations.
 
 Conceptually: “React prepares for DOM mutation so commit is safe and atomic.”
 
-────────────────────────────────────────────────────────────────────────
-4. Commit Phase – DOM Mutations (Synchronous, Atomic)
+──────────────────────────────────────────────────────────────────────── 4. Commit Phase – DOM Mutations (Synchronous, Atomic)
 ────────────────────────────────────────────────────────────────────────
 
 React walks the effect list and performs the actual DOM updates.
@@ -81,8 +79,7 @@ Commit is synchronous and uninterruptible.
 
 Conceptually: “React performs the minimal set of DOM changes needed for the new UI.”
 
-────────────────────────────────────────────────────────────────────────
-5. Commit Phase – Layout Effects (useLayoutEffect)
+──────────────────────────────────────────────────────────────────────── 5. Commit Phase – Layout Effects (useLayoutEffect)
 ────────────────────────────────────────────────────────────────────────
 
 After DOM mutations but before paint:
@@ -92,8 +89,7 @@ After DOM mutations but before paint:
 
 Conceptually: “DOM is final; layout effects run before pixels update.”
 
-────────────────────────────────────────────────────────────────────────
-6. Fiber Tree Swap (React Finishes)
+──────────────────────────────────────────────────────────────────────── 6. Fiber Tree Swap (React Finishes)
 ────────────────────────────────────────────────────────────────────────
 
 React swaps:
@@ -106,59 +102,57 @@ React is now done. From here on, it’s all browser behavior.
 
 Conceptually: “React has produced and committed the new UI.”
 
-────────────────────────────────────────────────────────────────────────
-7. Browser Event Loop (Before Frame Render)
+──────────────────────────────────────────────────────────────────────── 7. Browser Event Loop (Before Frame Render)
 ────────────────────────────────────────────────────────────────────────
 
 The browser will not paint until the JS call stack is empty.
 
 Ordering:
+
 1. Synchronous JS (React commit + layout effects)
 2. Then microtasks:
-– Promise callbacks
-– queueMicrotask
-– MutationObserver
+   – Promise callbacks
+   – queueMicrotask
+   – MutationObserver
 3. Then macrotasks:
-– setTimeout
-– setInterval
-– MessageChannel
-– events
+   – setTimeout
+   – setInterval
+   – MessageChannel
+   – events
 
 Only after all JS work completes can the browser proceed to render.
 
 Conceptually: “Browser waits for JavaScript to finish before updating pixels.”
 
-────────────────────────────────────────────────────────────────────────
-8. Browser Rendering Pipeline (The Actual Paint Path)
+──────────────────────────────────────────────────────────────────────── 8. Browser Rendering Pipeline (The Actual Paint Path)
 ────────────────────────────────────────────────────────────────────────
 
 Once the event loop allows rendering, the browser executes the full pipeline:
 
 1. Style Recalculation
-– CSS selectors match DOM.
-– Browser computes final computed styles.
+   – CSS selectors match DOM.
+   – Browser computes final computed styles.
 
 2. Layout (Reflow)
-– Browser determines geometry and position of every element.
-– Runs top-down from the layout root.
+   – Browser determines geometry and position of every element.
+   – Runs top-down from the layout root.
 
 3. Paint
-– Browser generates paint commands.
-– Rasterizes pixels into layers.
+   – Browser generates paint commands.
+   – Rasterizes pixels into layers.
 
 4. Compositing
-– Layers are merged together by the GPU.
-– Handles transforms, opacity, z-index, stacking contexts.
+   – Layers are merged together by the GPU.
+   – Handles transforms, opacity, z-index, stacking contexts.
 
 5. Display
-– Final composited frame is pushed to the screen.
+   – Final composited frame is pushed to the screen.
 
 This is when the user finally sees the updated UI.
 
 Conceptually: “Browser converts DOM + styles into pixels on screen.”
 
-────────────────────────────────────────────────────────────────────────
-9. Passive Effects (useEffect) – Post-Paint
+──────────────────────────────────────────────────────────────────────── 9. Passive Effects (useEffect) – Post-Paint
 ────────────────────────────────────────────────────────────────────────
 
 After paint:
@@ -168,8 +162,7 @@ After paint:
 
 Conceptually: “All nondeterministic, non-visual side effects run after the frame.”
 
-────────────────────────────────────────────────────────────────────────
-10. rAF, Idle Time, and Browser Scheduling Windows
+──────────────────────────────────────────────────────────────────────── 10. rAF, Idle Time, and Browser Scheduling Windows
 ────────────────────────────────────────────────────────────────────────
 
 During the frame boundary and idle windows:
@@ -201,7 +194,7 @@ Summary (Full Pipeline Flow)
 6. React swaps fiber trees (React is done).
 7. Event loop clears JS work.
 8. Browser pipeline:
-• Style → Layout → Paint → Composite → Display.
+   • Style → Layout → Paint → Composite → Display.
 9. Passive effects (useEffect) run after paint.
 10. rAF and idle tasks execute between frames.
 

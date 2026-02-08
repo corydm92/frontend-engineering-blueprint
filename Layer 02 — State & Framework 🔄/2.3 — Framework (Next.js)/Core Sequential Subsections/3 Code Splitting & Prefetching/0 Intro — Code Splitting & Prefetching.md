@@ -13,27 +13,35 @@ At runtime, Next.js prefetches and caches these chunks to enable seamless client
 The goal: minimize initial payloads, optimize navigation speed, and ensure users only download and hydrate what they need.
 
 ## 1 Automatic Code Splitting
+
 Foundation: how chunks are generated per route or entry point.
 
 ## 2 Build Graph and Chunk Mapping
+
 Explains how the compiler maps route segments and imports to distinct build outputs.
 
 ## 3 Controlling Code Splitting with Layout Boundaries
+
 Defines how layout and nested boundaries influence split behavior.
 
 ## 4 Lazy Loading and Dynamic Imports
+
 Mechanism for manual control of chunk delivery.
 
 ## 5 React Suspense Integration
+
 Orchestrates asynchronous chunk loading within the render pipeline.
 
 ## 6 Mixing Code-Split and Non-Code-Split Routes
+
 Details behavior when partially segmented routes coexist.
 
 ## 7 Native Prefetching with <Link>
+
 Describes how Next.js automatically preloads route segments in the background.
 
 ## 8 Prefetch Lifecycle and Cache Interaction
+
 Explains how prefetched chunks are stored, reused, and invalidated during navigation.
 
 Flow: generation → build graph mapping → control → lazy loading → orchestration → mixing → delivery → cache lifecycle.

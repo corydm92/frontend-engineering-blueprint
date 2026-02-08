@@ -20,10 +20,10 @@ Your API returns either a success payload or an error payload.
 Backend example — File: `@api/src/lib/parseResponse.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 const Success = z.object({
-  type: z.literal('success'),
+  type: z.literal("success"),
   data: z.object({
     id: z.string(),
     title: z.string(),
@@ -31,7 +31,7 @@ const Success = z.object({
 });
 
 const Failure = z.object({
-  type: z.literal('error'),
+  type: z.literal("error"),
   message: z.string(),
 });
 
@@ -48,10 +48,10 @@ export function parseResponse(input: unknown) {
 Backend example — File: `@api/src/lib/parseResponse.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 const Success = z.object({
-  type: z.literal('success'),
+  type: z.literal("success"),
   data: z.object({
     id: z.string(),
     title: z.string(),
@@ -59,11 +59,11 @@ const Success = z.object({
 });
 
 const Failure = z.object({
-  type: z.literal('error'),
+  type: z.literal("error"),
   message: z.string(),
 });
 
-const ResponseSchema = z.discriminatedUnion('type', [Success, Failure]);
+const ResponseSchema = z.discriminatedUnion("type", [Success, Failure]);
 
 export function parseResponse(input: unknown) {
   const parsed = ResponseSchema.safeParse(input);

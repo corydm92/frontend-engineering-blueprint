@@ -20,7 +20,7 @@ contract usage explicit across the codebase.
 Backend example — File: `@api/src/contracts/registry.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 const CreatePostInput = z.object({
   title: z.string(),

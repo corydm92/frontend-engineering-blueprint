@@ -22,6 +22,7 @@ Every fetch() in a Server Component participates in React’s data cache.
 - Dynamic: `cache: 'no-store'` → result is never cached, always fetched fresh.
 
 Scope:
+
 - Only applies to data requests made by fetch().
 - Cached in memory or filesystem depending on deployment (Edge / Node).
 - Shared between builds and revalidations if cache is persistent.
@@ -30,6 +31,7 @@ Example:
 await fetch('https://api.example.com/posts', { next: { revalidate: 300 } });
 
 Behavior:
+
 - Serves cached data if younger than 5 minutes.
 - When expired, fetches new data and updates the cache asynchronously.
 
@@ -38,18 +40,22 @@ Behavior:
 Once a route is rendered, Next.js caches the result of that render for reuse.
 
 Static routes:
+
 - HTML and RSC payload are produced once at build time.
 - The route cache is frozen — never re-rendered until the next build.
 
 ISR routes:
+
 - Cached HTML + RSC are revalidated in the background after the timer expires.
 - The cache is replaced atomically — the old version serves until regeneration finishes.
 
 Dynamic routes:
+
 - No route cache is written.
 - Each request triggers fresh rendering and fresh data fetches.
 
 Each route’s cache entry tracks:
+
 - Rendered HTML
 - Serialized RSC payload
 - Timestamps for build and last revalidation
@@ -59,24 +65,32 @@ Each route’s cache entry tracks:
 After build or runtime rendering, rendered artifacts are stored at the edge for instant delivery.
 
 Static assets:
+
 - Served directly from CDN (e.g., Vercel Edge Network).
 - Cache invalidation requires a new deployment or CDN purge.
 
 ISR routes:
+
 - CDN serves cached content until the ISR process completes.
 - Once the background revalidation finishes, CDN updates its cache automatically.
 
 Dynamic routes:
+
 - Typically skipped in CDN cache (Cache-Control: no-store).
 - Each request reaches the origin or edge runtime for live rendering.
 
 ## 5 How Caches Interact
 
 ## 1 fetch() request checks the Data Cache.
+
 ## 2 If found and valid → uses cached data; else → fetches new data and updates Data Cache.
+
 ## 3 The rendered route (using that data) is written to the Route Cache (if static or ISR).
+
 ## 4 The CDN caches that output for edge delivery.
+
 ## 5 On next request:
+
 - CDN serves from its cache if valid.
 - Route Cache regenerates output when expired.
 - Data Cache may refresh individual fetch entries asynchronously.
@@ -84,12 +98,14 @@ Dynamic routes:
 ## 6 Request Lifecycle Example
 
 Request: /blog
+
 - CDN checks for cached blog.html → serves immediately if fresh.
 - If expired → Next.js rerenders the route using cached data (if valid).
 - If data cache also expired → fetch() refetches API data.
 - Once complete, new HTML + RSC are written to both Route Cache and CDN.
 
 Request: /dashboard
+
 - CDN bypassed (dynamic route).
 - Next.js executes server render at request time.
 - fetch() calls with cache: 'no-store' skip the Data Cache.
@@ -98,15 +114,18 @@ Request: /dashboard
 ## 7 Cache Control Summary
 
 Static:
+
 - cache: 'force-cache'
 - Route cached at build, CDN cached permanently
 - Rebuild required for new data
 
 ISR:
+
 - next.revalidate: N seconds
 - Route and data cached temporarily, auto-refreshed
 
 Dynamic:
+
 - cache: 'no-store'
 - No persistent cache, always fresh render
 
@@ -115,39 +134,46 @@ Dynamic:
 Next.js performs revalidation (when cached data or rendered routes are refreshed) through several distinct mechanisms depending on cache strategy and trigger type.
 
 ISR (time-based)
+
 - Trigger: cache entry expires after revalidate:N seconds
 - Example: export const revalidate = 300
 - When: first request after expiry
 - Effect: old data served while new render runs in background, cache replaced atomically
 
 Tag-based
+
 - Trigger: revalidateTag('tag')
 - Example: await revalidateTag('posts')
 - When: immediately after manual trigger (usually post-write)
 - Effect: all fetches and routes using that tag re-fetch and rebuild
 
 Path-based
+
 - Trigger: revalidatePath('/route')
 - Example: await revalidatePath('/blog')
 - When: immediately after call
 - Effect: invalidates route-level cache for given path
 
 On-demand API (legacy pages)
+
 - Trigger: res.revalidate('/path') via API route
 - When: called by external CMS or webhook
 - Effect: rebuilds specified ISR page
 
 Build-time regeneration
+
 - Trigger: new deployment or build
 - When: next build executes
 - Effect: clears .next/cache and regenerates all caches on first request
 
 Dynamic triggers
+
 - Trigger: headers(), cookies(), dynamic = 'force-dynamic', or cache:'no-store'
 - When: on every request
 - Effect: disables caching, always renders fresh
 
 Manual cache purge
+
 - Trigger: deleting .next/cache or CDN purge
 - When: after CI/CD action
 - Effect: drops all cached data and regenerates from scratch

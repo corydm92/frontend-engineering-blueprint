@@ -13,11 +13,13 @@ Example Directory:
 contact/page.tsx
 
 Behavior:
+
 - The root layout (`/app/layout.tsx`) is persistent and shared across all routes.
 - Components imported here are bundled once and stay mounted between navigations.
 - Each nested layout adds an additional split boundary specific to its subtree.
 
 Navigation Flow:
+
 - Visiting `/` loads root layout + home page chunk.
 - Navigating to `/about` loads `/about`’s layout + page chunk.
 - Shared layout remains mounted; only route-specific deltas load.

@@ -19,7 +19,7 @@ Ensure all untrusted inputs are validated before use.
 Backend example — File: `@app/src/validation/requests.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 export const CreateProjectSchema = z.object({
   name: z.string().min(1),
@@ -30,9 +30,9 @@ export const CreateProjectSchema = z.object({
 Backend example — File: `@app/src/routes/projects.ts`
 
 ```ts
-import { CreateProjectSchema } from '../validation/requests';
+import { CreateProjectSchema } from "../validation/requests";
 
-app.post('/projects', (req, res) => {
+app.post("/projects", (req, res) => {
   const parsed = CreateProjectSchema.safeParse(req.body);
   if (!parsed.success) return res.status(400).json(parsed.error);
   return res.json({ ok: true });

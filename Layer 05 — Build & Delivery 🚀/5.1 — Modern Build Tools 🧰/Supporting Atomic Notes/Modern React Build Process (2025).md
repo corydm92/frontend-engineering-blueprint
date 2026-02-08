@@ -3,31 +3,31 @@ Modern React Build Process (2025)
 In 2025, React applications are commonly built with Vite-based pipelines (using Rollup for production bundling and fast compilers like esbuild or SWC for code transformation), following this sequence to transform developer-friendly code into optimized production assets:
 
 1. Module Graph Construction
-Resolving static and dynamic imports to build a complete dependency graph.
+   Resolving static and dynamic imports to build a complete dependency graph.
 
 2. Transpilation and Transformation
-Converting JSX, TypeScript, and modern CSS into browser-executable JavaScript and standardized styles, typically using the automatic JSX runtime.
+   Converting JSX, TypeScript, and modern CSS into browser-executable JavaScript and standardized styles, typically using the automatic JSX runtime.
 
 3. Static Optimization Analysis
-Analyzing ESM boundaries, side effects, and purity annotations to determine what code is eligible for removal.
+   Analyzing ESM boundaries, side effects, and purity annotations to determine what code is eligible for removal.
 
 4. Bundling and Chunking
-Grouping modules into optimized chunks and finalizing code-splitting boundaries based on the dependency graph and runtime loading patterns.
+   Grouping modules into optimized chunks and finalizing code-splitting boundaries based on the dependency graph and runtime loading patterns.
 
 5. Tree Shaking Execution
-Removing unused exports during chunk generation using static ESM analysis.
+   Removing unused exports during chunk generation using static ESM analysis.
 
 6. Minification
-Shortening identifiers, removing whitespace, and folding expressions to reduce payload size.
+   Shortening identifiers, removing whitespace, and folding expressions to reduce payload size.
 
 7. Asset Processing
-Applying content-based hashes to filenames and optimizing static assets for long-term caching.
+   Applying content-based hashes to filenames and optimizing static assets for long-term caching.
 
 8. Output Emission
-Writing finalized JavaScript, CSS, and assets to the build output directory.
+   Writing finalized JavaScript, CSS, and assets to the build output directory.
 
 9. Final Compression
-Optionally compressing text assets with Brotli or Gzip, typically handled by the hosting platform or CDN.
+   Optionally compressing text assets with Brotli or Gzip, typically handled by the hosting platform or CDN.
 
 ⸻
 

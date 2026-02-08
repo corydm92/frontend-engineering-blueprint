@@ -18,12 +18,14 @@ return <PostsList posts={posts} />
 }
 
 Behavior:
+
 - Executes once at build time.
 - Produces .html (static markup) + .rsc (serialized component structure).
 - Served instantly from CDN or edge cache.
 - No new server rendering occurs on user visits.
 
 Browser delivery:
+
 - Receives prerendered HTML shell + RSC payload.
 - Hydration attaches interactivity as JS bundles load.
 
@@ -42,6 +44,7 @@ return <PostsList posts={posts} />
 }
 
 Behavior:
+
 - The first build creates .html and .rsc files as usual.
 - On request:
 - If cache is fresh → serve from CDN instantly.
@@ -50,6 +53,7 @@ Behavior:
 - The cache revalidation timer resets after regeneration.
 
 Browser delivery:
+
 - Same static assets, but periodically refreshed behind the scenes.
 - No blocking wait — users always get a response.
 
@@ -72,6 +76,7 @@ return <PostsList posts={posts} />
 }
 
 Behavior:
+
 - Fetch runs for every request.
 - No .html file exists at build time.
 - Output is generated per request on the server.
@@ -84,11 +89,11 @@ This ensures always-fresh data but requires live server rendering.
 
 ## 4 Comparison Table
 
-| Mode | When fetch() runs | .html file? | Cacheable? | Updates automatically? | Data Freshness | Delivery Type |
-|------|--------------------|--------------|-------------|------------------------|----------------|----------------|
-| Static | Build time | ✅ Yes | ✅ CDN/disk | ❌ Needs rebuild | Frozen | HTML + RSC |
-| ISR | Build + revalidation | ✅ Yes | ✅ CDN w/ timer | ✅ Background refresh | Eventually fresh | HTML + RSC |
-| Dynamic | Each request | ❌ No | ❌ Per request | ✅ Always live | Always fresh | Streamed RSC payload |
+| Mode    | When fetch() runs    | .html file? | Cacheable?      | Updates automatically? | Data Freshness   | Delivery Type        |
+| ------- | -------------------- | ----------- | --------------- | ---------------------- | ---------------- | -------------------- |
+| Static  | Build time           | ✅ Yes      | ✅ CDN/disk     | ❌ Needs rebuild       | Frozen           | HTML + RSC           |
+| ISR     | Build + revalidation | ✅ Yes      | ✅ CDN w/ timer | ✅ Background refresh  | Eventually fresh | HTML + RSC           |
+| Dynamic | Each request         | ❌ No       | ❌ Per request  | ✅ Always live         | Always fresh     | Streamed RSC payload |
 
 ## 5 Relationship with Route Types
 
@@ -103,6 +108,7 @@ Both `/about` and `/blog/[slug]` can use any mode:
 ## 6 What the Browser Actually Receives
 
 For all modes:
+
 - The browser never receives raw server-rendered HTML for the full tree.
 - It receives a mix of:
 - Static HTML shell (layout and already-resolved server markup).

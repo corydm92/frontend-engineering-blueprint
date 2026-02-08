@@ -6,6 +6,7 @@ Mark state updates as non-urgent so React can keep the UI responsive while defer
 1. Goal
 
 Understand how useTransition() works end-to-end:
+
 - how React schedules updates internally
 - how lanes determine priority and interruption
 - what useTransition() actually marks
@@ -22,6 +23,7 @@ It schedules work using a cooperative scheduler.
 Every state update is assigned to a lane.
 
 A lane represents:
+
 - priority
 - interruptibility
 - restart and abandonment rules
@@ -34,12 +36,14 @@ Hooks like useTransition() influence which lane React chooses.
 3.1 Sync Lanes (Urgent / Discrete)
 
 Used for:
+
 - clicks
 - key presses
 - text input
 - imperative updates
 
 Properties:
+
 - highest priority
 - cannot be interrupted
 - render and commit immediately
@@ -53,6 +57,7 @@ The user is actively interacting. Finish this now.
 Used when updates are wrapped in startTransition().
 
 Properties:
+
 - lower priority than Sync lanes
 - interruptible by Sync updates
 - render work can be paused, restarted, or discarded
@@ -64,10 +69,12 @@ This update matters, but responsiveness matters more.
 3.3 Idle Lanes (Background / Best-Effort)
 
 Used for:
+
 - offscreen work
 - speculative or prefetch behavior
 
 Properties:
+
 - lowest priority
 - starved until nothing else is pending
 - may never run under sustained interaction
@@ -81,6 +88,7 @@ useTransition() does exactly one thing:
 It causes state updates to be scheduled in Transition lanes instead of Sync lanes.
 
 It does not:
+
 - delay execution
 - debounce
 - batch commits manually
@@ -96,6 +104,7 @@ by marking state updates as non-blocking Transitions.
 const [isPending, startTransition] = useTransition();
 
 It returns:
+
 - isPending: whether there is at least one pending Transition
 - startTransition: a function that marks updates as a Transition
 
@@ -106,10 +115,14 @@ setState(next);
 });
 
 React behavior:
+
 1. Calls the action immediately
 2. While the action executes synchronously:
+
 - any state updates are tagged with a Transition lane
+
 3. The scheduler decides:
+
 - when to render
 - whether to pause
 - whether to restart
@@ -122,12 +135,14 @@ Only updates scheduled synchronously during the action are marked.
 React work happens in two phases:
 
 Render phase:
+
 - pure computation
 - may run multiple times
 - may be paused or discarded
 - produces a work-in-progress tree
 
 Commit phase:
+
 - applies changes to the DOM
 - runs effects
 - happens once, or not at all
@@ -138,10 +153,12 @@ Commit happens only if rendering completes uninterrupted.
 8. isPending: What It Means
 
 isPending === true means:
+
 - at least one Transition lane update exists
 - it has not yet committed
 
 It does not mean:
+
 - async work is running
 - a promise is unresolved
 - rendering is currently happening
@@ -152,6 +169,7 @@ isPending is a scheduler signal, not a lifecycle or async signal.
 9. Interruption Behavior
 
 If a Transition update is interrupted by user input:
+
 - the Transition render is paused or discarded
 - the Sync update renders and commits
 - the Transition render restarts later
@@ -186,12 +204,14 @@ This is a documented limitation.
 12. Suspense + Transitions
 
 If a Transition render suspends:
+
 - the previous UI remains visible
 - the fallback is delayed
 - the Transition stays pending
 - user input can still interrupt
 
 Without a Transition:
+
 - fallback shows immediately
 - previous UI is replaced
 
@@ -201,17 +221,18 @@ Transitions preserve UI continuity across async boundaries.
 
 - Transition updates cannot control text inputs
 - State updates in setTimeout, promises, or handlers outside startTransition
-are not Transitions
+  are not Transitions
 - startTransition has a stable identity
 - Multiple Transitions are currently batched together
 - You must have access to the state setter to wrap an update
-(otherwise prefer useDeferredValue)
+  (otherwise prefer useDeferredValue)
 - To start a Transition outside components/hooks,
-use the standalone startTransition API
+  use the standalone startTransition API
 
 14. What useTransition() Is Not
 
 It is not:
+
 - an async primitive
 - a promise tracker
 - a performance fix
@@ -225,6 +246,7 @@ This is by design.
 15. When useTransition() Is Correct
 
 Use it when:
+
 - updates are derived, not fundamental
 - interruption is acceptable
 - UI should remain responsive
@@ -232,6 +254,7 @@ Use it when:
 - correctness does not require immediate commit
 
 Avoid it when:
+
 - updates must commit synchronously
 - state drives critical layout
 - performance issues come from expensive computation

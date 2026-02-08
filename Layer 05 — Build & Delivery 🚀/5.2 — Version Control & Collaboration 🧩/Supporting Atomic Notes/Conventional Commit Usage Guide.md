@@ -5,7 +5,8 @@ Purpose:
 This guide explains how to use Conventional Commits after setup with Husky, Commitlint, and standard-version.
 Follow these steps to make sure your commits and releases are clean, predictable, and automated.
 
-------------------------------------------------------------
+---
+
 1. Writing Commits
 
 Every commit message must follow this format:
@@ -31,7 +32,8 @@ ci - continuous integration or deployment
 
 If your message doesn’t follow this format, Husky will block the commit.
 
-------------------------------------------------------------
+---
+
 2. From Branch to Commit (Real Example)
 
 Step 1: Create a new branch based on what you’re doing.
@@ -61,27 +63,32 @@ subject may not be empty [subject-empty]
 type may not be empty [type-empty]
 Just fix your message and try again.
 
-------------------------------------------------------------
+---
+
 3. Verifying Hooks
 
 To check that Husky and Commitlint are working:
 ls .husky
+
 # you should see commit-msg and maybe pre-commit
 
 cat .husky/commit-msg
+
 # should include npx --no-install commitlint --edit
 
 You can test existing commits:
 npx commitlint --from HEAD~5 --to HEAD
 (This checks your last 5 commits.)
 
-------------------------------------------------------------
+---
+
 4. Generating Releases and Changelog
 
 When you’re ready to tag a release:
 pnpm release
 
 What this does:
+
 - Reads all Conventional Commits since the last tag.
 - Bumps the version number automatically (major/minor/patch).
 - Updates CHANGELOG.md.
@@ -90,7 +97,8 @@ What this does:
 Then push your changes:
 git push --follow-tags origin main
 
-------------------------------------------------------------
+---
+
 5. How the Tools Work Together
 
 Commitlint: checks commit message format.
@@ -99,32 +107,40 @@ lint-staged (optional): runs lint, type-check, or tests before commit.
 standard-version: reads your commits to update changelog and version numbers.
 
 This system makes sure:
+
 - All commit messages follow the same pattern.
 - Changelogs are auto-generated.
 - Versions update automatically.
 - History stays clean and easy to understand.
 
-------------------------------------------------------------
+---
+
 6. Daily Workflow
 
 # Example full workflow
+
 git checkout -b feature/add-notifications
+
 # make changes
+
 git add .
 git commit -m "feat(notifications): add toast system for user alerts"
 git push -u origin feature/add-notifications
 
 # merge once reviewed
+
 git checkout main
 git pull
 git merge feature/add-notifications
 git push
 
 # when ready to release
+
 pnpm release
 git push --follow-tags origin main
 
-------------------------------------------------------------
+---
+
 7. CI/CD Enforcement (Optional)
 
 To check commits during pull requests:
@@ -132,7 +148,8 @@ npx commitlint --from origin/main --to HEAD
 
 This helps catch bad commit messages before merging.
 
-------------------------------------------------------------
+---
+
 Summary:
 Create a descriptive branch → write a matching Conventional Commit message → Husky validates it → standard-version updates changelog and version tags automatically.
 You write clean code, and the system keeps your repo consistent.

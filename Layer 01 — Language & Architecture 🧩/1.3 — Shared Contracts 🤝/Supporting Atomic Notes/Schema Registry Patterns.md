@@ -10,8 +10,8 @@
 Frontend example — File: `@app/src/schemas/index.ts`
 
 ```ts
-export * from './user';
-export * from './project';
+export * from "./user";
+export * from "./project";
 ```
 
 ## Gotchas

@@ -23,10 +23,13 @@ same normalized behavior.
 Frontend example — File: `@app/src/schemas/search.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 export const SearchSchema = z.object({
-  query: z.string().min(1).transform((value) => value.trim().toLowerCase()),
+  query: z
+    .string()
+    .min(1)
+    .transform((value) => value.trim().toLowerCase()),
   page: z.preprocess((val) => Number(val), z.number().int().min(1).default(1)),
 });
 ```

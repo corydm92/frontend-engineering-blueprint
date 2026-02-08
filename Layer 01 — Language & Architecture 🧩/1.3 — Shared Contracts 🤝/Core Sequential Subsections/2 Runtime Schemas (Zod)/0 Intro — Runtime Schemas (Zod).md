@@ -15,6 +15,7 @@ Zod is the “bouncer” at your data boundaries. Its job is to stop messy or un
 input from entering your system and to shape it into something your app can trust.
 
 **Use Zod when you receive data you didn’t create yourself**, like:
+
 - Form submissions (user input)
 - API payloads (from other services or your own backend)
 - Query params and URL state

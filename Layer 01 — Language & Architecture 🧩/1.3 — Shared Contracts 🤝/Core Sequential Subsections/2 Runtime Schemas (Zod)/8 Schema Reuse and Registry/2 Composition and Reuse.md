@@ -20,7 +20,7 @@ and prevents drift.
 Frontend example — File: `@app/src/schemas/post.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 const PostBase = z.object({
   id: z.string(),

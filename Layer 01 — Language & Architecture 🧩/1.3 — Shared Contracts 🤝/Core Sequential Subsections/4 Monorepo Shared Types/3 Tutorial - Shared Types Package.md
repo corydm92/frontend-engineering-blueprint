@@ -37,5 +37,5 @@ export type User = { id: string; email: string };
 Monorepo example — File: `@app/apps/web/src/types.ts`
 
 ```ts
-import type { User } from '@app/contracts';
+import type { User } from "@app/contracts";
 ```

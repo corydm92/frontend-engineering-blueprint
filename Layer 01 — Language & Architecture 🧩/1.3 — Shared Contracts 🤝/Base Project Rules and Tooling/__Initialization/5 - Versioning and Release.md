@@ -20,6 +20,7 @@ Backend doc example — File: `@app/src/contracts/CHANGELOG.md`
 
 ```md
 ## 1.2.0
+
 - Add `role` field to User
 ```
 

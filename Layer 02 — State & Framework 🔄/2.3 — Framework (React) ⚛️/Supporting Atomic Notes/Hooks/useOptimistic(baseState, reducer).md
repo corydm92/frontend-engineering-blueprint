@@ -11,7 +11,7 @@ under concurrent rendering without misinterpreting optimistic behavior as bugs.
 This note builds in order:
 mental model → mechanics → transitions → patterns → convergence.
 
-------------------------------------------------------------
+---
 
 2. Mental Model
 
@@ -19,6 +19,7 @@ useOptimistic() lets the UI display a temporary, speculative version of state
 while an async action is in progress.
 
 Key ideas:
+
 - optimistic updates represent intent, not results
 - they are temporary
 - they may be replayed
@@ -28,13 +29,14 @@ Think of it as:
 “Show what we expect to happen, but don’t commit to it yet.”
 
 Optimistic state must always be:
+
 - interruptible
 - restart-safe
 - discardable
 
 Those constraints define the API.
 
-------------------------------------------------------------
+---
 
 3. What useOptimistic() Is
 
@@ -49,6 +51,7 @@ reducer
 );
 
 Where:
+
 - baseState is the committed source of truth
 - reducer describes how optimistic intent is applied
 - optimisticState is what the UI renders
@@ -57,7 +60,7 @@ Where:
 Important:
 useOptimistic never mutates baseState.
 
-------------------------------------------------------------
+---
 
 4. What useOptimistic() Actually Does
 
@@ -65,9 +68,11 @@ On every render, React computes:
 
 optimisticState =
 baseState
-+ replayed optimistic updates
+
+- replayed optimistic updates
 
 Properties:
+
 - optimistic updates are replayed in order
 - replay happens on every render
 - baseState is always read fresh
@@ -75,15 +80,17 @@ Properties:
 - no identity reconciliation occurs
 
 When async work completes:
+
 - baseState updates
 - optimistic overlays may still be replayed
 - overlays disappear only when no longer relevant
 
-------------------------------------------------------------
+---
 
 5. Why Optimistic Updates Must Run in Transitions
 
 Optimistic updates are:
+
 - speculative
 - non-urgent
 - allowed to be interrupted
@@ -92,11 +99,12 @@ Optimistic updates are:
 Therefore, they must run in Transition lanes.
 
 Calling addOptimistic synchronously would:
+
 - block urgent updates
 - prevent interruption
 - violate React’s scheduling model
 
-------------------------------------------------------------
+---
 
 6. Broken Pattern: Calling addOptimistic Outside startTransition
 
@@ -117,6 +125,7 @@ return (
 <button onClick={() => addItem({ id: 1, text: "Hello" })}>
 Add
 </button>
+
 <ul>
 {optimisticItems.map(item => (
 <li key={item.id}>{item.text}</li>
@@ -127,11 +136,12 @@ Add
 }
 
 Why this is invalid:
+
 - optimistic updates are not urgent
 - React must be able to interrupt or discard them
 - sync lanes are not allowed here
 
-------------------------------------------------------------
+---
 
 7. Correct Pattern: addOptimistic Inside startTransition
 
@@ -156,6 +166,7 @@ return (
 <button onClick={() => addItem({ id: 1, text: "Hello" })}>
 Add
 </button>
+
 <ul>
 {optimisticItems.map(item => (
 <li key={item.id}>{item.text}</li>
@@ -166,12 +177,13 @@ Add
 }
 
 Why this works:
+
 - optimistic update is non-blocking
 - React may interrupt or restart it
 - UI stays responsive
 - rollback is safe
 
-------------------------------------------------------------
+---
 
 8. Progressive Example: Optimistic List with Async Commit
 
@@ -209,6 +221,7 @@ setItems(prev => [...prev, item]);
 
 return (
 <>
+
 <ul>
 {optimisticItems.map(item => (
 <li key={item.id}>{item.text}</li>
@@ -221,24 +234,26 @@ return (
 );
 }
 
-------------------------------------------------------------
+---
 
 9. Why Form Actions Do NOT Need startTransition
 
 Form actions are special.
 
 When using:
+
 - <form action={action}>
 - server / form action APIs
 
 React automatically schedules them as Transitions.
 
 That means:
+
 - updates inside form actions already run in transition lanes
 - optimistic updates are interruptible by default
 - manual startTransition is unnecessary
 
-------------------------------------------------------------
+---
 
 10. Same Example Using a Form Action
 
@@ -268,6 +283,7 @@ await submitItemToServer({ id, text });
 }
 
 return (
+
 <form action={action}>
 <ul>
 {optimisticItems.map(item => (
@@ -281,7 +297,7 @@ return (
 );
 }
 
-------------------------------------------------------------
+---
 
 11. The Core Gotcha: Identity and Convergence
 
@@ -293,7 +309,7 @@ both will be rendered.
 
 That violates React’s key contract.
 
-------------------------------------------------------------
+---
 
 Problem: Duplicate Identity in One Render
 
@@ -318,6 +334,7 @@ setItems([{ id, text: "Hello" }]);
 }
 
 return optimisticItems.map(i => (
+
 <div key={i.id}>{i.text}</div>
 ));
 }
@@ -330,13 +347,14 @@ During a render, React sees:
 ]
 
 Result:
+
 - duplicate keys
 - React warning
 - undefined reconciliation behavior
 
 This is expected.
 
-------------------------------------------------------------
+---
 
 Solution A: Explicit Identity Convergence
 
@@ -351,11 +369,12 @@ state.some(i => i.id === item.id)
 );
 
 Why this works:
+
 - one item per identity
 - optimistic overlay replaces committed data
 - React reconciliation is stable
 
-------------------------------------------------------------
+---
 
 Solution B (Docs Pattern): Avoid Identity Until Commit
 
@@ -381,6 +400,7 @@ setItems(prev => [{ text }, ...prev]);
 }
 
 return optimisticItems.map((item, index) => (
+
 <div key={index}>
 {item.text}
 {item.sending && " (Sending...)"}
@@ -389,32 +409,36 @@ return optimisticItems.map((item, index) => (
 }
 
 Why this works:
+
 - optimistic entries have no real identity yet
 - index represents temporal intent
 - committed data becomes authoritative
 - no identity collision occurs
 
-------------------------------------------------------------
+---
 
 12. Convergence Is Explicitly Your Responsibility
 
 React guarantees:
+
 - interruption safety
 - replay correctness
 - scheduling guarantees
 
 You must guarantee:
+
 - identity correctness
 - convergence rules
 - key uniqueness per render
 
 React will not infer intent.
 
-------------------------------------------------------------
+---
 
 13. What useOptimistic() Is Not
 
 useOptimistic() is not:
+
 - a replacement for useState
 - a server cache
 - a mutation API
@@ -422,7 +446,7 @@ useOptimistic() is not:
 
 It only replays speculative UI intent.
 
-------------------------------------------------------------
+---
 
 14. One-Sentence Summary
 

@@ -20,7 +20,7 @@ Your search form sends raw strings and you want normalized output for the app.
 Frontend example — File: `@app/src/lib/normalizeSearch.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 const SearchSchema = z.object({
   query: z.string().min(1),
@@ -39,10 +39,13 @@ export function normalizeSearch(input: unknown) {
 Frontend example — File: `@app/src/lib/normalizeSearch.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 const SearchSchema = z.object({
-  query: z.string().min(1).transform((value) => value.trim().toLowerCase()),
+  query: z
+    .string()
+    .min(1)
+    .transform((value) => value.trim().toLowerCase()),
   page: z.preprocess((val) => Number(val), z.number().int().min(1).default(1)),
 });
 

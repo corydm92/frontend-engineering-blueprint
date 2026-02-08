@@ -8,21 +8,24 @@ This classification step determines which files get prerendered and which routes
 Next.js inspects the following to determine render behavior:
 
 1. URL Pattern
-Static routes (no parameters): /about, /contact — can always be prerendered.
-Dynamic routes ([id], [slug]) — evaluated based on whether params can be generated.
+   Static routes (no parameters): /about, /contact — can always be prerendered.
+   Dynamic routes ([id], [slug]) — evaluated based on whether params can be generated.
 
 ## 2 generateStaticParams()
+
 If defined, Next.js calls it at build time to enumerate valid parameter values.
 Each parameter value becomes its own prerendered page.
 Without it, the route cannot be built statically and defaults to runtime rendering.
 
 ## 3 fetch() Calls
+
 fetch('url') defaults to `cache: 'force-cache'` — Static
 fetch('url', { next: { revalidate: N } }) — ISR (revalidates on interval)
 fetch('url', { cache: 'no-store' }) — Dynamic (fetches per request)
 fetch('url', { next: { revalidate: 0 } }) — Dynamic equivalent
 
 ## 4 Global Route Flags
+
 export const revalidate = 60 — enables ISR globally for that route
 export const dynamic = 'force-dynamic' — forces runtime rendering
 export const dynamicParams = false — disables fallback behavior for missing params
@@ -33,16 +36,22 @@ Simplified internal logic:
 
 1. Next.js scans all route files in /app.
 2. For each route:
+
 - Check for dynamic segments
 - Check for generateStaticParams()
 - Analyze fetch() usage and revalidate settings
+
 3. Based on these checks:
+
 - If all data is cacheable → Static route
 - If revalidate is defined → ISR route
 - If any no-store or unbounded async behavior → Dynamic route
+
 4. Tag each route internally as:
-static, revalidated, or dynamic
+   static, revalidated, or dynamic
+
 ## 5 Emit the correct build artifact type:
+
 - .html + .rsc for static or ISR routes
 - runtime render function for dynamic routes
 
@@ -93,6 +102,7 @@ Missing generateStaticParams() → Dynamic fallback → runtime module → Per r
 ## 5 Why It Matters
 
 This classification determines:
+
 - Whether a route is prebuilt or rendered dynamically
 - What files are emitted to .next/server/app
 - Whether the user sees cached HTML or a streamed React payload

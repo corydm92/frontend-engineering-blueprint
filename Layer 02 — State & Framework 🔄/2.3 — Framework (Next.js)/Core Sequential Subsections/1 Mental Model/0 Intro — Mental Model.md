@@ -10,22 +10,27 @@ Code Splitting & Prefetching – covers how Next.js splits bundles by route and 
 
 Execution & Deployment Context – outlines where rendering occurs (Node, Edge, or Client), how middleware and API routes execute, and how runtime context influences streaming, revalidation, and performance.
 
-
 ## 1 Application Composition Model — Server vs Client Components
+
 Defines the conceptual boundary between server-rendered and client-hydrated components.
+
 - Server Components render on the server and never ship JavaScript to the client.
 - Client Components are interactive and require hydration in the browser.
-This division shapes the entire architecture of data flow and code delivery in Next.js.
+  This division shapes the entire architecture of data flow and code delivery in Next.js.
 
 ## 2 Routing Model — Segments, Layouts, and Boundaries
+
 Explains how the file system defines the render tree and routing structure.
+
 - Each folder in /app represents a route segment in the React tree.
 - Layouts persist across navigations, while pages mark route entry points.
 - Parallel and dynamic segments (e.g., [id], (marketing)) define isolated render and data boundaries.
-This routing graph determines how data, code, and rendering are scoped and composed.
+  This routing graph determines how data, code, and rendering are scoped and composed.
 
 ## 3 React + Next.js Extended Fiber Lifecycle
+
 Details how React’s Fiber reconciler and Next.js runtime cooperate from server render to client hydration.
+
 - React Fiber manages scheduling, reconciliation, and commit phases for both server and client trees.
 - Next.js layers routing, RSC serialization, and hydration sequencing on top of Fiber’s lifecycle.
 - Together, they enable streaming, selective hydration, and consistent rendering across environments.

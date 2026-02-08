@@ -11,15 +11,17 @@ setTheme("dark");
 setUser({ name: "Cory" });
 
 Behavior:
+
 - React replaces the old state with the new value.
 - Ideal for overwriting state or updating from external sources (API, props, user input).
 
 ✅ Use when:
+
 - Resetting or overwriting to a fixed value.
 - The new value comes directly from props or fetched data.
 - The value does not rely on what the old state was.
 
-------------------------------------------------------------
+---
 
 2. Functional Update Form — setState(prev => newValue)
 
@@ -32,11 +34,12 @@ setTodos(prev => [...prev, newTodo]);
 setForm(prev => ({ ...prev, email: value }));
 
 Behavior:
+
 - Prevents stale closures.
 - Each update uses the latest version of state.
 - Ensures correctness under React’s batched updates.
 
-------------------------------------------------------------
+---
 
 3. Incorrect vs Correct Example
 
@@ -52,11 +55,12 @@ setCount(prev => prev + 1);
 
 Final result = 2 because each uses the latest committed state.
 
-------------------------------------------------------------
+---
 
 4. When React Batches Updates
 
 React batches updates in:
+
 - Event handlers
 - Async callbacks (setTimeout, fetch, etc.)
 - Transition or concurrent rendering
@@ -64,7 +68,7 @@ React batches updates in:
 If you use direct setState with a stale variable, earlier updates can be lost.
 The functional form ensures updates always stack correctly.
 
-------------------------------------------------------------
+---
 
 5. Real-World Example: Appending Data
 
@@ -74,7 +78,7 @@ setItems([...items, newItem]); // items may be stale if multiple updates happen 
 Correct:
 setItems(prev => [...prev, newItem]); // always merges with the latest array
 
-------------------------------------------------------------
+---
 
 6. Rule of Thumb
 
@@ -88,7 +92,7 @@ useEffect(() => {
 setUser(apiUser); // direct form, updates from external data
 }, [apiUser]);
 
-------------------------------------------------------------
+---
 
 One-liner summary:
 Use direct setState(value) for fixed updates and setState(prev => ...) when the next value depends on the previous one — especially in batched or async updates.

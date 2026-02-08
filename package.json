@@ -1,0 +1,11 @@
+{
+  "name": "frontend-engineering-blueprint",
+  "private": true,
+  "devDependencies": {
+    "prettier": "^3.3.3"
+  },
+  "scripts": {
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write ."
+  }
+}

@@ -21,11 +21,11 @@ only known options are allowed.
 Frontend example — File: `@app/src/schemas/listing.ts`
 
 ```ts
-import { z } from 'zod';
+import { z } from "zod";
 
 export const TagsSchema = z.array(z.string());
 export const PointSchema = z.tuple([z.number(), z.number()]);
-export const StatusSchema = z.enum(['draft', 'published', 'archived']);
+export const StatusSchema = z.enum(["draft", "published", "archived"]);
 ```
 
 ## Pitfalls
